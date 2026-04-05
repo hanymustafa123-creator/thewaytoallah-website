@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mostafa – Arabic Chapter 1 Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1f3c;
+    --navy-mid: #16305a;
+    --gold: #c9a84c;
+    --gold-light: #e8c96e;
+    --gold-pale: #fdf6e3;
+    --white: #ffffff;
+    --correct: #2e7d52;
+    --correct-bg: #eaf7ef;
+    --wrong: #b53b3b;
+    --wrong-bg: #fdecea;
+    --neutral: #f5f0e8;
+    --border: #d4c08a;
+    --text: #1a1a2e;
+    --muted: #6b6570;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy);
+    font-family: 'Lato', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(201,168,76,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(201,168,76,0.1) 0%, transparent 50%);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    border-bottom: 3px solid var(--gold);
+    padding: 28px 40px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 1;
+  }
+  .academy-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 30px;
+    padding: 6px 18px;
+    margin-bottom: 14px;
+  }
+  .academy-badge span {
+    color: var(--gold-light);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    color: var(--white);
+    line-height: 1.2;
+    position: relative;
+  }
+  .header h1 em {
+    color: var(--gold-light);
+    font-style: normal;
+  }
+  .header-sub {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.9rem;
+    margin-top: 8px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+  .student-chip {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 3px 14px;
+    border-radius: 20px;
+    margin-top: 10px;
+    letter-spacing: 1px;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.1);
+    height: 4px;
+    width: 100%;
+  }
+  .progress-bar-fill {
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+
+  /* ── MAIN ── */
+  .main {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    margin-top: 36px;
+  }
+  .section-label:first-child { margin-top: 0; }
+  .section-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .section-info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--white);
+  }
+  .section-info p {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 2px;
+  }
+
+  /* ── QUESTION CARD ── */
+  .q-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin-bottom: 16px;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    transition: transform 0.2s;
+    position: relative;
+  }
+  .q-card:hover { transform: translateY(-1px); }
+  .q-number {
+    position: absolute;
+    top: -10px;
+    left: 22px;
+    background: var(--navy);
+    color: var(--gold-light);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 3px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+  .q-prompt {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+  .q-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 1.5rem;
+    color: var(--navy-mid);
+    direction: rtl;
+    text-align: right;
+    background: var(--gold-pale);
+    border-right: 4px solid var(--gold);
+    padding: 10px 16px 10px 10px;
+    border-radius: 8px;
+    margin: 10px 0 14px;
+  }
+  .q-hint {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+
+  /* ── MULTIPLE CHOICE ── */
+  .options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .option-btn {
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.92rem;
+    cursor: pointer;
+    background: var(--neutral);
+    color: var(--text);
+    text-align: center;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .option-btn .ar {
+    font-family: 'Amiri', serif;
+    font-size: 1.2rem;
+    direction: rtl;
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--gold);
+    background: var(--gold-pale);
+  }
+  .option-btn.selected { border-color: var(--navy); background: #e8edf5; }
+  .option-btn.correct  { border-color: var(--correct); background: var(--correct-bg); color: var(--correct); font-weight: 700; }
+  .option-btn.wrong    { border-color: var(--wrong);   background: var(--wrong-bg);   color: var(--wrong);   }
+  .option-btn:disabled { cursor: default; }
+  .option-letter {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: rgba(13,31,60,0.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700; color: var(--navy-mid);
+    flex-shrink: 0;
+  }
+  .correct .option-letter  { background: var(--correct); color: white; }
+  .wrong   .option-letter  { background: var(--wrong);   color: white; }
+
+  /* ── MATCHING ── */
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .match-col-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .match-item {
+    border: 2px solid var(--border);
+    border-radius: 9px;
+    padding: 9px 12px;
+    margin-bottom: 8px;
+    background: var(--neutral);
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Amiri', serif;
+    font-size: 1.15rem;
+    direction: rtl;
+    text-align: right;
+  }
+  .match-item.english {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    direction: ltr;
+    text-align: left;
+  }
+  .match-item:hover:not(.matched):not(.wrong-match) { border-color: var(--gold); background: var(--gold-pale); }
+  .match-item.active { border-color: var(--navy); background: #dce5f0; box-shadow: 0 0 0 2px var(--navy); }
+  .match-item.matched { border-color: var(--correct); background: var(--correct-bg); color: var(--correct); cursor: default; }
+  .match-item.wrong-match { border-color: var(--wrong); background: var(--wrong-bg); animation: shake 0.3s; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+
+  /* ── FILL IN THE BLANK ── */
+  .fill-input {
+    border: 2px solid var(--border);
+    border-radius: 9px;
+    padding: 10px 14px;
+    font-family: 'Amiri', serif;
+    font-size: 1.25rem;
+    direction: rtl;
+    text-align: right;
+    width: 100%;
+    background: var(--neutral);
+    color: var(--text);
+    margin-bottom: 10px;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .fill-input:focus { border-color: var(--navy); background: white; }
+  .fill-input.correct-fill { border-color: var(--correct); background: var(--correct-bg); }
+  .fill-input.wrong-fill   { border-color: var(--wrong);   background: var(--wrong-bg); }
+
+  /* ── SPEAKING CARD ── */
+  .speaking-card {
+    background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+    border-radius: 14px;
+    padding: 26px;
+    color: white;
+    border: 2px solid var(--gold);
+    margin-bottom: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+  .speaking-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--gold); color: var(--navy);
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 2px;
+    padding: 3px 12px; border-radius: 20px; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .speaking-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--gold-light);
+    margin-bottom: 10px;
+  }
+  .speaking-prompt {
+    font-size: 0.95rem; line-height: 1.7;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 14px;
+  }
+  .speaking-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 1.6rem;
+    direction: rtl;
+    text-align: right;
+    color: var(--gold-light);
+    background: rgba(255,255,255,0.07);
+    border-right: 4px solid var(--gold);
+    padding: 10px 16px;
+    border-radius: 8px;
+    margin: 12px 0;
+  }
+  .speaking-steps {
+    list-style: none;
+    counter-reset: steps;
+  }
+  .speaking-steps li {
+    counter-increment: steps;
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.8);
+  }
+  .speaking-steps li:last-child { border-bottom: none; }
+  .step-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--gold); color: var(--navy);
+    font-size: 0.7rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .mic-btn {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--navy);
+    border: none; border-radius: 10px; padding: 11px 22px;
+    font-family: 'Lato', sans-serif; font-weight: 700;
+    font-size: 0.9rem; cursor: pointer;
+    transition: all 0.2s; margin-top: 14px;
+  }
+  .mic-btn:hover { background: var(--gold-light); transform: scale(1.03); }
+  .mic-btn.recording { background: #c0392b; color: white; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+  #recordingStatus { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-top: 10px; min-height: 20px; }
+
+  /* ── CHECK / FEEDBACK ── */
+  .check-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--navy); color: var(--gold-light);
+    border: 2px solid var(--gold); border-radius: 10px;
+    padding: 10px 22px; font-family: 'Lato', sans-serif;
+    font-weight: 700; font-size: 0.9rem; cursor: pointer;
+    transition: all 0.2s; margin-top: 6px;
+  }
+  .check-btn:hover { background: var(--navy-mid); }
+  .feedback-msg {
+    font-size: 0.85rem; font-weight: 700;
+    margin-top: 10px; padding: 8px 12px;
+    border-radius: 8px; display: none;
+  }
+  .feedback-msg.correct { background: var(--correct-bg); color: var(--correct); }
+  .feedback-msg.wrong   { background: var(--wrong-bg);   color: var(--wrong);   }
+  .feedback-msg.show    { display: block; }
+
+  /* ── SCORE PANEL ── */
+  .score-panel {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    border: 2px solid var(--gold);
+    margin-top: 40px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+  }
+  .score-circle {
+    width: 120px; height: 120px; border-radius: 50%;
+    border: 6px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    margin: 0 auto 20px;
+    background: var(--gold-pale);
+  }
+  .score-big { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 900; color: var(--navy); }
+  .score-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .score-panel h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 6px; }
+  .score-panel p { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; }
+  .score-breakdown {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 12px;
+    margin-top: 16px;
+  }
+  .score-stat {
+    background: var(--neutral); border-radius: 10px; padding: 14px 10px;
+    border: 1.5px solid var(--border);
+  }
+  .score-stat .val { font-size: 1.5rem; font-weight: 700; color: var(--navy); font-family: 'Playfair Display', serif; }
+  .score-stat .lbl { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.5px; margin-top: 2px; }
+  .submit-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--navy); color: var(--gold-light);
+    border: 2px solid var(--gold); border-radius: 12px;
+    padding: 14px 36px; font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; cursor: pointer;
+    transition: all 0.2s; margin-top: 10px;
+  }
+  .submit-btn:hover { background: var(--navy-mid); transform: scale(1.02); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .options { grid-template-columns: 1fr; }
+    .match-grid { grid-template-columns: 1fr; }
+    .score-breakdown { grid-template-columns: 1fr 1fr; }
+    .header h1 { font-size: 1.7rem; }
+    .main { padding: 20px 14px 50px; }
+  }
+
+  .divider {
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin: 8px 0 0;
+  }
+
+  /* watermark strip */
+  .footer {
+    text-align: center;
+    padding: 16px;
+    color: rgba(255,255,255,0.25);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="academy-badge">
+    <span>🕌 The Way To Allah Academy</span>
+  </div>
+  <h1>Chapter One — <em>Arabic</em> Test</h1>
+  <p class="header-sub">الوحدة الأولى · التحية والتعارف &nbsp;|&nbsp; Greetings &amp; Introductions</p>
+  <div class="student-chip">👤 Student: Mostafa</div>
+</div>
+<div class="progress-bar-wrap">
+  <div class="progress-bar-fill" id="progressBar"></div>
+</div>
+
+<div class="main">
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- SECTION A: VOCABULARY (MCQ)           -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="section-label">
+    <div class="section-icon">📚</div>
+    <div class="section-info">
+      <h2>Section A — Vocabulary (اختر الإجابة الصحيحة)</h2>
+      <p>Choose the correct Arabic word for each meaning. (Multiple Choice)</p>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="q-card" id="q1">
+    <div class="q-number">Question 1</div>
+    <div class="q-prompt">What is the Arabic word for <strong>"Teacher (male)"</strong>?</div>
+    <div class="q-hint">Hint: a man who teaches at school.</div>
+    <div class="options">
+      <button class="option-btn" onclick="checkMCQ('q1',this,'wrong')"><span class="option-letter">A</span><span class="ar">طَالِب</span></button>
+      <button class="option-btn" onclick="checkMCQ('q1',this,'correct')"><span class="option-letter">B</span><span class="ar">مُدَرِّس</span></button>
+      <button class="option-btn" onclick="checkMCQ('q1',this,'wrong')"><span class="option-letter">C</span><span class="ar">طَبِيب</span></button>
+      <button class="option-btn" onclick="checkMCQ('q1',this,'wrong')"><span class="option-letter">D</span><span class="ar">مُهَنْدِس</span></button>
+    </div>
+    <div class="feedback-msg" id="q1-fb"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="q2">
+    <div class="q-number">Question 2</div>
+    <div class="q-prompt">What does <strong>طَالِبَة</strong> mean in English?</div>
+    <div class="q-arabic">طَالِبَة</div>
+    <div class="options">
+      <button class="option-btn" onclick="checkMCQ('q2',this,'wrong')"><span class="option-letter">A</span>Doctor (f.)</button>
+      <button class="option-btn" onclick="checkMCQ('q2',this,'wrong')"><span class="option-letter">B</span>Teacher (f.)</button>
+      <button class="option-btn" onclick="checkMCQ('q2',this,'correct')"><span class="option-letter">C</span>Student (f.)</button>
+      <button class="option-btn" onclick="checkMCQ('q2',this,'wrong')"><span class="option-letter">D</span>Friend (f.)</button>
+    </div>
+    <div class="feedback-msg" id="q2-fb"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="q3">
+    <div class="q-number">Question 3</div>
+    <div class="q-prompt">Which word means <strong>"Doctor (female)"</strong>?</div>
+    <div class="options">
+      <button class="option-btn" onclick="checkMCQ('q3',this,'wrong')"><span class="option-letter">A</span><span class="ar">مُدَرِّسَة</span></button>
+      <button class="option-btn" onclick="checkMCQ('q3',this,'correct')"><span class="option-letter">B</span><span class="ar">طَبِيبَة</span></button>
+      <button class="option-btn" onclick="checkMCQ('q3',this,'wrong')"><span class="option-letter">C</span><span class="ar">صَدِيقَة</span></button>
+      <button class="option-btn" onclick="checkMCQ('q3',this,'wrong')"><span class="option-letter">D</span><span class="ar">أُخْت</span></button>
+    </div>
+    <div class="feedback-msg" id="q3-fb"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card" id="q4">
+    <div class="q-number">Question 4</div>
+    <div class="q-prompt">What does <strong>أَخ</strong> mean?</div>
+    <div class="q-arabic">أَخ</div>
+    <div class="options">
+      <button class="option-btn" onclick="checkMCQ('q4',this,'wrong')"><span class="option-letter">A</span>Friend</button>
+      <button class="option-btn" onclick="checkMCQ('q4',this,'wrong')"><span class="option-letter">B</span>Sister</button>
+      <button class="option-btn" onclick="checkMCQ('q4',this,'correct')"><span class="option-letter">C</span>Brother</button>
+      <button class="option-btn" onclick="checkMCQ('q4',this,'wrong')"><span class="option-letter">D</span>Engineer</button>
+    </div>
+    <div class="feedback-msg" id="q4-fb"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="q5">
+    <div class="q-number">Question 5</div>
+    <div class="q-prompt">Which phrase means <strong>"What is your name?" (asking a male)</strong>?</div>
+    <div class="options">
+      <button class="option-btn" onclick="checkMCQ('q5',this,'wrong')"><span class="option-letter">A</span><span class="ar">كَيْفَ حَالُكِ؟</span></button>
+      <button class="option-btn" onclick="checkMCQ('q5',this,'wrong')"><span class="option-letter">B</span><span class="ar">مَا جِنْسِيَّتُكَ؟</span></button>
+      <button class="option-btn" onclick="checkMCQ('q5',this,'correct')"><span class="option-letter">C</span><span class="ar">مَا اسْمُكَ؟</span></button>
+      <button class="option-btn" onclick="checkMCQ('q5',this,'wrong')"><span class="option-letter">D</span><span class="ar">مِنْ أَيْنَ أَنْتَ؟</span></button>
+    </div>
+    <div class="feedback-msg" id="q5-fb"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="q6">
+    <div class="q-number">Question 6</div>
+    <div class="q-prompt">What does <strong>مِنْ أَيْنَ أَنْتَ؟</strong> mean?</div>
+    <div class="q-arabic">مِنْ أَيْنَ أَنْتَ؟</div>
+    <div class="options">
+      <button class="option-btn" onclick="checkMCQ('q6',this,'wrong')"><span class="option-letter">A</span>How are you?</button>
+      <button class="option-btn" onclick="checkMCQ('q6',this,'correct')"><span class="option-letter">B</span>Where are you from?</button>
+      <button class="option-btn" onclick="checkMCQ('q6',this,'wrong')"><span class="option-letter">C</span>What is your nationality?</button>
+      <button class="option-btn" onclick="checkMCQ('q6',this,'wrong')"><span class="option-letter">D</span>Who are you?</button>
+    </div>
+    <div class="feedback-msg" id="q6-fb"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- SECTION B: MATCHING                   -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="section-label">
+    <div class="section-icon">🔗</div>
+    <div class="section-info">
+      <h2>Section B — Matching (صِل)</h2>
+      <p>Click an Arabic word, then click its English meaning to match them.</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-number">Questions 7–12</div>
+    <div class="q-prompt" style="margin-bottom:16px;">Match each Arabic word to its correct English meaning.</div>
+    <div class="match-grid">
+      <div>
+        <div class="match-col-label">🔤 Arabic</div>
+        <div class="match-item" id="m-ana"    onclick="selectMatch('m-ana','أنا')">أنا</div>
+        <div class="match-item" id="m-anta"   onclick="selectMatch('m-anta','أنتَ')">أنتَ</div>
+        <div class="match-item" id="m-huwa"   onclick="selectMatch('m-huwa','هُوَ')">هُوَ</div>
+        <div class="match-item" id="m-hiya"   onclick="selectMatch('m-hiya','هِيَ')">هِيَ</div>
+        <div class="match-item" id="m-hadha"  onclick="selectMatch('m-hadha','هَذَا')">هَذَا</div>
+        <div class="match-item" id="m-hadhihi" onclick="selectMatch('m-hadhihi','هَذِهِ')">هَذِهِ</div>
+      </div>
+      <div>
+        <div class="match-col-label">🇬🇧 English</div>
+        <div class="match-item english" id="e-he"    onclick="selectMatch('e-he','He')">He</div>
+        <div class="match-item english" id="e-this-f" onclick="selectMatch('e-this-f','This (f.)')">This (f.)</div>
+        <div class="match-item english" id="e-i"     onclick="selectMatch('e-i','I')">I</div>
+        <div class="match-item english" id="e-this-m" onclick="selectMatch('e-this-m','This (m.)')">This (m.)</div>
+        <div class="match-item english" id="e-you-m" onclick="selectMatch('e-you-m','You (m.)')">You (m.)</div>
+        <div class="match-item english" id="e-she"   onclick="selectMatch('e-she','She')">She</div>
+      </div>
+    </div>
+    <div class="feedback-msg" id="match-fb" style="margin-top:12px;"></div>
+    <div id="match-score-msg" style="font-size:0.85rem;color:var(--muted);margin-top:8px;"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- SECTION C: GRAMMAR (Fill in Blank)    -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="section-label">
+    <div class="section-icon">✏️</div>
+    <div class="section-info">
+      <h2>Section C — Grammar (أكمل الجمل)</h2>
+      <p>Choose the correct pronoun or word to complete the sentence.</p>
+    </div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="q-card" id="q13">
+    <div class="q-number">Question 13</div>
+    <div class="q-prompt">A woman says: <strong>"I am a doctor."</strong> — Which Arabic sentence is correct?</div>
+    <div class="options">
+      <button class="option-btn" onclick="checkMCQ('q13',this,'wrong')"><span class="option-letter">A</span><span class="ar">أنا طَبِيب.</span></button>
+      <button class="option-btn" onclick="checkMCQ('q13',this,'correct')"><span class="option-letter">B</span><span class="ar">أنا طَبِيبَة.</span></button>
+      <button class="option-btn" onclick="checkMCQ('q13',this,'wrong')"><span class="option-letter">C</span><span class="ar">هُوَ طَبِيب.</span></button>
+      <button class="option-btn" onclick="checkMCQ('q13',this,'wrong')"><span class="option-letter">D</span><span class="ar">أنتِ طَبِيبَة.</span></button>
+    </div>
+    <div class="feedback-msg" id="q13-fb"></div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="q-card" id="q14">
+    <div class="q-number">Question 14</div>
+    <div class="q-prompt">To say <strong>"Are you Pakistani?"</strong> to a <em>female</em>, you say:</div>
+    <div class="options">
+      <button class="option-btn" onclick="checkMCQ('q14',this,'wrong')"><span class="option-letter">A</span><span class="ar">هَلْ أنتَ باكِسْتانِيّ؟</span></button>
+      <button class="option-btn" onclick="checkMCQ('q14',this,'correct')"><span class="option-letter">B</span><span class="ar">هَلْ أنتِ باكِسْتانِيَّة؟</span></button>
+      <button class="option-btn" onclick="checkMCQ('q14',this,'wrong')"><span class="option-letter">C</span><span class="ar">هَلْ هُوَ باكِسْتانِيّ؟</span></button>
+      <button class="option-btn" onclick="checkMCQ('q14',this,'wrong')"><span class="option-letter">D</span><span class="ar">هَلْ هِيَ باكِسْتانِيّ؟</span></button>
+    </div>
+    <div class="feedback-msg" id="q14-fb"></div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="q-card" id="q15">
+    <div class="q-number">Question 15</div>
+    <div class="q-prompt">Which word <strong>correctly</strong> fills the blank? &nbsp; <em>أنا ___ مِصْرِيّ.</em> (I am Egyptian.) — the speaker is a boy.</div>
+    <div class="options">
+      <button class="option-btn" onclick="checkMCQ('q15',this,'wrong')"><span class="option-letter">A</span>Nothing is needed — it is already complete ✓</button>
+      <button class="option-btn" onclick="checkMCQ('q15',this,'wrong')"><span class="option-letter">B</span><span class="ar">هِيَ</span></button>
+      <button class="option-btn" onclick="checkMCQ('q15',this,'wrong')"><span class="option-letter">C</span><span class="ar">أنتَ</span></button>
+      <button class="option-btn" onclick="checkMCQ('q15',this,'correct')"><span class="option-letter">D</span>The sentence is already correct as written ✓</button>
+    </div>
+    <p style="font-size:0.8rem;color:var(--muted);margin-top:10px;">📌 <em>In Arabic, there is no verb "to be" in present tense. "أنا مِصْرِيّ" = "I [am] Egyptian."</em></p>
+    <div class="feedback-msg" id="q15-fb"></div>
+  </div>
+
+  <!-- Q16 -->
+  <div class="q-card" id="q16">
+    <div class="q-number">Question 16</div>
+    <div class="q-prompt">Khaled says: <strong>"نَعَمْ، أنا تُرْكِيّ."</strong> — What does this mean?</div>
+    <div class="q-arabic">نَعَمْ، أنا تُرْكِيّ.</div>
+    <div class="options">
+      <button class="option-btn" onclick="checkMCQ('q16',this,'wrong')"><span class="option-letter">A</span>No, I am Syrian.</button>
+      <button class="option-btn" onclick="checkMCQ('q16',this,'correct')"><span class="option-letter">B</span>Yes, I am Turkish.</button>
+      <button class="option-btn" onclick="checkMCQ('q16',this,'wrong')"><span class="option-letter">C</span>Yes, I am Egyptian.</button>
+      <button class="option-btn" onclick="checkMCQ('q16',this,'wrong')"><span class="option-letter">D</span>He is Turkish.</button>
+    </div>
+    <div class="feedback-msg" id="q16-fb"></div>
+  </div>
+
+  <!-- Q17 -->
+  <div class="q-card" id="q17">
+    <div class="q-number">Question 17</div>
+    <div class="q-prompt">Which of these is the <strong>correct response</strong> to: <em>"كَيْفَ حَالُكَ؟"</em> (How are you?)</div>
+    <div class="options">
+      <button class="option-btn" onclick="checkMCQ('q17',this,'wrong')"><span class="option-letter">A</span><span class="ar">أنا مِصْرِيّ.</span></button>
+      <button class="option-btn" onclick="checkMCQ('q17',this,'wrong')"><span class="option-letter">B</span><span class="ar">اسْمِي خَالِد.</span></button>
+      <button class="option-btn" onclick="checkMCQ('q17',this,'correct')"><span class="option-letter">C</span><span class="ar">بِخَيْر، شُكْرًا.</span></button>
+      <button class="option-btn" onclick="checkMCQ('q17',this,'wrong')"><span class="option-letter">D</span><span class="ar">مِنْ سُورِيا.</span></button>
+    </div>
+    <div class="feedback-msg" id="q17-fb"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- SECTION D: TRUE OR FALSE              -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="section-label">
+    <div class="section-icon">✅</div>
+    <div class="section-info">
+      <h2>Section D — True or False (صواب أم خطأ؟)</h2>
+      <p>Read each statement and decide if it is TRUE ✓ or FALSE ✗.</p>
+    </div>
+  </div>
+
+  <!-- Q18 -->
+  <div class="q-card" id="q18">
+    <div class="q-number">Question 18</div>
+    <div class="q-prompt"><strong>"مُدَرِّسَة"</strong> is the feminine form of <strong>"مُدَرِّس"</strong>.</div>
+    <div class="options">
+      <button class="option-btn" onclick="checkMCQ('q18',this,'correct')"><span class="option-letter">✓</span>True — صواب</button>
+      <button class="option-btn" onclick="checkMCQ('q18',this,'wrong')"><span class="option-letter">✗</span>False — خطأ</button>
+    </div>
+    <div class="feedback-msg" id="q18-fb"></div>
+  </div>
+
+  <!-- Q19 -->
+  <div class="q-card" id="q19">
+    <div class="q-number">Question 19</div>
+    <div class="q-prompt"><strong>"هَذَا"</strong> is used to point to a <em>female</em> person or object.</div>
+    <div class="options">
+      <button class="option-btn" onclick="checkMCQ('q19',this,'wrong')"><span class="option-letter">✓</span>True — صواب</button>
+      <button class="option-btn" onclick="checkMCQ('q19',this,'correct')"><span class="option-letter">✗</span>False — خطأ (هَذِهِ is for females)</button>
+    </div>
+    <div class="feedback-msg" id="q19-fb"></div>
+  </div>
+
+  <!-- Q20 -->
+  <div class="q-card" id="q20">
+    <div class="q-number">Question 20</div>
+    <div class="q-prompt">In Arabic, the question <strong>"هَلْ"</strong> is used to form yes/no questions.</div>
+    <div class="options">
+      <button class="option-btn" onclick="checkMCQ('q20',this,'correct')"><span class="option-letter">✓</span>True — صواب</button>
+      <button class="option-btn" onclick="checkMCQ('q20',this,'wrong')"><span class="option-letter">✗</span>False — خطأ</button>
+    </div>
+    <div class="feedback-msg" id="q20-fb"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- SECTION E: SPEAKING                   -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="section-label">
+    <div class="section-icon">🎤</div>
+    <div class="section-info">
+      <h2>Section E — Speaking Task (مهارة الكلام)</h2>
+      <p>This section tests Mostafa's ability to produce Arabic orally.</p>
+    </div>
+  </div>
+
+  <div class="speaking-card">
+    <div class="speaking-badge">🎙 Speaking Task</div>
+    <h3>Self-Introduction Dialogue (حِوَار التَّعَارُف)</h3>
+    <div class="speaking-prompt">
+      Imagine you are meeting your teacher for the first time. Answer the following questions <strong>out loud in Arabic</strong>, using full sentences. Your teacher will listen and mark you on pronunciation, accuracy, and confidence.
+    </div>
+
+    <div style="font-weight:700;color:var(--gold-light);font-size:0.85rem;letter-spacing:1px;margin-bottom:8px;">YOUR TEACHER WILL ASK YOU:</div>
+    <ol style="list-style:none;padding:0;">
+      <li style="background:rgba(255,255,255,0.06);border-radius:9px;padding:12px 14px;margin-bottom:10px;border-right:3px solid var(--gold);">
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:4px;">Q1 — What is your name?</div>
+        <div class="speaking-arabic">مَا اسْمُكَ؟</div>
+        <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);">Expected answer: <em style="color:var(--gold-light);">اسْمِي مُصْطَفَى.</em> — My name is Mostafa.</div>
+      </li>
+      <li style="background:rgba(255,255,255,0.06);border-radius:9px;padding:12px 14px;margin-bottom:10px;border-right:3px solid var(--gold);">
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:4px;">Q2 — Where are you from?</div>
+        <div class="speaking-arabic">مِنْ أَيْنَ أَنْتَ؟</div>
+        <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);">Expected pattern: <em style="color:var(--gold-light);">أنا مِنْ ___.</em> — I am from ___.</div>
+      </li>
+      <li style="background:rgba(255,255,255,0.06);border-radius:9px;padding:12px 14px;margin-bottom:10px;border-right:3px solid var(--gold);">
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:4px;">Q3 — What is your nationality?</div>
+        <div class="speaking-arabic">مَا جِنْسِيَّتُكَ؟</div>
+        <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);">Expected pattern: <em style="color:var(--gold-light);">أنا ___ِيّ.</em> — I am [nationality].</div>
+      </li>
+      <li style="background:rgba(255,255,255,0.06);border-radius:9px;padding:12px 14px;border-right:3px solid var(--gold);">
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:4px;">Q4 — Point to your teacher and say "This is my teacher."</div>
+        <div class="speaking-arabic">هَذَا مُدَرِّسِي. &nbsp;/&nbsp; هَذِهِ مُدَرِّسَتِي.</div>
+        <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);">Use هَذَا for a male teacher, هَذِهِ for a female teacher.</div>
+      </li>
+    </ol>
+
+    <div style="font-weight:700;color:var(--gold-light);font-size:0.85rem;letter-spacing:1px;margin:16px 0 8px;">MARKING CRITERIA (Teacher Use):</div>
+    <ul class="speaking-steps">
+      <li><div class="step-num">1</div><div><strong>Pronunciation (4 marks)</strong> — Correct sounds, especially ع ، خ ، ح ، ق</div></li>
+      <li><div class="step-num">2</div><div><strong>Accuracy (4 marks)</strong> — Correct vocabulary and pronouns (أنا / أنتَ / هُوَ / هِيَ)</div></li>
+      <li><div class="step-num">3</div><div><strong>Fluency (2 marks)</strong> — Responds without excessive hesitation</div></li>
+    </ul>
+    <div style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-top:10px;">📌 <em>Speaking is assessed live by the teacher. Tick the box below when you have tested him.</em></div>
+
+    <!-- Record button (browser mic) -->
+    <button class="mic-btn" id="micBtn" onclick="toggleRecording()">🎙 Tap to Practice Recording</button>
+    <div id="recordingStatus">Press the button to record your spoken answer for self-practice.</div>
+    <div id="playbackArea"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- SUBMIT & SCORE                        -->
+  <!-- ══════════════════════════════════════ -->
+  <div style="text-align:center;margin-top:30px;">
+    <button class="submit-btn" onclick="submitTest()">📊 Show My Final Score</button>
+  </div>
+
+  <div class="score-panel" id="scorePanel" style="display:none;">
+    <div class="score-circle">
+      <div class="score-big" id="scorePct">—</div>
+      <div class="score-label">Score</div>
+    </div>
+    <h2 id="scoreHeading">—</h2>
+    <p id="scoreMsg">—</p>
+    <div class="score-breakdown">
+      <div class="score-stat">
+        <div class="val" id="correctCount">0</div>
+        <div class="lbl">Correct</div>
+      </div>
+      <div class="score-stat">
+        <div class="val" id="wrongCount">0</div>
+        <div class="lbl">Wrong</div>
+      </div>
+      <div class="score-stat">
+        <div class="val" id="unanswered">0</div>
+        <div class="lbl">Skipped</div>
+      </div>
+    </div>
+    <p style="margin-top:18px;font-size:0.8rem;color:var(--muted);">Speaking section (10 marks) is graded separately by your teacher · بِالتَّوْفِيق مُصْطَفَى! 🤍</p>
+  </div>
+
+</div><!-- end .main -->
+
+<div class="footer">The Way To Allah Academy · Arabic Chapter 1 Assessment · Mostafa</div>
+
+<script>
+// ── State ──────────────────────────────────
+const mcqAnswers = {};
+const totalMCQ = 14; // Q1–Q17 excluding Q15 trick + Q18–Q20 = total 17 questions but we track all
+const mcqQuestions = ['q1','q2','q3','q4','q5','q6','q13','q14','q15','q16','q17','q18','q19','q20'];
+let matchCorrect = 0;
+
+// Matching data: arabicKey → correctEnglishKey
+const matchPairs = {
+  'أنا':    'I',
+  'أنتَ':   'You (m.)',
+  'هُوَ':   'He',
+  'هِيَ':   'She',
+  'هَذَا':  'This (m.)',
+  'هَذِهِ': 'This (f.)',
+};
+const arabicToEng = {
+  'm-ana':     'e-i',
+  'm-anta':    'e-you-m',
+  'm-huwa':    'e-he',
+  'm-hiya':    'e-she',
+  'm-hadha':   'e-this-m',
+  'm-hadhihi': 'e-this-f',
+};
+let selectedMatch = null;
+
+// ── MCQ ────────────────────────────────────
+function checkMCQ(qid, btn, result) {
+  const card = document.getElementById(qid);
+  const btns = card.querySelectorAll('.option-btn');
+  btns.forEach(b => { b.disabled = true; });
+  btn.classList.add(result);
+  const fb = document.getElementById(qid + '-fb');
+  fb.classList.add('show');
+  if (result === 'correct') {
+    mcqAnswers[qid] = true;
+    fb.textContent = '✅ Correct! أَحْسَنْت!';
+    fb.classList.add('correct');
+  } else {
+    mcqAnswers[qid] = false;
+    // Highlight correct
+    btns.forEach(b => {
+      if (b.getAttribute('onclick').includes("'correct'")) b.classList.add('correct');
+    });
+    fb.textContent = '❌ Not quite — check the highlighted correct answer.';
+    fb.classList.add('wrong');
+  }
+  updateProgress();
+}
+
+// ── MATCHING ───────────────────────────────
+function selectMatch(id, label) {
+  const el = document.getElementById(id);
+  if (el.classList.contains('matched')) return;
+
+  const isArabic = id.startsWith('m-');
+
+  if (!selectedMatch) {
+    // First selection — must be Arabic
+    if (!isArabic) { flashWrong(el); return; }
+    document.querySelectorAll('.match-item').forEach(x => x.classList.remove('active'));
+    el.classList.add('active');
+    selectedMatch = { id, label, el };
+    return;
+  }
+
+  // Second selection — must be English
+  if (isArabic) {
+    // Re-select Arabic
+    document.querySelectorAll('.match-item').forEach(x => x.classList.remove('active'));
+    el.classList.add('active');
+    selectedMatch = { id, label, el };
+    return;
+  }
+
+  // Check pair
+  const correctEngId = arabicToEng[selectedMatch.id];
+  if (id === correctEngId) {
+    selectedMatch.el.classList.remove('active');
+    selectedMatch.el.classList.add('matched');
+    el.classList.add('matched');
+    matchCorrect++;
+    const fb = document.getElementById('match-fb');
+    fb.textContent = '✅ Correct match!';
+    fb.classList.add('correct','show');
+    fb.classList.remove('wrong');
+    document.getElementById('match-score-msg').textContent = `Matched ${matchCorrect} of 6 pairs so far.`;
+  } else {
+    flashWrong(selectedMatch.el);
+    flashWrong(el);
+    const fb = document.getElementById('match-fb');
+    fb.textContent = '❌ Not a correct pair — try again.';
+    fb.classList.add('wrong','show');
+    fb.classList.remove('correct');
+  }
+  selectedMatch = null;
+  updateProgress();
+}
+
+function flashWrong(el) {
+  el.classList.add('wrong-match');
+  el.classList.remove('active');
+  setTimeout(() => el.classList.remove('wrong-match'), 600);
+}
+
+// ── PROGRESS ───────────────────────────────
+function updateProgress() {
+  const done = Object.keys(mcqAnswers).length + matchCorrect;
+  const total = mcqQuestions.length + 6;
+  const pct = Math.round((done / total) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+// ── SUBMIT ─────────────────────────────────
+function submitTest() {
+  let correct = 0;
+  mcqQuestions.forEach(q => { if (mcqAnswers[q] === true) correct++; });
+  correct += matchCorrect;
+  const total = mcqQuestions.length + 6; // 14 MCQ + 6 match
+  const wrong = Object.keys(mcqAnswers).length + matchCorrect - correct + (mcqQuestions.length - Object.keys(mcqAnswers).length);
+  const skipped = (mcqQuestions.length - Object.keys(mcqAnswers).length) + (6 - matchCorrect);
+  const pct = Math.round((correct / total) * 100);
+
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = Object.keys(mcqAnswers).filter(q => mcqAnswers[q] === false).length + (6 - matchCorrect < 0 ? 0 : 0);
+  document.getElementById('unanswered').textContent = (mcqQuestions.length - Object.keys(mcqAnswers).length);
+
+  document.getElementById('scorePct').textContent = pct + '%';
+
+  let heading, msg;
+  if (pct >= 90) { heading = 'Excellent! مُمتاز 🌟'; msg = 'Outstanding work, Mostafa! You have mastered Chapter 1.'; }
+  else if (pct >= 75) { heading = 'Very Good! جَيِّد جِدًّا 👍'; msg = 'Great effort! Review the questions you missed and you will be perfect.'; }
+  else if (pct >= 60) { heading = 'Good! جَيِّد 😊'; msg = 'A solid attempt. Go back and revise the vocabulary and pronouns section.'; }
+  else { heading = 'Keep Practising! تَحَمَّل واصبِر 💪'; msg = 'Do not worry — revision is the key. Review the chapter again with your teacher.'; }
+
+  document.getElementById('scoreHeading').textContent = heading;
+  document.getElementById('scoreMsg').textContent = msg;
+
+  const panel = document.getElementById('scorePanel');
+  panel.style.display = 'block';
+  panel.scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('progressBar').style.width = '100%';
+}
+
+// ── RECORDING ──────────────────────────────
+let mediaRecorder, audioChunks = [], isRecording = false;
+
+async function toggleRecording() {
+  const btn = document.getElementById('micBtn');
+  const status = document.getElementById('recordingStatus');
+  const playback = document.getElementById('playbackArea');
+
+  if (!isRecording) {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      audioChunks = [];
+      mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(audioChunks, { type: 'audio/webm' });
+        const url = URL.createObjectURL(blob);
+        playback.innerHTML = `
+          <div style="margin-top:12px;background:rgba(255,255,255,0.08);border-radius:9px;padding:12px;">
+            <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:6px;">🔊 Your recorded answer:</div>
+            <audio controls style="width:100%;border-radius:6px;" src="${url}"></audio>
+          </div>`;
+        stream.getTracks().forEach(t => t.stop());
+      };
+      mediaRecorder.start();
+      isRecording = true;
+      btn.classList.add('recording');
+      btn.textContent = '⏹ Tap to Stop Recording';
+      status.textContent = '🔴 Recording… speak your answers now.';
+    } catch(e) {
+      status.textContent = '⚠️ Microphone access denied. Please allow mic permissions.';
+    }
+  } else {
+    mediaRecorder.stop();
+    isRecording = false;
+    btn.classList.remove('recording');
+    btn.textContent = '🎙 Tap to Practice Recording';
+    status.textContent = '✅ Recording saved. Play it back above.';
+  }
+}
+</script>
+</body>
+</html>
