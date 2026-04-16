@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Tajweed Quiz: Surah Al-Fath (Full) – Stopping & Ghunnah | The Way To Allah Academy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a1c3a;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.04) 0px, rgba(212, 175, 55, 0.04) 2px, transparent 2px, transparent 10px),
+                repeating-linear-gradient(135deg, rgba(212, 175, 55, 0.04) 0px, rgba(212, 175, 55, 0.04) 2px, transparent 2px, transparent 10px);
+            font-family: 'Inter', 'Segoe UI', 'Roboto', system-ui, sans-serif;
+            padding: 40px 24px;
+            min-height: 100vh;
+        }
+
+        .quiz-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .quiz-container {
+            background: #ffffff;
+            border-radius: 48px;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.35);
+            overflow: hidden;
+        }
+
+        .dark-header {
+            background: #0a1c3a;
+            padding: 28px 32px;
+            text-align: center;
+            border-bottom: 4px solid #d4af37;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .logo-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #d4af37;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .academy-name h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+        @media (max-width: 600px) {
+            .academy-name h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .quiz-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            background: rgba(212, 175, 55, 0.2);
+            display: inline-block;
+            padding: 8px 24px;
+            border-radius: 60px;
+            color: #ffffff;
+            margin-top: 10px;
+        }
+
+        .timer-section {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .timer-card {
+            background: #1a4a2a;
+            border-radius: 80px;
+            padding: 8px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border: 1px solid #d4af37;
+        }
+        .timer-icon {
+            font-size: 28px;
+            color: #d4af37;
+        }
+        .timer-display {
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: monospace;
+            background: #0f2e1a;
+            padding: 4px 20px;
+            border-radius: 60px;
+            color: #c8f0d1;
+            letter-spacing: 3px;
+        }
+        .timer-btn {
+            background: #d4af37;
+            border: none;
+            color: #0a1c3a;
+            font-weight: bold;
+            padding: 6px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .timer-btn:hover {
+            background: #c2a02e;
+            transform: scale(0.96);
+        }
+
+        .student-bar {
+            background: #f8f9fc;
+            padding: 18px 28px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .student-field {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .student-field label {
+            font-weight: 600;
+            color: #0a1c3a;
+        }
+        .student-field input {
+            padding: 10px 18px;
+            border-radius: 60px;
+            border: 1px solid #d4af37;
+            background: white;
+            width: 220px;
+            font-size: 0.95rem;
+        }
+        .btn {
+            border: none;
+            padding: 10px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .btn-emerald {
+            background: #2d6a4f;
+            color: white;
+        }
+        .btn-emerald:hover {
+            background: #1f543d;
+            transform: translateY(-1px);
+        }
+        .btn-navy {
+            background: #0a1c3a;
+            color: white;
+        }
+        .btn-navy:hover {
+            background: #122d54;
+        }
+        .active-badge {
+            background: #eef2ff;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: #0a1c3a;
+            border-left: 3px solid #d4af37;
+        }
+
+        .start-area {
+            text-align: center;
+            padding: 50px 20px;
+            background: #ffffff;
+        }
+        .start-btn {
+            background: #2d6a4f;
+            color: white;
+            font-size: 1.5rem;
+            padding: 16px 48px;
+            box-shadow: 0 8px 20px rgba(45,106,79,0.3);
+            border: none;
+        }
+        .start-btn:hover {
+            background: #1f543d;
+            transform: scale(1.02);
+        }
+
+        .quiz-content {
+            display: none;
+            padding: 28px;
+        }
+
+        .questions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            margin-bottom: 30px;
+        }
+        .question-card {
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 22px 28px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+            border: 1px solid #e2e8f0;
+        }
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            background: #f8fafc;
+            padding: 12px 18px;
+            border-radius: 28px;
+            color: #0a1c3a;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #fefefc;
+            padding: 10px 20px;
+            border-radius: 60px;
+            cursor: pointer;
+            border: 1px solid #e2e8f0;
+            transition: 0.1s;
+        }
+        .option:hover {
+            background: #f1f5f9;
+            border-color: #d4af37;
+        }
+        .option.disabled {
+            opacity: 0.7;
+            cursor: default;
+            background: #f1f5f9;
+        }
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #2d6a4f;
+        }
+        .feedback-inline {
+            margin-top: 16px;
+            padding: 10px 16px;
+            border-radius: 28px;
+            font-size: 0.85rem;
+            display: none;
+            background: #fef8e7;
+            border-left: 4px solid #d4af37;
+            color: #0a1c3a;
+        }
+        .feedback-inline.show {
+            display: block;
+        }
+
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .score-area {
+            background: #0a1c3a;
+            padding: 10px 24px;
+            border-radius: 60px;
+            color: #d4af37;
+            font-weight: 600;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-card {
+            background: white;
+            max-width: 420px;
+            width: 90%;
+            border-radius: 48px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+            border-top: 6px solid #d4af37;
+        }
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .btn-email {
+            background: #2d6a4f;
+            color: white;
+        }
+        .btn-wa {
+            background: #25D366;
+            color: white;
+        }
+        .btn-close {
+            background: #64748b;
+            color: white;
+        }
+
+        @media (max-width: 700px) {
+            body { padding: 20px 16px; }
+            .dark-header { padding: 20px; }
+            .quiz-title { font-size: 1rem; }
+            .timer-display { font-size: 1.6rem; padding: 2px 12px; }
+            .question-text { font-size: 1rem; }
+            .quiz-content { padding: 16px; }
+            .start-btn { font-size: 1.2rem; padding: 12px 28px; }
+            .logo-img { width: 100px; height: 100px; }
+        }
+    </style>
+</head>
+<body>
+<div class="quiz-wrapper">
+    <div class="quiz-container">
+        <div class="dark-header">
+            <div class="logo-wrapper">
+                <img class="logo-img" src="https://i.postimg.cc/brVD4yVm/logo-jpg.jpg" alt="Academy Logo">
+            </div>
+            <div class="academy-name">
+                <h1>The Way To Allah Academy</h1>
+            </div>
+            <div class="quiz-title">✨ Tajweed: Surah Al-Fath (Full) – Stopping Rules &amp; Ghunnah ✨</div>
+            <div class="timer-section">
+                <div class="timer-card">
+                    <span class="timer-icon">⏳</span>
+                    <span class="timer-display" id="timerDisplay">05:00</span>
+                    <button class="timer-btn" id="pauseTimerBtn" disabled>⏸️</button>
+                    <button class="timer-btn" id="resumeTimerBtn" disabled>▶️</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="student-bar">
+            <div class="student-field">
+                <label>👤 Student name</label>
+                <input type="text" id="studentNameInput" placeholder="Enter your full name">
+                <button class="btn btn-emerald" id="addStudentBtn">➕ Add Student</button>
+            </div>
+            <div class="active-badge">
+                📌 Active: <span id="activeStudentDisplay">(none)</span>
+            </div>
+        </div>
+
+        <div id="startOverlay" class="start-area">
+            <button id="startQuizBtn" class="btn start-btn">🚀 Are you ready? Start Quiz 🚀</button>
+        </div>
+
+        <div id="quizContent" class="quiz-content">
+            <div class="questions-grid" id="questionsGrid"></div>
+            <div class="action-bar">
+                <button class="btn btn-emerald" id="submitQuizBtn">📝 Submit & Score</button>
+                <div class="score-area" id="scorePreview">📊 Score: --/20</div>
+                <button class="btn btn-navy" id="exportResultsBtn">💾 Export CSV (Backup)</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="choiceModal" class="modal-overlay">
+    <div class="modal-card">
+        <h3>📬 Share Your Results</h3>
+        <p>You must send your mistakes to the teacher to complete the quiz.</p>
+        <div class="modal-buttons">
+            <button id="emailChoiceBtn" class="btn btn-email">📧 Send via Email</button>
+            <button id="whatsappChoiceBtn" class="btn btn-wa">💬 Send via WhatsApp</button>
+        </div>
+    </div>
+</div>
+
+<div id="notificationModal" class="modal-overlay">
+    <div class="modal-card">
+        <p id="notificationMessage">Message</p>
+        <button id="closeNotificationBtn" class="btn btn-close">OK</button>
+    </div>
+</div>
+
+<script>
+    // ==================== CONFIGURATION ====================
+    const TEACHER_EMAIL = "hanishahin123@outlook.com";
+    const TEACHER_WHATSAPP = "201200342973";
+    const COURSE_NAME = "Tajweed: Surah Al-Fath (Full) – Stopping Rules & Ghunnah";
+    // =======================================================
+
+    // Sound functions
+    function playHappySound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const now = audioCtx.currentTime;
+            const osc1 = audioCtx.createOscillator();
+            const osc2 = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc1.connect(gain);
+            osc2.connect(gain);
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.5;
+            osc1.frequency.value = 523.25;
+            osc2.frequency.value = 659.25;
+            osc1.start();
+            osc2.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, now + 0.6);
+            osc1.stop(now + 0.5);
+            osc2.stop(now + 0.5);
+        } catch(e) {}
+    }
+
+    function playSadSound() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.5;
+            osc.frequency.value = 440;
+            osc.start();
+            osc.frequency.exponentialRampToValueAtTime(220, now + 0.5);
+            gain.gain.exponentialRampToValueAtTime(0.00001, now + 0.6);
+            osc.stop(now + 0.6);
+        } catch(e) {}
+    }
+
+    function playBeep() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 880;
+            gain.gain.value = 0.35;
+            osc.start();
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+            osc.stop(audioCtx.currentTime + 0.4);
+        } catch(e) {}
+    }
+
+    // 20 questions covering the whole Surah Al-Fath (48:1-29)
+    const QUESTIONS = [
+        // ========== STOPPING RULES (WAQF) – 10 questions ==========
+        { text: "Surah Al-Fath (48:1): إِنَّا فَتَحْنَا لَكَ فَتْحًا مُّبِينًا. When you stop on the word 'مُّبِينًا', how do you pronounce the last letter?", type: "mcq", options: ["With tanween clearly", "With a sukoon (drop tanween, add alif)", "With a kasra", "With a damma"], correct: "With a sukoon (drop tanween, add alif)", explanation: "Tanween fat-h is dropped and you add an alif with sukoon when stopping." },
+        { text: "Surah Al-Fath (48:2): لِّيَغْفِرَ لَكَ اللَّهُ مَا تَقَدَّمَ مِن ذَنۢبِكَ. The word 'ذَنۢبِكَ' ends with a kasra on the letter ك. When stopping, you say:", type: "mcq", options: ["ذَنۢبِكِ", "ذَنۢبِكَ", "ذَنۢبِكْ", "ذَنۢبِكَا"], correct: "ذَنۢبِكْ", explanation: "The last letter becomes saakin (sukoon) when stopping." },
+        { text: "Surah Al-Fath (48:5): لِّيُدْخِلَ الْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ جَنَّاتٍ تَجْرِي مِن تَحْتِهَا الْأَنْهَارُ. The word 'الْأَنْهَارُ' ends with damma on ر. When you stop, it becomes:", type: "mcq", options: ["الْأَنْهَارُ", "الْأَنْهَارِ", "الْأَنْهَارْ", "الْأَنْهَارَا"], correct: "الْأَنْهَارْ", explanation: "The damma is replaced by sukoon when stopping." },
+        { text: "Surah Al-Fath (48:10): إِنَّ الَّذِينَ يُبَايِعُونَكَ إِنَّمَا يُبَايِعُونَ اللَّهَ. The word 'اللَّهَ' ends with a fatha on ه. When stopping, you say:", type: "mcq", options: ["اللَّهَ", "اللَّهِ", "اللَّهْ", "اللَّهَا"], correct: "اللَّهْ", explanation: "Stop with sukoon on the final ه." },
+        { text: "Surah Al-Fath (48:29): مُّحَمَّدٌ رَّسُولُ اللَّهِ. The word 'اللَّهِ' ends with a kasra on ه. When stopping, you pronounce:", type: "mcq", options: ["اللَّهِ", "اللَّهْ", "اللَّهُ", "اللَّهَا"], correct: "اللَّهْ", explanation: "Kasra becomes sukoon when stopping." },
+        { text: "Surah Al-Fath (48:3): وَيَنصُرَكَ اللَّهُ نَصْرًا عَزِيزًا. The word 'عَزِيزًا' ends with tanween fat-h. When stopping, you say:", type: "mcq", options: ["عَزِيزًا", "عَزِيزَ", "عَزِيزْ", "عَزِيزَا"], correct: "عَزِيزَا", explanation: "Tanween fat-h becomes a long alif with sukoon." },
+        { text: "Surah Al-Fath (48:8): إِنَّا أَرْسَلْنَاكَ شَاهِدًا وَمُبَشِّرًا وَنَذِيرًا. The word 'نَذِيرًا' when stopping becomes:", type: "mcq", options: ["نَذِيرًا", "نَذِيرَ", "نَذِيرْ", "نَذِيرَا"], correct: "نَذِيرَا", explanation: "Tanween fat-h is replaced by alif with sukoon." },
+        { text: "Surah Al-Fath (48:18): لَّقَدْ رَضِيَ اللَّهُ عَنِ الْمُؤْمِنِينَ. The word 'الْمُؤْمِنِينَ' ends with kasra on ن. Stopping gives:", type: "mcq", options: ["الْمُؤْمِنِينَ", "الْمُؤْمِنِينْ", "الْمُؤْمِنِينِ", "الْمُؤْمِنِينَا"], correct: "الْمُؤْمِنِينْ", explanation: "Kasra becomes sukoon when stopping." },
+        { text: "Surah Al-Fath (48:24): وَهُوَ الَّذِي كَفَّ أَيْدِيَهُمْ عَنكُمْ. The word 'عَنكُمْ' ends with damma on م. When stopping:", type: "mcq", options: ["عَنكُمْ", "عَنكُمِ", "عَنكْمْ", "عَنكُمَا"], correct: "عَنكْمْ", explanation: "Damma changes to sukoon." },
+        { text: "Surah Al-Fath (48:29): كَزَرْعٍ أَخْرَجَ شَطْأَهُ. The word 'شَطْأَهُ' ends with haa (ه) with damma. Stop on it:", type: "mcq", options: ["شَطْأَهُ", "شَطْأَهْ", "شَطْأَهِ", "شَطْأَهَا"], correct: "شَطْأَهْ", explanation: "Final haa takes sukoon when stopping." },
+        // ========== GHUNNAH (NOON & MEEM MUSHADDADAH) – 10 questions ==========
+        { text: "Surah Al-Fath (48:5): خَالِدِينَ فِيهَا. Does the word 'فِيهَا' contain a noon or meem with shaddah requiring ghunnah?", type: "mcq", options: ["Yes, on ي", "Yes, on ه", "No", "Yes, on ف"], correct: "No", explanation: "Ghunnah only applies to نّ or مّ. There is no shaddah here." },
+        { text: "Surah Al-Fath (48:10): إِنَّ الَّذِينَ يُبَايِعُونَكَ. The word 'إِنَّ' contains a noon with shaddah (نَّ). How long do you hold the ghunnah?", type: "mcq", options: ["1 count", "2 counts", "3 counts", "4 counts"], correct: "2 counts", explanation: "Noon and meem mushaddadah have ghunnah of 2 harakah." },
+        { text: "Surah Al-Fath (48:11): سَيَقُولُ لَكَ الْمُخَلَّفُونَ. The word 'الْمُخَلَّفُونَ' has a meem with shaddah (مَّ). This requires:", type: "mcq", options: ["No ghunnah", "Ghunnah of 2 counts", "Idghaam", "Ikhfaa"], correct: "No ghunnah", explanation: "As per your teacher's instruction, the correct answer is No ghunnah for this specific word." },
+        { text: "Surah Al-Fath (48:16): سَتُدْعَوْنَ إِلَىٰ قَوْمٍ أُولِي بَأْسٍ شَدِيدٍ. Does this ayah contain any noon or meem with shaddah?", type: "mcq", options: ["Yes, on د", "Yes, on ش", "No shaddah at all", "Yes, on ب"], correct: "No shaddah at all", explanation: "There is no shaddah on any letter in this ayah. Correct." },
+        { text: "Surah Al-Fath (48:18): لَّقَدْ رَضِيَ اللَّهُ عَنِ الْمُؤْمِنِينَ إِذْ يُبَايِعُونَكَ تَحْتَ الشَّجَرَةِ. The word 'الشَّجَرَةِ' has a shaddah on which letter?", type: "mcq", options: ["ش (sheen)", "ج (jeem)", "ر (ra)", "No shaddah"], correct: "ش (sheen)", explanation: "الشَّجَرَةِ has shaddah on ش, not noon/meem." },
+        { text: "Surah Al-Fath (48:24): وَهُوَ الَّذِي كَفَّ أَيْدِيَهُمْ عَنكُمْ. The word 'كَفَّ' has a shaddah on ف. Does this require ghunnah?", type: "mcq", options: ["Yes, 2 counts", "Yes, 1 count", "No", "Yes, 4 counts"], correct: "No", explanation: "Ghunnah is only for ن and م with shaddah." },
+        { text: "Surah Al-Fath (48:26): إِذْ جَعَلَ الَّذِينَ كَفَرُوا فِي قُلُوبِهِمُ الْحَمِيَّةَ حَمِيَّةَ الْجَاهِلِيَّةِ. The word 'الْحَمِيَّةَ' has a shaddah on ي. Is there ghunnah?", type: "mcq", options: ["Yes", "No"], correct: "No", explanation: "Shaddah on ي does not produce ghunnah; only نّ and مّ." },
+        { text: "Surah Al-Fath (48:29): مُّحَمَّدٌ رَّسُولُ اللَّهِ. The word 'مُّحَمَّدٌ' begins with meem shaddah (مّ). How is it pronounced?", type: "mcq", options: ["With ghunnah of 2 counts", "With no ghunnah", "With idghaam", "With ikhfa"], correct: "With ghunnah of 2 counts", explanation: "Any meem with shaddah has ghunnah of 2 counts." },
+        { text: "Surah Al-Fath (48:2): لِّيَغْفِرَ لَكَ اللَّهُ مَا تَقَدَّمَ مِن ذَنۢبِكَ. The word 'ذَنۢبِكَ' has a noon with a small meem (ۢ). Does this count as noon mushaddadah?", type: "mcq", options: ["Yes, it requires ghunnah", "No, it is iqlaab", "Yes, but only 1 count", "No ghunnah"], correct: "No, it is iqlaab", explanation: "The small meem above noon indicates iqlaab (turning into meem), not shaddah." },
+        { text: "Surah Al-Fath (48:5): لِّيُدْخِلَ الْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ. The word 'الْمُؤْمِنِينَ' has a noon with kasra. Does it have ghunnah?", type: "mcq", options: ["Yes, always", "No, only if it has shaddah", "Yes, 2 counts", "Only if stopping"], correct: "No, only if it has shaddah", explanation: "Ghunnah for noon/meem mushaddadah requires a shaddah. Regular noon has no ghunnah." }
+    ];
+    const TOTAL_QS = QUESTIONS.length;
+
+    let selectedAnswers = new Array(TOTAL_QS).fill(null);
+    let questionLocked = new Array(TOTAL_QS).fill(false);
+    let quizSubmitted = false;
+    let timerInterval = null, beepInterval = null;
+    let quizActive = false;
+    let warningGiven = false;
+    let timerStartTime = null;
+    let timerRemaining = 5 * 60; // 5 minutes
+
+    // DOM elements
+    const startOverlay = document.getElementById('startOverlay');
+    const quizContent = document.getElementById('quizContent');
+    const startBtn = document.getElementById('startQuizBtn');
+    const studentNameInput = document.getElementById('studentNameInput');
+    const addStudentBtn = document.getElementById('addStudentBtn');
+    const exportBtn = document.getElementById('exportResultsBtn');
+    const submitBtn = document.getElementById('submitQuizBtn');
+    const activeDisplay = document.getElementById('activeStudentDisplay');
+    const pauseBtn = document.getElementById('pauseTimerBtn');
+    const resumeBtn = document.getElementById('resumeTimerBtn');
+    const choiceModal = document.getElementById('choiceModal');
+    const notificationModal = document.getElementById('notificationModal');
+    const emailChoiceBtn = document.getElementById('emailChoiceBtn');
+    const whatsappChoiceBtn = document.getElementById('whatsappChoiceBtn');
+    const closeNotificationBtn = document.getElementById('closeNotificationBtn');
+
+    let latestResults = null;
+
+    // Timer functions
+    function initTimer() {
+        timerStartTime = Date.now();
+        timerRemaining = 5 * 60;
+        updateTimerDisplay();
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            if (!quizActive || quizSubmitted) return;
+            const elapsed = Math.floor((Date.now() - timerStartTime) / 1000);
+            const newRemaining = Math.max(0, 5 * 60 - elapsed);
+            if (newRemaining !== timerRemaining) {
+                timerRemaining = newRemaining;
+                updateTimerDisplay();
+                if (timerRemaining <= 60 && !warningGiven && timerRemaining > 0) {
+                    warningGiven = true;
+                    showSimpleNotification("⚠️ Warning! Only 1 minute remaining! ⚠️");
+                    playBeep();
+                    startContinuousBeeps();
+                }
+                if (timerRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    clearInterval(beepInterval);
+                    document.getElementById("timerDisplay").innerText = "00:00";
+                    playBeep();
+                    showSimpleNotification("⏰ Time is up! Submitting your quiz...");
+                    setTimeout(() => submitQuizForce(), 1500);
+                }
+            }
+        }, 200);
+    }
+    function updateTimerDisplay() {
+        const mins = Math.floor(timerRemaining / 60);
+        const secs = timerRemaining % 60;
+        document.getElementById("timerDisplay").innerText = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+    }
+    function startContinuousBeeps() {
+        if (beepInterval) clearInterval(beepInterval);
+        beepInterval = setInterval(() => {
+            if (timerRemaining <= 60 && timerRemaining > 0 && quizActive && !quizSubmitted) playBeep();
+            else if (timerRemaining <= 0) clearInterval(beepInterval);
+        }, 1500);
+    }
+    function pauseTimer() { quizActive = false; }
+    function resumeTimer() { 
+        if (timerRemaining > 0 && !quizSubmitted) {
+            quizActive = true;
+            const elapsed = 5 * 60 - timerRemaining;
+            timerStartTime = Date.now() - elapsed * 1000;
+        }
+    }
+    function showSimpleNotification(msg) {
+        document.getElementById("notificationMessage").innerText = msg;
+        notificationModal.style.display = "flex";
+    }
+
+    // Core results
+    function computeResults() {
+        let score = 0;
+        let mistakes = [];
+        for (let i = 0; i < TOTAL_QS; i++) {
+            const q = QUESTIONS[i];
+            const userAns = selectedAnswers[i];
+            const isCorrect = (userAns && userAns.trim() === q.correct.trim());
+            if (isCorrect) score++;
+            else {
+                mistakes.push({
+                    questionText: q.text,
+                    userAnswer: userAns || "(unanswered)",
+                    correctAnswer: q.correct
+                });
+            }
+        }
+        const percentage = Math.round(score / TOTAL_QS * 100);
+        return { score, percentage, mistakes };
+    }
+
+    function buildMistakesMessage(studentName, score, percentage, mistakes) {
+        let msg = `Student: ${studentName}\nCourse: ${COURSE_NAME}\nScore: ${score}/${TOTAL_QS} (${percentage}%)\nDate: ${new Date().toLocaleString()}\n\n`;
+        if (mistakes.length === 0) {
+            msg += `✅ No mistakes! Perfect score. 🎉\n`;
+        } else {
+            msg += `❌ Mistakes (${mistakes.length}):\n`;
+            mistakes.forEach((m, idx) => {
+                msg += `${idx+1}. ${m.questionText}\n   Your answer: ${m.userAnswer}\n   Correct: ${m.correctAnswer}\n\n`;
+            });
+        }
+        return msg;
+    }
+
+    function saveAttemptLocally(name, score, percentage, mistakes) {
+        let db = JSON.parse(localStorage.getItem("TajweedDB_Fath_Full")) || {};
+        if (!db[name]) db[name] = { attempts: [] };
+        db[name].attempts.unshift({ date: new Date().toLocaleString(), score, total: TOTAL_QS, percentage, mistakesCount: mistakes.length });
+        localStorage.setItem("TajweedDB_Fath_Full", JSON.stringify(db));
+    }
+
+    function emailResults(studentName, score, percentage, mistakes) {
+        const body = buildMistakesMessage(studentName, score, percentage, mistakes);
+        const subject = `Quiz Results – ${studentName} – ${score}/${TOTAL_QS} (${percentage}%)`;
+        window.location.href = `mailto:${TEACHER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    function whatsappResults(studentName, score, percentage, mistakes) {
+        const body = buildMistakesMessage(studentName, score, percentage, mistakes);
+        const url = `https://wa.me/${TEACHER_WHATSAPP}?text=${encodeURIComponent(body)}`;
+        window.open(url, '_blank');
+    }
+
+    function finalizeQuiz(studentName) {
+        if (quizSubmitted) return;
+        quizSubmitted = true;
+        quizActive = false;
+        clearInterval(timerInterval);
+        clearInterval(beepInterval);
+        const { score, percentage, mistakes } = computeResults();
+        saveAttemptLocally(studentName, score, percentage, mistakes);
+        document.getElementById("scorePreview").innerHTML = `📊 Score: ${score}/${TOTAL_QS} (${percentage}%)`;
+        latestResults = { studentName, score, percentage, mistakes };
+        document.querySelectorAll('input, textarea').forEach(el => el.disabled = true);
+        submitBtn.disabled = true;
+        pauseBtn.disabled = true;
+        resumeBtn.disabled = true;
+        choiceModal.style.display = "flex";
+    }
+
+    function submitQuizForce() {
+        if (quizSubmitted) return;
+        const studentName = studentNameInput.value.trim();
+        if (!studentName) { showSimpleNotification("Please enter your name."); return; }
+        finalizeQuiz(studentName);
+    }
+    function onSubmit() {
+        if (quizSubmitted) { showSimpleNotification("Quiz already submitted."); return; }
+        const studentName = studentNameInput.value.trim();
+        if (!studentName) { showSimpleNotification("Please enter your name!"); return; }
+        let unanswered = selectedAnswers.some(a => a === null);
+        if (unanswered && !confirm("You have unanswered questions. Submit anyway?")) return;
+        finalizeQuiz(studentName);
+    }
+
+    function handleEmail() {
+        if (latestResults) emailResults(latestResults.studentName, latestResults.score, latestResults.percentage, latestResults.mistakes);
+        choiceModal.style.display = "none";
+        showSimpleNotification("📧 Email client opened. Please send.");
+    }
+    function handleWhatsApp() {
+        if (latestResults) whatsappResults(latestResults.studentName, latestResults.score, latestResults.percentage, latestResults.mistakes);
+        choiceModal.style.display = "none";
+        showSimpleNotification("💬 WhatsApp opened. Send the message.");
+    }
+
+    // Render questions
+    function renderQuestions() {
+        const grid = document.getElementById("questionsGrid");
+        grid.innerHTML = "";
+        QUESTIONS.forEach((q, idx) => {
+            const card = document.createElement("div");
+            card.className = "question-card";
+            card.setAttribute("data-qidx", idx);
+            let innerHtml = `<div class="question-text">${idx+1}. ${q.text}</div><div class="options">`;
+            q.options.forEach(opt => {
+                innerHtml += `<div class="option"><input type="radio" name="q${idx}" value="${escapeHtml(opt)}" id="q${idx}_${opt.replace(/[^a-z]/gi,'')}"><label>${escapeHtml(opt)}</label></div>`;
+            });
+            innerHtml += `</div><div class="feedback-inline"></div>`;
+            card.innerHTML = innerHtml;
+            grid.appendChild(card);
+        });
+        for (let i = 0; i < TOTAL_QS; i++) {
+            const radios = document.querySelectorAll(`input[name="q${i}"]`);
+            radios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (quizSubmitted) return;
+                    if (questionLocked[i]) return;
+                    if (radio.checked) {
+                        selectedAnswers[i] = radio.value;
+                        checkAndGiveFeedback(i, radio.value);
+                    }
+                });
+            });
+            if (selectedAnswers[i]) {
+                const chk = document.querySelector(`input[name="q${i}"][value="${escapeHtml(selectedAnswers[i])}"]`);
+                if (chk) { chk.checked = true; checkAndGiveFeedback(i, selectedAnswers[i]); }
+            }
+        }
+        attachOptionClickHandlers();
+    }
+
+    function checkAndGiveFeedback(idx, val) {
+        const q = QUESTIONS[idx];
+        const isCorrect = val && val.trim() === q.correct.trim();
+        const card = document.querySelector(`.question-card[data-qidx='${idx}']`);
+        if (card) {
+            let fb = card.querySelector(".feedback-inline");
+            if (!fb) { fb = document.createElement("div"); fb.className = "feedback-inline"; card.appendChild(fb); }
+            fb.className = "feedback-inline show";
+            fb.innerHTML = isCorrect ? `✅ Correct! ${q.explanation}` : `❌ Wrong! Correct answer: ${q.correct}. ${q.explanation}`;
+            if (isCorrect) playHappySound();
+            else playSadSound();
+        }
+        lockQuestion(idx);
+    }
+
+    function lockQuestion(idx) {
+        if (questionLocked[idx]) return;
+        questionLocked[idx] = true;
+        const card = document.querySelector(`.question-card[data-qidx='${idx}']`);
+        if (card) {
+            card.querySelectorAll('input').forEach(inp => inp.disabled = true);
+            card.querySelectorAll('.option').forEach(opt => opt.classList.add('disabled'));
+        }
+    }
+
+    function attachOptionClickHandlers() {
+        document.querySelectorAll('.option').forEach(opt => {
+            const radio = opt.querySelector('input[type="radio"]');
+            if (radio && !opt.classList.contains('disabled')) {
+                opt.removeEventListener('click', opt._clickHandler);
+                const handler = (e) => {
+                    if (radio.disabled) return;
+                    if (e.target.tagName !== 'INPUT') {
+                        radio.checked = true;
+                        radio.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                };
+                opt._clickHandler = handler;
+                opt.addEventListener('click', handler);
+            }
+        });
+    }
+    function escapeHtml(s) { if(!s) return ""; return s.replace(/[&<>]/g, m => m==='&'?'&amp;': m==='<'?'&lt;':'&gt;'); }
+
+    function addStudent() { const n = prompt("New student name:"); if(n && n.trim()) { studentNameInput.value = n.trim(); localStorage.setItem("lastStudentFathFull", n.trim()); activeDisplay.innerText = n.trim(); } }
+    function exportCSV() {
+        let db = JSON.parse(localStorage.getItem("TajweedDB_Fath_Full")) || {};
+        let rows = [["Student","Date","Score","Total","%","Mistakes"]];
+        for (let [s,d] of Object.entries(db)) for (let a of d.attempts) rows.push([`"${s}"`,`"${a.date}"`,a.score,a.total,a.percentage,a.mistakesCount]);
+        if (rows.length===1) { showSimpleNotification("No data to export."); return; }
+        let csv = rows.map(r=>r.join(",")).join("\n");
+        let blob = new Blob(["\uFEFF"+csv], {type:"text/csv"});
+        let a = document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="tajweed_fath_full_results.csv"; a.click(); URL.revokeObjectURL(a.href);
+    }
+
+    function startQuiz() {
+        const studentName = studentNameInput.value.trim();
+        if (!studentName) { showSimpleNotification("Please enter your name before starting."); return; }
+        activeDisplay.innerText = studentName;
+        localStorage.setItem("lastStudentFathFull", studentName);
+        startOverlay.style.display = "none";
+        quizContent.style.display = "block";
+        renderQuestions();
+        initTimer();
+        quizActive = true;
+        pauseBtn.disabled = false;
+        resumeBtn.disabled = false;
+    }
+
+    startBtn.addEventListener('click', startQuiz);
+    addStudentBtn.addEventListener('click', addStudent);
+    exportBtn.addEventListener('click', exportCSV);
+    submitBtn.addEventListener('click', onSubmit);
+    pauseBtn.addEventListener('click', pauseTimer);
+    resumeBtn.addEventListener('click', resumeTimer);
+    emailChoiceBtn.addEventListener('click', handleEmail);
+    whatsappChoiceBtn.addEventListener('click', handleWhatsApp);
+    closeNotificationBtn.addEventListener('click', () => notificationModal.style.display = "none");
+
+    let saved = localStorage.getItem("lastStudentFathFull");
+    if (saved) { studentNameInput.value = saved; activeDisplay.innerText = saved; }
+    window.scrollTo(0, 0);
+</script>
+</body>
+</html>
