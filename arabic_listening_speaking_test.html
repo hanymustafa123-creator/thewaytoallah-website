@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arabic Listening & Speaking Test – The Way To Allah Academy</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&family=Amiri:wght@400;700&display=swap');
+
+  :root {
+    --navy: #0d1b3e;
+    --navy-mid: #162550;
+    --navy-light: #1e3268;
+    --gold: #c9952a;
+    --gold-light: #e8b84b;
+    --gold-pale: #f5e4b8;
+    --cream: #fdf8ef;
+    --white: #ffffff;
+    --green-ok: #2e7d32;
+    --red-err: #c62828;
+    --shadow: 0 8px 40px rgba(13,27,62,0.18);
+    --radius: 16px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--navy);
+    color: var(--cream);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    border-bottom: 3px solid var(--gold);
+    padding: 24px 32px 20px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  header::after {
+    content:'';
+    position:absolute;
+    bottom:-3px; left:0; right:0;
+    height:1px;
+    background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  }
+  .logo-wrap { width: 80px; height: 80px; border-radius: 50%; overflow: hidden; border: 3px solid var(--gold); flex-shrink:0; }
+  .logo-wrap img { width:100%; height:100%; object-fit:cover; }
+  .header-text h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    color: var(--gold-light);
+    letter-spacing: 1px;
+    line-height: 1.2;
+  }
+  .header-text p {
+    font-size: 0.82rem;
+    color: var(--gold-pale);
+    margin-top: 4px;
+    font-style: italic;
+    opacity: 0.85;
+  }
+  .test-badge {
+    margin-left: auto;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 6px 16px;
+    border-radius: 30px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── INTRO SCREEN ── */
+  #intro-screen {
+    max-width: 680px;
+    margin: 60px auto;
+    padding: 0 20px;
+    text-align: center;
+  }
+  .intro-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,149,42,0.3);
+    border-radius: var(--radius);
+    padding: 48px 40px;
+    box-shadow: var(--shadow);
+  }
+  .intro-card h2 {
+    font-family: 'Cinzel', serif;
+    color: var(--gold-light);
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+  }
+  .intro-card p {
+    color: var(--gold-pale);
+    line-height: 1.7;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+  }
+  .rules-list {
+    text-align: left;
+    margin: 24px 0;
+    list-style: none;
+  }
+  .rules-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(201,149,42,0.15);
+    color: var(--cream);
+    font-size: 0.9rem;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .rules-list li .icon { font-size: 1.2rem; flex-shrink:0; }
+  .name-field {
+    width: 100%;
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(201,149,42,0.4);
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: var(--white);
+    font-size: 1rem;
+    font-family: 'Lato', sans-serif;
+    margin-bottom: 28px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .name-field:focus { border-color: var(--gold-light); }
+  .name-field::placeholder { color: rgba(245,228,184,0.45); }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    color: var(--navy);
+    border: none;
+    border-radius: 12px;
+    padding: 16px 40px;
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: transform .15s, box-shadow .15s;
+    box-shadow: 0 4px 18px rgba(201,149,42,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,149,42,0.5); }
+  .btn-primary:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+
+  /* ── MAIN TEST ── */
+  #test-screen { display:none; max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.08);
+    border-radius: 30px;
+    height: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 30px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-size: 0.8rem;
+    color: var(--gold-pale);
+    margin-bottom: 28px;
+    text-align: right;
+  }
+
+  /* ── QUESTION CARD ── */
+  .q-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,149,42,0.25);
+    border-radius: var(--radius);
+    padding: 36px 36px 32px;
+    box-shadow: var(--shadow);
+    animation: slideIn .35s ease;
+  }
+  @keyframes slideIn {
+    from { opacity:0; transform:translateY(16px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  .q-number {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .q-type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(201,149,42,0.15);
+    border: 1px solid rgba(201,149,42,0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 0.78rem;
+    color: var(--gold-light);
+    margin-bottom: 20px;
+  }
+
+  .q-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 2rem;
+    color: var(--gold-light);
+    text-align: center;
+    direction: rtl;
+    margin: 20px 0;
+    line-height: 1.5;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    padding: 18px 24px;
+    border-left: 4px solid var(--gold);
+  }
+
+  .q-english {
+    font-size: 0.9rem;
+    color: var(--gold-pale);
+    text-align: center;
+    margin-bottom: 24px;
+    font-style: italic;
+    opacity: 0.85;
+  }
+
+  /* ── LISTEN BUTTON ── */
+  .listen-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--navy-light);
+    border: 2px solid var(--gold);
+    border-radius: 50px;
+    padding: 12px 28px;
+    color: var(--gold-light);
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin: 0 auto 28px;
+    transition: background .2s, transform .15s;
+    letter-spacing: 0.5px;
+  }
+  .listen-btn:hover { background: rgba(201,149,42,0.15); transform:scale(1.03); }
+  .listen-btn.playing { background: rgba(201,149,42,0.2); border-color: var(--gold-light); animation: pulse-border 1s infinite; }
+  @keyframes pulse-border {
+    0%,100% { box-shadow: 0 0 0 0 rgba(201,149,42,0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(201,149,42,0); }
+  }
+  .speaker-waves { display:flex; gap:3px; align-items:center; }
+  .wave-bar { width:3px; background:var(--gold); border-radius:3px; animation:none; }
+  .playing .wave-bar:nth-child(1) { animation: wave 0.8s ease-in-out infinite; height:8px; }
+  .playing .wave-bar:nth-child(2) { animation: wave 0.8s ease-in-out 0.15s infinite; height:14px; }
+  .playing .wave-bar:nth-child(3) { animation: wave 0.8s ease-in-out 0.3s infinite; height:20px; }
+  .playing .wave-bar:nth-child(4) { animation: wave 0.8s ease-in-out 0.45s infinite; height:14px; }
+  .playing .wave-bar:nth-child(5) { animation: wave 0.8s ease-in-out 0.6s infinite; height:8px; }
+  .wave-bar:not(.playing .wave-bar) { height: 14px; }
+  @keyframes wave {
+    0%,100% { transform:scaleY(0.5); opacity:.7; }
+    50% { transform:scaleY(1.4); opacity:1; }
+  }
+
+  /* ── SECTIONS ── */
+  .section-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after { content:''; flex:1; height:1px; background:rgba(201,149,42,0.25); }
+
+  /* ── TEXT ANSWER ── */
+  .text-answer {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(201,149,42,0.3);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--white);
+    font-size: 1rem;
+    font-family: 'Lato', sans-serif;
+    resize: vertical;
+    min-height: 80px;
+    outline: none;
+    transition: border-color .2s;
+    margin-bottom: 6px;
+  }
+  .text-answer:focus { border-color: var(--gold-light); }
+  .text-answer::placeholder { color: rgba(245,228,184,0.35); font-size:0.88rem; }
+  .char-hint { font-size: 0.75rem; color: rgba(245,228,184,0.5); margin-bottom: 24px; }
+
+  /* ── RECORDER ── */
+  .recorder-area {
+    background: rgba(0,0,0,0.2);
+    border: 1.5px dashed rgba(201,149,42,0.35);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  .rec-controls { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .btn-rec {
+    display:flex; align-items:center; gap:8px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: none;
+    font-family:'Lato',sans-serif;
+    font-weight:700;
+    font-size:0.85rem;
+    cursor:pointer;
+    transition: all .2s;
+  }
+  .btn-rec-start { background:#c62828; color:#fff; }
+  .btn-rec-start:hover { background:#b71c1c; }
+  .btn-rec-stop { background:#1565c0; color:#fff; }
+  .btn-rec-stop:hover { background:#0d47a1; }
+  .btn-rec-play { background:#2e7d32; color:#fff; }
+  .btn-rec-play:hover { background:#1b5e20; }
+  .btn-rec:disabled { opacity:.4; cursor:not-allowed; }
+  .rec-status {
+    font-size:0.78rem;
+    margin-top:10px;
+    min-height:20px;
+  }
+  .rec-status.recording { color:#ef5350; animation: blink .7s step-end infinite; }
+  .rec-status.done { color:#66bb6a; }
+  .rec-status.idle { color:rgba(245,228,184,0.55); }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .audio-preview { margin-top:12px; width:100%; border-radius:8px; display:none; }
+  .required-hint { font-size:0.73rem; color: #ef9a9a; margin-bottom:24px; }
+
+  /* ── NAV ── */
+  .q-nav {
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:32px;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .btn-nav {
+    background: transparent;
+    border: 1.5px solid rgba(201,149,42,0.5);
+    color: var(--gold-light);
+    border-radius: 10px;
+    padding: 10px 24px;
+    font-family:'Lato',sans-serif;
+    font-weight:700;
+    font-size:0.88rem;
+    cursor:pointer;
+    transition: all .2s;
+  }
+  .btn-nav:hover { background:rgba(201,149,42,0.12); border-color:var(--gold); }
+  .btn-submit {
+    background: linear-gradient(135deg, #2e7d32, #388e3c);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 32px;
+    font-family:'Lato',sans-serif;
+    font-weight:700;
+    font-size:0.9rem;
+    cursor:pointer;
+    transition: all .2s;
+    box-shadow: 0 4px 14px rgba(46,125,50,0.4);
+  }
+  .btn-submit:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(46,125,50,0.5); }
+
+  /* ── RESULTS SCREEN ── */
+  #results-screen { display:none; max-width:760px; margin:0 auto; padding:32px 20px 80px; }
+  .results-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,149,42,0.3);
+    border-radius: var(--radius);
+    padding: 40px;
+    box-shadow: var(--shadow);
+  }
+  .results-header {
+    text-align:center;
+    margin-bottom:36px;
+  }
+  .results-header h2 {
+    font-family:'Cinzel',serif;
+    color:var(--gold-light);
+    font-size:1.6rem;
+    margin-bottom:8px;
+  }
+  .results-header p { color:var(--gold-pale); font-size:0.9rem; }
+  .result-item {
+    background: rgba(0,0,0,0.2);
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:16px;
+    border-left: 4px solid rgba(201,149,42,0.4);
+  }
+  .result-item .ri-num { font-size:0.72rem; color:var(--gold); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:4px; }
+  .result-item .ri-q { font-family:'Amiri',serif; font-size:1.3rem; color:var(--gold-light); direction:rtl; margin-bottom:6px; }
+  .result-item .ri-en { font-size:0.8rem; color:rgba(245,228,184,0.6); margin-bottom:10px; font-style:italic; }
+  .result-item .ri-text { font-size:0.88rem; color:var(--cream); background:rgba(255,255,255,0.05); border-radius:8px; padding:10px 14px; margin-bottom:8px; }
+  .result-item .ri-audio { font-size:0.8rem; color:#81c784; display:flex; align-items:center; gap:6px; }
+  .ri-audio audio { width:100%; margin-top:6px; border-radius:6px; }
+
+  /* ── WHATSAPP SHARE BTN ── */
+  .share-wa-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 18px 36px;
+    font-family:'Lato',sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    cursor:pointer;
+    margin: 32px auto 0;
+    display:flex;
+    transition: all .2s;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.35);
+    text-decoration:none;
+  }
+  .share-wa-btn:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(37,211,102,0.45); }
+  .wa-icon { width:28px; height:28px; }
+
+  /* ── FLOATING WA ── */
+  .wa-float {
+    position:fixed;
+    bottom:28px; right:28px;
+    background:linear-gradient(135deg,#25D366,#128C7E);
+    border-radius:50%;
+    width:58px; height:58px;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 20px rgba(37,211,102,0.5);
+    cursor:pointer;
+    z-index:999;
+    text-decoration:none;
+    transition:transform .2s;
+  }
+  .wa-float:hover { transform:scale(1.1); }
+  .wa-float svg { width:30px; height:30px; fill:#fff; }
+
+  /* ── MOBILE ── */
+  @media(max-width:600px){
+    .q-card { padding:24px 18px; }
+    .q-arabic { font-size:1.6rem; }
+    header { padding:16px 18px; }
+    .header-text h1 { font-size:1.1rem; }
+    .intro-card { padding:32px 20px; }
+  }
+
+  /* ── QUESTION MAP ── */
+  .q-map {
+    display:flex; flex-wrap:wrap; gap:6px; margin-bottom:24px;
+  }
+  .q-dot {
+    width:32px; height:32px; border-radius:8px;
+    background:rgba(255,255,255,0.07);
+    border:1.5px solid rgba(201,149,42,0.2);
+    font-size:0.75rem;
+    font-weight:700;
+    color:rgba(245,228,184,0.45);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition:all .2s;
+  }
+  .q-dot.answered { background:rgba(201,149,42,0.25); border-color:var(--gold); color:var(--gold-light); }
+  .q-dot.current { background:var(--gold); border-color:var(--gold-light); color:var(--navy); }
+</style>
+</head>
+<body>
+
+<!-- FLOATING WA -->
+<a class="wa-float" href="https://wa.me/+21200342973" target="_blank" title="Message Teacher on WhatsApp">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.736 5.469 2.027 7.773L.057 31.429a.5.5 0 0 0 .514.571l7.9-1.97A15.93 15.93 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm8.373 22.497c-.352.992-2.037 1.898-2.8 2.013-.718.109-1.622.155-2.614-.164a23.83 23.83 0 0 1-2.367-.877C13.1 22.12 10.5 19.2 9.49 17.66c-.644-.966-1.047-2.047-.773-3.087.273-1.04 1.356-1.947 1.89-2.09.535-.143 1.1-.167 1.505.07.405.237.774.86 1.053 1.355.279.496.55 1.165.467 1.48-.083.316-.36.626-.635.895-.275.27-.526.493-.4.776.126.283 1.005 1.647 2.168 2.664 1.162 1.017 2.368 1.556 2.664 1.682.295.126.542-.015.793-.287.25-.272.737-.826 1.042-.993.305-.167.634-.14.988.028.353.168 2.03.956 2.38 1.13.35.172.584.256.67.4.086.143.086.786-.266 1.778z"/>
+  </svg>
+</a>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-wrap">
+    <img src="https://i.postimg.cc/brVD4yVm/logo-jpeg.jpg" alt="The Way To Allah Academy Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:1.5rem;\'>☪</div>'">
+  </div>
+  <div class="header-text">
+    <h1>The Way To Allah Academy</h1>
+    <p>The Gateway to Guidance</p>
+  </div>
+  <span class="test-badge">Listening &amp; Speaking Test</span>
+</header>
+
+<!-- INTRO SCREEN -->
+<div id="intro-screen">
+  <div class="intro-card">
+    <h2>Arabic Skills Test</h2>
+    <p>Welcome! This test will check your <strong style="color:var(--gold-light)">listening</strong> and <strong style="color:var(--gold-light)">speaking</strong> skills in Arabic.</p>
+    <p>You will hear an Arabic word or phrase. You must then:</p>
+    <ul class="rules-list">
+      <li><span class="icon">👂</span> <span>Listen to the Arabic audio (click the speaker button)</span></li>
+      <li><span class="icon">✍️</span> <span>Write what you heard or what it means in English — <strong>this is required</strong></span></li>
+      <li><span class="icon">🎙️</span> <span>Record yourself saying the Arabic word out loud — <strong>this is required</strong></span></li>
+      <li><span class="icon">📲</span> <span>At the end, send your results directly to your teacher via WhatsApp</span></li>
+    </ul>
+    <p style="color:#ef9a9a; font-size:0.85rem; margin-bottom:24px;">⚠️ Both the written answer and voice recording are <strong>mandatory</strong> for each question. You cannot move to the next question without completing both.</p>
+    <input class="name-field" id="student-name" type="text" placeholder="Enter your full name before starting…">
+    <br>
+    <button class="btn-primary" onclick="startTest()">Begin Test →</button>
+  </div>
+</div>
+
+<!-- TEST SCREEN -->
+<div id="test-screen">
+  <div class="q-map" id="q-map"></div>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="prog-bar"></div></div>
+  <div class="progress-label" id="prog-label">Question 1 of 15</div>
+  <div class="q-card" id="q-card"></div>
+</div>
+
+<!-- RESULTS SCREEN -->
+<div id="results-screen">
+  <div class="results-card">
+    <div class="results-header">
+      <h2>✅ Test Submitted!</h2>
+      <p id="result-student-name"></p>
+    </div>
+    <div id="results-body"></div>
+    <a id="wa-share-btn" class="share-wa-btn" href="#" target="_blank">
+      <svg class="wa-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="fill:#fff;">
+        <path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.736 5.469 2.027 7.773L.057 31.429a.5.5 0 0 0 .514.571l7.9-1.97A15.93 15.93 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm8.373 22.497c-.352.992-2.037 1.898-2.8 2.013-.718.109-1.622.155-2.614-.164a23.83 23.83 0 0 1-2.367-.877C13.1 22.12 10.5 19.2 9.49 17.66c-.644-.966-1.047-2.047-.773-3.087.273-1.04 1.356-1.947 1.89-2.09.535-.143 1.1-.167 1.505.07.405.237.774.86 1.053 1.355.279.496.55 1.165.467 1.48-.083.316-.36.626-.635.895-.275.27-.526.493-.4.776.126.283 1.005 1.647 2.168 2.664 1.162 1.017 2.368 1.556 2.664 1.682.295.126.542-.015.793-.287.25-.272.737-.826 1.042-.993.305-.167.634-.14.988.028.353.168 2.03.956 2.38 1.13.35.172.584.256.67.4.086.143.086.786-.266 1.778z"/>
+      </svg>
+      📤 Send Results to Teacher (WhatsApp)
+    </a>
+    <p style="text-align:center;font-size:0.78rem;color:rgba(245,228,184,0.5);margin-top:14px;">Note: Audio recordings cannot be sent via WhatsApp link. Please share this page or screenshot with your teacher.</p>
+  </div>
+</div>
+
+<script>
+// ── QUESTIONS ──
+const questions = [
+  { arabic: 'مُدَرِّس',   english: 'Teacher (male)',         phonetic: 'mudarris',    prompt: 'Listen to the word. Write what it means in English, then record yourself saying it.' },
+  { arabic: 'طَالِبَة',   english: 'Student (female)',       phonetic: 'taalibah',    prompt: 'Listen and write the meaning, then say the word aloud.' },
+  { arabic: 'طَبِيبَة',   english: 'Doctor (female)',        phonetic: "tabeebah",    prompt: 'Write what this word means, then record yourself saying it.' },
+  { arabic: 'مُهَنْدِس',  english: 'Engineer (male)',        phonetic: 'muhandis',    prompt: 'Write the meaning and record your pronunciation.' },
+  { arabic: 'أَخ',        english: 'Brother',                phonetic: 'akh',         prompt: 'Write the meaning in English and say the word.' },
+  { arabic: 'أُخْت',      english: 'Sister',                 phonetic: 'ukht',        prompt: 'Write the meaning and record yourself saying it.' },
+  { arabic: 'صَدِيق',     english: 'Friend (male)',          phonetic: 'sadeeq',      prompt: 'Write the English meaning and record yourself saying it.' },
+  { arabic: 'صَدِيقَة',   english: 'Friend (female)',        phonetic: 'sadeeqah',    prompt: 'Write the meaning and record your pronunciation.' },
+  { arabic: 'هَذَا',      english: 'This (masculine)',       phonetic: 'hadhaa',      prompt: 'Write what this word means and record yourself saying it.' },
+  { arabic: 'هَذِهِ',     english: 'This (feminine)',        phonetic: 'haadhihi',    prompt: 'Write the meaning and say the word aloud.' },
+  { arabic: 'هُوَ',       english: 'He / It (masculine)',    phonetic: 'huwa',        prompt: 'Write the meaning in English, then record yourself saying it.' },
+  { arabic: 'هِيَ',       english: 'She / It (feminine)',    phonetic: 'hiya',        prompt: 'Write the meaning and record your pronunciation.' },
+  { arabic: 'أَنَا',      english: 'I / Me',                 phonetic: 'ana',         prompt: 'Write what this word means and say it aloud.' },
+  { arabic: 'مِنْ أَيْنَ أَنْتَ؟', english: 'Where are you from? (male)', phonetic: 'min ayna anta', prompt: 'Listen to this full phrase. Write what it means in English, then repeat it aloud.' },
+  { arabic: 'أَنَا مِنْ مِصْر', english: 'I am from Egypt',   phonetic: 'ana min misr', prompt: 'Listen to this sentence. Write the English meaning and record yourself saying it.' },
+];
+
+// ── STATE ──
+let currentQ = 0;
+let studentName = '';
+let answers = new Array(questions.length).fill(null).map(() => ({ text: '', audioBlob: null, audioURL: null }));
+let mediaRecorder = null;
+let audioChunks = [];
+let isRecording = false;
+let currentAudio = null;
+
+// ── SPEECH SYNTHESIS (native Arab voice) ──
+function speakArabic(text, btnEl) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.lang = 'ar-SA';
+    utt.rate = 0.78;
+    utt.pitch = 1.05;
+    utt.volume = 1;
+
+    // Try to get an Arabic voice
+    const voices = window.speechSynthesis.getVoices();
+    const arabicVoice = voices.find(v => v.lang === 'ar-SA' || v.lang === 'ar' || v.lang.startsWith('ar'));
+    if (arabicVoice) utt.voice = arabicVoice;
+
+    if (btnEl) {
+      btnEl.classList.add('playing');
+      utt.onend = () => btnEl.classList.remove('playing');
+      utt.onerror = () => btnEl.classList.remove('playing');
+    }
+    window.speechSynthesis.speak(utt);
+  } else {
+    alert('Sorry, your browser does not support text-to-speech. Please use Chrome or Edge.');
+  }
+}
+
+// Ensure voices are loaded
+window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
+
+// ── START TEST ──
+function startTest() {
+  const nameEl = document.getElementById('student-name');
+  studentName = nameEl.value.trim();
+  if (!studentName) {
+    nameEl.style.borderColor = '#ef5350';
+    nameEl.focus();
+    nameEl.placeholder = '⚠️ Please enter your name first!';
+    return;
+  }
+  document.getElementById('intro-screen').style.display = 'none';
+  document.getElementById('test-screen').style.display = 'block';
+  buildQMap();
+  renderQuestion(0);
+}
+
+// ── BUILD Q MAP ──
+function buildQMap() {
+  const map = document.getElementById('q-map');
+  map.innerHTML = '';
+  questions.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'q-dot' + (i === 0 ? ' current' : '');
+    dot.textContent = i + 1;
+    dot.id = `qdot-${i}`;
+    dot.onclick = () => navigateTo(i);
+    map.appendChild(dot);
+  });
+}
+
+function updateQMap() {
+  questions.forEach((_, i) => {
+    const dot = document.getElementById(`qdot-${i}`);
+    if (!dot) return;
+    dot.className = 'q-dot';
+    if (i === currentQ) dot.classList.add('current');
+    else if (answers[i].text.trim() && answers[i].audioBlob) dot.classList.add('answered');
+  });
+}
+
+// ── RENDER QUESTION ──
+function renderQuestion(idx) {
+  currentQ = idx;
+  const q = questions[idx];
+  const ans = answers[idx];
+  const isLast = idx === questions.length - 1;
+
+  document.getElementById('prog-bar').style.width = ((idx + 1) / questions.length * 100) + '%';
+  document.getElementById('prog-label').textContent = `Question ${idx + 1} of ${questions.length}`;
+
+  const card = document.getElementById('q-card');
+  card.innerHTML = `
+    <div class="q-number">Question ${idx + 1} of ${questions.length}</div>
+    <div class="q-type-badge">🎧 Listening &amp; 🎙️ Speaking</div>
+
+    <div class="q-arabic">${q.arabic}</div>
+    <div class="q-english">${q.prompt}</div>
+
+    <button class="listen-btn" id="listen-btn" onclick="handleListen(this)">
+      <div class="speaker-waves">
+        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+        <div class="wave-bar"></div><div class="wave-bar"></div>
+      </div>
+      🔊 Listen to Pronunciation
+    </button>
+
+    <!-- WRITTEN ANSWER -->
+    <div class="section-label">✍️ Written Answer</div>
+    <textarea class="text-answer" id="text-ans" placeholder="Write what you heard or its meaning in English…" oninput="answers[${idx}].text = this.value">${ans.text}</textarea>
+    <div class="char-hint">Required — write at least a few words</div>
+
+    <!-- VOICE RECORDING -->
+    <div class="section-label">🎙️ Voice Recording</div>
+    <div class="recorder-area">
+      <div class="rec-controls">
+        <button class="btn-rec btn-rec-start" id="btn-start-rec">⏺ Record</button>
+        <button class="btn-rec btn-rec-stop" id="btn-stop-rec" disabled>⏹ Stop</button>
+        <button class="btn-rec btn-rec-play" id="btn-play-rec" ${ans.audioBlob ? '' : 'disabled'}>▶ Play Back</button>
+      </div>
+      <div class="rec-status idle" id="rec-status">${ans.audioBlob ? '✅ Recording saved — you can re-record if needed' : 'Press Record, say the Arabic word, then press Stop'}</div>
+      <audio id="audio-preview" class="audio-preview" controls ${ans.audioURL ? 'src="' + ans.audioURL + '"' : ''} style="${ans.audioURL ? 'display:block' : 'display:none'}"></audio>
+    </div>
+    <div class="required-hint" id="rec-required">${ans.audioBlob ? '' : '⚠️ Voice recording is required to continue'}</div>
+
+    <!-- NAV -->
+    <div class="q-nav">
+      <button class="btn-nav" onclick="navigatePrev()" ${idx === 0 ? 'disabled style="opacity:.3"' : ''}>← Previous</button>
+      ${isLast
+        ? `<button class="btn-submit" onclick="submitTest()">✅ Submit Test</button>`
+        : `<button class="btn-nav" onclick="navigateNext()">Next →</button>`
+      }
+    </div>
+  `;
+
+  updateQMap();
+
+  // Attach recorder buttons via addEventListener (avoids inline onclick scope issues)
+  const btnStart = document.getElementById('btn-start-rec');
+  const btnStop  = document.getElementById('btn-stop-rec');
+  const btnPlay  = document.getElementById('btn-play-rec');
+  if (btnStart) btnStart.addEventListener('click', () => startRecording(idx));
+  if (btnStop)  btnStop.addEventListener('click',  () => stopRecording());
+  if (btnPlay)  btnPlay.addEventListener('click',  () => playRecording());
+}
+
+function handleListen(btn) {
+  const q = questions[currentQ];
+  speakArabic(q.arabic, btn);
+}
+
+// ── RECORDING ──
+function getSupportedMimeType() {
+  const types = [
+    'audio/webm;codecs=opus',
+    'audio/webm',
+    'audio/ogg;codecs=opus',
+    'audio/ogg',
+    'audio/mp4',
+    ''
+  ];
+  for (const type of types) {
+    if (!type || MediaRecorder.isTypeSupported(type)) return type;
+  }
+  return '';
+}
+
+async function startRecording(idx) {
+  // Stop any existing recording first
+  if (mediaRecorder && isRecording) {
+    mediaRecorder.stop();
+  }
+
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    alert('Microphone not supported. Please open this page in Chrome or Firefox on a computer or Android phone.');
+    return;
+  }
+
+  const statusEl  = document.getElementById('rec-status');
+  const startBtn  = document.getElementById('btn-start-rec');
+  const stopBtn   = document.getElementById('btn-stop-rec');
+
+  if (statusEl) { statusEl.textContent = '⏳ Requesting microphone…'; statusEl.className = 'rec-status idle'; }
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+
+    const mimeType = getSupportedMimeType();
+    const options  = mimeType ? { mimeType } : {};
+
+    audioChunks  = [];
+    mediaRecorder = new MediaRecorder(stream, options);
+
+    mediaRecorder.ondataavailable = e => {
+      if (e.data && e.data.size > 0) audioChunks.push(e.data);
+    };
+
+    mediaRecorder.onerror = e => {
+      console.error('MediaRecorder error:', e);
+      if (statusEl) { statusEl.textContent = '❌ Recording error — please try again.'; statusEl.className = 'rec-status idle'; }
+      isRecording = false;
+      stream.getTracks().forEach(t => t.stop());
+      if (startBtn) startBtn.disabled = false;
+      if (stopBtn)  stopBtn.disabled  = true;
+    };
+
+    mediaRecorder.onstop = () => {
+      if (audioChunks.length === 0) {
+        if (statusEl) { statusEl.textContent = '⚠️ No audio captured — please try again.'; statusEl.className = 'rec-status idle'; }
+        isRecording = false;
+        stream.getTracks().forEach(t => t.stop());
+        if (startBtn) startBtn.disabled = false;
+        if (stopBtn)  stopBtn.disabled  = true;
+        return;
+      }
+
+      const finalMime = mimeType || 'audio/webm';
+      const blob = new Blob(audioChunks, { type: finalMime });
+      answers[idx].audioBlob = blob;
+      if (answers[idx].audioURL) URL.revokeObjectURL(answers[idx].audioURL);
+      answers[idx].audioURL = URL.createObjectURL(blob);
+
+      const preview = document.getElementById('audio-preview');
+      if (preview) { preview.src = answers[idx].audioURL; preview.style.display = 'block'; }
+
+      const playBtn = document.getElementById('btn-play-rec');
+      if (playBtn) playBtn.disabled = false;
+
+      if (statusEl) { statusEl.textContent = '✅ Recording saved! You can re-record if needed.'; statusEl.className = 'rec-status done'; }
+
+      const req = document.getElementById('rec-required');
+      if (req) req.textContent = '';
+
+      stream.getTracks().forEach(t => t.stop());
+      isRecording = false;
+      if (startBtn) startBtn.disabled = false;
+      if (stopBtn)  stopBtn.disabled  = true;
+      updateQMap();
+    };
+
+    // Collect data every 250ms so we don't miss anything
+    mediaRecorder.start(250);
+    isRecording = true;
+
+    if (startBtn) startBtn.disabled = true;
+    if (stopBtn)  stopBtn.disabled  = false;
+    if (statusEl) { statusEl.textContent = '🔴 Recording… speak clearly, then press Stop'; statusEl.className = 'rec-status recording'; }
+
+  } catch (err) {
+    console.error('getUserMedia error:', err);
+    let msg = '❌ Could not access microphone.\n\n';
+    if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+      msg += 'Permission was denied. Please click the 🔒 lock icon in your browser address bar and allow microphone access, then try again.';
+    } else if (err.name === 'NotFoundError') {
+      msg += 'No microphone was found on this device.';
+    } else if (err.name === 'NotReadableError') {
+      msg += 'Your microphone is being used by another app. Please close other apps and try again.';
+    } else {
+      msg += err.message || 'Unknown error.';
+    }
+    alert(msg);
+    if (statusEl) { statusEl.textContent = '❌ Microphone error — see the alert for details.'; statusEl.className = 'rec-status idle'; }
+  }
+}
+
+function stopRecording() {
+  if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+    mediaRecorder.stop();
+  }
+  const stopBtn = document.getElementById('btn-stop-rec');
+  if (stopBtn) stopBtn.disabled = true;
+}
+
+function playRecording() {
+  const preview = document.getElementById('audio-preview');
+  if (preview && preview.src) { preview.play(); }
+}
+
+// ── NAVIGATION ──
+function validateCurrent() {
+  const ans = answers[currentQ];
+  const textOK = ans.text.trim().length > 0;
+  const audioOK = !!ans.audioBlob;
+
+  if (!textOK) {
+    const ta = document.getElementById('text-ans');
+    if (ta) { ta.style.borderColor = '#ef5350'; ta.focus(); ta.placeholder = '⚠️ Written answer is required!'; }
+  }
+  if (!audioOK) {
+    const req = document.getElementById('rec-required');
+    if (req) { req.textContent = '⚠️ Please record your voice before continuing.'; req.style.color = '#ef5350'; }
+  }
+  return textOK && audioOK;
+}
+
+function navigateNext() {
+  if (!validateCurrent()) return;
+  renderQuestion(currentQ + 1);
+  window.scrollTo(0, 0);
+}
+
+function navigatePrev() {
+  if (currentQ > 0) { renderQuestion(currentQ - 1); window.scrollTo(0, 0); }
+}
+
+function navigateTo(idx) {
+  // Allow free navigation, but warn if current is incomplete
+  renderQuestion(idx);
+  window.scrollTo(0, 0);
+}
+
+// ── SUBMIT ──
+function submitTest() {
+  if (!validateCurrent()) return;
+
+  // Check ALL questions
+  const incomplete = answers.reduce((acc, a, i) => {
+    if (!a.text.trim() || !a.audioBlob) acc.push(i + 1);
+    return acc;
+  }, []);
+
+  if (incomplete.length > 0) {
+    alert(`⚠️ You have not completed all questions.\n\nIncomplete questions: ${incomplete.join(', ')}\n\nPlease go back and finish them.`);
+    renderQuestion(incomplete[0] - 1);
+    return;
+  }
+
+  showResults();
+}
+
+// ── RESULTS ──
+function showResults() {
+  document.getElementById('test-screen').style.display = 'none';
+  const rs = document.getElementById('results-screen');
+  rs.style.display = 'block';
+  rs.scrollIntoView({ behavior: 'smooth' });
+
+  document.getElementById('result-student-name').textContent = `Student: ${studentName} · ${new Date().toLocaleDateString('en-GB', { weekday:'long', year:'numeric', month:'long', day:'numeric' })}`;
+
+  const body = document.getElementById('results-body');
+  body.innerHTML = '';
+
+  let waText = `*Arabic Test Results*\n*Student:* ${studentName}\n*Date:* ${new Date().toLocaleDateString('en-GB')}\n\n`;
+
+  questions.forEach((q, i) => {
+    const a = answers[i];
+    const div = document.createElement('div');
+    div.className = 'result-item';
+    div.innerHTML = `
+      <div class="ri-num">Question ${i + 1}</div>
+      <div class="ri-q">${q.arabic}</div>
+      <div class="ri-en">Meaning: ${q.english}</div>
+      <div class="ri-text">📝 Student wrote: "${a.text.trim() || '(no answer)'}"</div>
+      ${a.audioURL ? `<div class="ri-audio">🎙️ Voice recording: <br><audio controls src="${a.audioURL}" style="width:100%;margin-top:6px;border-radius:6px;"></audio></div>` : '<div class="ri-audio" style="color:#ef9a9a;">⚠️ No recording</div>'}
+    `;
+    body.appendChild(div);
+
+    waText += `Q${i + 1}: ${q.arabic} (${q.english})\nAnswer: ${a.text.trim() || '—'}\n${a.audioBlob ? '🎙️ [Audio recorded — see test page]' : '⚠️ No audio'}\n\n`;
+  });
+
+  waText += `\n_Sent from The Way To Allah Academy Test_`;
+
+  const encoded = encodeURIComponent(waText);
+  document.getElementById('wa-share-btn').href = `https://wa.me/+21200342973?text=${encoded}`;
+
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
