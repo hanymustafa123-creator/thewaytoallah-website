@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>🌙 Tajweed Quiz · Ghunnah, Heavy/Light & Qalqalah</title>
+  <!-- Elegant Arabic font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: linear-gradient(145deg, #f3efe7 0%, #e8e1d4 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      padding: 1.5rem;
+      margin: 0;
+    }
+    .quiz-card {
+      max-width: 780px;
+      width: 100%;
+      background: rgba(255, 255, 245, 0.95);
+      backdrop-filter: blur(8px);
+      border-radius: 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 6px 12px rgba(0, 0, 0, 0.05);
+      padding: 2rem 2rem 2.2rem;
+      border: 1px solid #dccfbc;
+      transition: all 0.2s;
+    }
+    h1 {
+      font-weight: 600;
+      font-size: 1.9rem;
+      letter-spacing: -0.01em;
+      color: #2e3b2c;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.2rem;
+      border-bottom: 2px dashed #b7aa92;
+      padding-bottom: 0.7rem;
+    }
+    h1 span {
+      background: #2e5a4c;
+      color: #fbf6e9;
+      font-size: 1rem;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      margin-left: auto;
+      font-weight: 500;
+    }
+    .subhead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin: 0.8rem 0 1.8rem 0;
+      color: #4e5b4a;
+      font-weight: 500;
+    }
+    .reference {
+      font-size: 0.9rem;
+      background: #e7dfcf;
+      padding: 0.25rem 1rem;
+      border-radius: 30px;
+      color: #1f3a2f;
+    }
+    .score-area {
+      font-size: 1.1rem;
+      background: #fff6e8;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid #cfc1ae;
+    }
+    .question-box {
+      background: #fcf9f2;
+      border-radius: 28px;
+      padding: 2rem 1.8rem;
+      margin-bottom: 2rem;
+      box-shadow: inset 0 2px 5px rgba(90, 70, 50, 0.05), 0 8px 12px -6px rgba(50, 40, 20, 0.1);
+      border: 1px solid #e2d5c2;
+    }
+    .arabic-word {
+      font-family: 'Amiri Quran', 'Amiri', 'Scheherazade New', serif;
+      font-size: 3.8rem;
+      line-height: 1.4;
+      text-align: center;
+      direction: rtl;
+      color: #1f3a2f;
+      margin-bottom: 1rem;
+      font-weight: 400;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+      word-break: keep-all;
+    }
+    .question-text {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #2e3b2c;
+      margin-bottom: 1.8rem;
+      text-align: center;
+    }
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.9rem;
+      margin: 1.5rem 0 0.8rem;
+    }
+    .option-btn {
+      background: #f4efe6;
+      border: 1.5px solid #cdbc9f;
+      padding: 1rem 0.5rem;
+      border-radius: 40px;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #2f3a28;
+      cursor: pointer;
+      transition: all 0.15s;
+      box-shadow: 0 3px 0 #b8a68b;
+      font-family: 'Inter', sans-serif;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+    .option-btn:hover {
+      background: #e5d9c6;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 0 #a59278;
+    }
+    .option-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 #a59278;
+    }
+    .option-btn.correct {
+      background: #2e6b4c;
+      border-color: #1e4f38;
+      color: #fcf9f2;
+      box-shadow: 0 3px 0 #1a3d2b;
+    }
+    .option-btn.wrong {
+      background: #b85c5c;
+      border-color: #913e3e;
+      color: #fdf5f5;
+      box-shadow: 0 3px 0 #712e2e;
+      opacity: 0.9;
+    }
+    .option-btn:disabled {
+      opacity: 0.8;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: 0 2px 0 #9e8d78;
+    }
+    .feedback {
+      min-height: 3.2rem;
+      margin: 1.5rem 0 1rem;
+      padding: 0.9rem 1.5rem;
+      background: #e6dfd0;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      color: #1e2f1e;
+      border-left: 6px solid #3f6b51;
+      font-weight: 500;
+    }
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.8rem;
+    }
+    .next-btn, .restart-btn {
+      background: #2e5a4c;
+      border: none;
+      padding: 0.9rem 2.2rem;
+      border-radius: 60px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #fef7e9;
+      cursor: pointer;
+      box-shadow: 0 5px 0 #1d3b31;
+      transition: all 0.12s;
+      border: 1px solid #54806c;
+      letter-spacing: 0.3px;
+    }
+    .restart-btn {
+      background: #5f4e3c;
+      box-shadow: 0 5px 0 #3e3226;
+      border-color: #8b7a64;
+      padding: 0.9rem 1.8rem;
+    }
+    .next-btn:hover, .restart-btn:hover {
+      filter: brightness(1.08);
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 #1d3b31;
+    }
+    .restart-btn:hover {
+      box-shadow: 0 7px 0 #3e3226;
+    }
+    .next-btn:active, .restart-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #1d3b31;
+    }
+    .restart-btn:active {
+      box-shadow: 0 2px 0 #3e3226;
+    }
+    .next-btn:disabled {
+      opacity: 0.5;
+      transform: none;
+      box-shadow: 0 5px 0 #1d3b31;
+      pointer-events: none;
+    }
+    .progress-indicator {
+      font-size: 0.95rem;
+      color: #4e5b44;
+      background: #e0d4c1;
+      padding: 0.35rem 1.2rem;
+      border-radius: 30px;
+    }
+    .final-message {
+      text-align: center;
+      font-size: 1.6rem;
+      margin: 2rem 0;
+    }
+    .ar {
+      font-family: 'Amiri Quran', 'Amiri', serif;
+      direction: rtl;
+    }
+    .small-note {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #6a5e4e;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="quiz-card" id="quizApp">
+  <h1>
+    📖 تَجْوِيد · Tajweed 
+    <span>غُنَّة · قَلْقَلَة · تَفْخِيم</span>
+  </h1>
+  <div class="subhead">
+    <div class="reference">🌿 مِن سُورَةِ عَبَسَ (based on images)</div>
+    <div class="score-area" id="scoreDisplay">Score: 0 / 8</div>
+  </div>
+
+  <!-- dynamic area -->
+  <div id="quizContent">
+    <div class="question-box">
+      <div class="arabic-word" id="arabicWord">أَعُوذُ بِاللَّهِ</div>
+      <div class="question-text" id="questionPrompt">Loading...</div>
+      <div class="options-grid" id="optionsContainer"></div>
+      <div class="feedback" id="feedbackMsg">✨ Choose an answer to see the rule.</div>
+    </div>
+    <div class="action-bar">
+      <div class="progress-indicator" id="progressText">Question 1 / 8</div>
+      <div>
+        <button class="restart-btn" id="restartBtn">↻ Restart</button>
+        <button class="next-btn" id="nextBtn">Next →</button>
+      </div>
+    </div>
+  </div>
+  <div class="small-note">
+    ⚡ Ghunnah · Heavy (tafkheem) & light (tarqeeq) · Qalqalah (ق ط ب ج د)
+  </div>
+</div>
+
+<script>
+  (function(){
+    "use strict";
+
+    // ---------- QUIZ DATA (based on images, with accurate Tajweed) ----------
+    const questions = [
+      {
+        // Q1: Qalqalah in "فَأَقْبَرَهُ" (image: فَأَفْرَبَهُ, corrected)
+        arabic: "فَأَقْبَرَهُ",
+        prompt: "Which letter in this word is pronounced with Qalqalah?",
+        options: ["ق", "ب", "ر", "هـ"],
+        correct: 0, // ق (sakin in أَقْبَرَهُ)
+        explanation: "✅ ق (qāf) is sākin in 'أَقْبَرَهُ' → Qalqalah (echo). Letters of Qalqalah: ق ط ب ج د."
+      },
+      {
+        // Q2: Ghunnah (shaddah on meem) from "ثُمَّ أَمَاتَهُ"
+        arabic: "ثُمَّ أَمَاتَهُ",
+        prompt: "Where is Ghunnah (nasal humming) applied?",
+        options: ["مّ in ثُمَّ", "ا in أَمَاتَهُ", "ت in أَمَاتَهُ", "No Ghunnah"],
+        correct: 0,
+        explanation: "✅ The doubled meem (مّ) in 'ثُمَّ' has shaddah → mandatory Ghunnah (2 counts)."
+      },
+      {
+        // Q3: Heavy letter (tafkheem) in "طَعَامِهِ"
+        arabic: "طَعَامِهِ",
+        prompt: "Which letter is a heavy (mufakhkham) letter?",
+        options: ["ط", "ع", "م", "ه"],
+        correct: 0,
+        explanation: "✅ ط (Ṭā) is always heavy (tafkheem). Heavy letters: خ ص ض غ ط ق ظ."
+      },
+      {
+        // Q4: Heavy letter in "الْأَرْضَ"
+        arabic: "الْأَرْضَ",
+        prompt: "Identify the heavy letter (tafkheem) in this word:",
+        options: ["ا", "ل", "ر", "ض"],
+        correct: 3,
+        explanation: "✅ ض (Ḍād) is one of the heavy letters. It is always pronounced with tafkheem."
+      },
+      {
+        // Q5: Light letter (tarqeeq) in "مُسْفِرَةٌ" (from image: مُسْفَرَةٌ but corrected)
+        arabic: "مُسْفِرَةٌ",
+        prompt: "Which letter is always light (muraqqaq)?",
+        options: ["م", "س", "ف", "ر"],
+        correct: 1, // س (seen) is light
+        explanation: "✅ س (sīn) is a light letter. Most letters are light except the 7 heavy ones."
+      },
+      {
+        // Q6: Ghunnah in "إِنَّا" from "إِنَّا صَبَبْنَا" (image: فَأَنصِبَتْ أَلْمَاءَ صَبَّا)
+        arabic: "إِنَّا",
+        prompt: "Which part contains Ghunnah?",
+        options: ["نّ (shaddah)", "ا (alif)", "إ (hamzah)", "None"],
+        correct: 0,
+        explanation: "✅ The doubled نّ (noon with shaddah) requires Ghunnah (nasal sound)."
+      },
+      {
+        // Q7: Qalqalah in "الْفَجْرِ" — but from image? we use "الْفَجْرِ" (mentioned in Al-Fajr, but we connect with image: "الْفَجْرُ" appeared. We use correct one)
+        arabic: "وَالْفَجْرِ",
+        prompt: "Which letter in 'وَالْفَجْرِ' has Qalqalah?",
+        options: ["و", "ف", "ج", "ر"],
+        correct: 2, // ج (jeem) is sakin in الْفَجْرِ? Actually الْفَجْرِ: fatha on fa, jeem sukoon, ra kasra. ج sakin → Qalqalah.
+        explanation: "✅ ج (jīm) is sākin → Qalqalah. Qalqalah letters when sākin: ق ط ب ج د."
+      },
+      {
+        // Q8: Heavy vs light: ر in "الْكَفَرَةُ" (image: كَفَرَهُ) but we use proper ر with fatha (heavy)
+        arabic: "الْكَفَرَةُ",
+        prompt: "How is the letter ر (rā) pronounced here?",
+        options: ["Heavy (tafkheem)", "Light (tarqeeq)", "Both possible", "Depends on reciter"],
+        correct: 0,
+        explanation: "✅ ر with fatḥa (رَ) is heavy. ر is heavy when it has fatḥa or ḍamma, light with kasra."
+      }
+    ];
+
+    // ---------- APP STATE ----------
+    let currentIndex = 0;
+    let score = 0;
+    let userAnswered = false;     // if an option was clicked
+    let quizFinished = false;
+    
+    // DOM elements
+    const arabicWordEl = document.getElementById('arabicWord');
+    const questionPromptEl = document.getElementById('questionPrompt');
+    const optionsContainer = document.getElementById('optionsContainer');
+    const feedbackMsg = document.getElementById('feedbackMsg');
+    const progressText = document.getElementById('progressText');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    const nextBtn = document.getElementById('nextBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    
+    // Helper to update score display
+    function updateScoreUI() {
+      scoreDisplay.textContent = `Score: ${score} / ${questions.length}`;
+    }
+    
+    // Render question by index
+    function renderQuestion(index) {
+      const q = questions[index];
+      arabicWordEl.textContent = q.arabic;
+      questionPromptEl.textContent = q.prompt;
+      
+      // Generate options buttons
+      optionsContainer.innerHTML = '';
+      q.options.forEach((optText, optIdx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.textContent = optText;
+        btn.setAttribute('data-opt-index', optIdx);
+        btn.addEventListener('click', () => handleOptionClick(optIdx, btn));
+        optionsContainer.appendChild(btn);
+      });
+      
+      // Reset feedback
+      feedbackMsg.textContent = '📌 Choose the correct answer.';
+      feedbackMsg.style.color = '#1e2f1e';
+      
+      // Enable all options & next button state
+      const allOpts = document.querySelectorAll('.option-btn');
+      allOpts.forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove('correct', 'wrong');
+      });
+      
+      userAnswered = false;
+      nextBtn.disabled = true;
+      
+      // Progress text
+      progressText.textContent = `Question ${index + 1} / ${questions.length}`;
+      
+      // If we are at the end but not finished? Actually handled separately.
+    }
+    
+    // Handle option click
+    function handleOptionClick(optIdx, clickedBtn) {
+      if (userAnswered) return; // already answered
+      const q = questions[currentIndex];
+      const isCorrect = (optIdx === q.correct);
+      
+      // Disable all options
+      const allOptions = document.querySelectorAll('.option-btn');
+      allOptions.forEach(btn => { btn.disabled = true; });
+      
+      // Mark correct and wrong
+      allOptions.forEach((btn, idx) => {
+        if (idx === q.correct) {
+          btn.classList.add('correct');
+        } else if (idx === optIdx && !isCorrect) {
+          btn.classList.add('wrong');
+        }
+      });
+      
+      // Update score
+      if (isCorrect) {
+        score++;
+        updateScoreUI();
+        feedbackMsg.textContent = `✅ Correct! ${q.explanation}`;
+      } else {
+        feedbackMsg.textContent = `❌ Not quite. The correct answer is "${q.options[q.correct]}". ${q.explanation}`;
+      }
+      
+      userAnswered = true;
+      nextBtn.disabled = false;
+    }
+    
+    // Move to next question or finish
+    function goToNext() {
+      if (!userAnswered && !quizFinished) return;
+      
+      if (currentIndex < questions.length - 1) {
+        currentIndex++;
+        renderQuestion(currentIndex);
+        // Re-enable next button disabled until answer
+      } else {
+        // Quiz finished
+        finishQuiz();
+      }
+    }
+    
+    function finishQuiz() {
+      quizFinished = true;
+      // Show final screen
+      arabicWordEl.textContent = '✨ أَحْسَنْتُمْ ✨';
+      questionPromptEl.textContent = `You completed the Tajweed quiz!`;
+      optionsContainer.innerHTML = ''; // clear options
+      
+      const perfect = score === questions.length;
+      feedbackMsg.innerHTML = perfect ? 
+        `🌟 Excellent! ${score}/${questions.length} — Master of Ghunnah, heavy/light & Qalqalah.` :
+        `📚 You scored ${score} out of ${questions.length}. Review the rules and try again!`;
+      feedbackMsg.style.fontWeight = '600';
+      
+      progressText.textContent = `Completed • ${score}/${questions.length}`;
+      nextBtn.disabled = true;  // no next
+      
+      // Show restart only (already there)
+    }
+    
+    // Restart quiz
+    function restartQuiz() {
+      currentIndex = 0;
+      score = 0;
+      quizFinished = false;
+      userAnswered = false;
+      
+      updateScoreUI();
+      renderQuestion(0);
+      nextBtn.disabled = true;  // initially disabled until answer
+      
+      // Clear any final state
+      feedbackMsg.style.fontWeight = '500';
+    }
+    
+    // Event listeners
+    nextBtn.addEventListener('click', goToNext);
+    restartBtn.addEventListener('click', () => {
+      restartQuiz();
+    });
+    
+    // Initial render
+    function initQuiz() {
+      currentIndex = 0;
+      score = 0;
+      quizFinished = false;
+      updateScoreUI();
+      renderQuestion(0);
+      nextBtn.disabled = true;
+    }
+    
+    initQuiz();
+
+    // Additional: if user tries to click next without answer, nothing happens (disabled)
+    // Accessibility: keyboard etc fine.
+    
+    // In case of restart after finishing
+    // Also handle finish edge: if next called at last question, finishQuiz sets quizFinished.
+    // Modify goToNext to prevent double finish
+    const originalNext = goToNext;
+    window.goToNext = function() {
+      if (quizFinished) return;
+      if (currentIndex === questions.length - 1 && userAnswered) {
+        finishQuiz();
+      } else if (currentIndex < questions.length - 1) {
+        currentIndex++;
+        renderQuestion(currentIndex);
+        nextBtn.disabled = true;
+      }
+    };
+    // Re-bind
+    nextBtn.removeEventListener('click', goToNext);
+    nextBtn.addEventListener('click', function() {
+      if (quizFinished) return;
+      if (!userAnswered) return;
+      if (currentIndex === questions.length - 1) {
+        finishQuiz();
+      } else {
+        currentIndex++;
+        renderQuestion(currentIndex);
+        nextBtn.disabled = true;
+      }
+    });
+    
+    // Ensure restart works correctly even after finish
+    restartBtn.addEventListener('click', function() {
+      currentIndex = 0;
+      score = 0;
+      quizFinished = false;
+      userAnswered = false;
+      updateScoreUI();
+      renderQuestion(0);
+      nextBtn.disabled = true;
+      feedbackMsg.style.fontWeight = '500';
+    });
+    
+    // Fix: after restart, next button state.
+    // Also if restart while finished.
+  })();
+</script>
+</body>
+</html>
