@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Arabic Vowels Test · The Way To Allah</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #fdf8ec;
+      font-family: 'Segoe UI', 'Noto Naskh Arabic', 'Scheherazade New', 'Traditional Arabic', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 14px;
+    }
+    .main-card {
+      max-width: 680px;
+      width: 100%;
+      background: white;
+      border-radius: 32px;
+      box-shadow: 0 25px 45px rgba(0,0,0,0.08);
+      overflow: hidden;
+      border: 1px solid #e6d7b8;
+    }
+    .header {
+      background: linear-gradient(135deg, #1e5a3c, #2c7748);
+      padding: 18px 18px 14px;
+      text-align: center;
+      color: white;
+    }
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #f3d779;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      margin-bottom: 6px;
+      background: white;
+    }
+    .academy-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #f9eec1;
+    }
+    .bismillah {
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 1.3rem;
+      margin: 6px 0 0;
+      color: #fefae0;
+    }
+    .student-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 14px 0 4px;
+      flex-wrap: wrap;
+    }
+    .student-row label {
+      font-weight: 600;
+      color: #ffe8b5;
+    }
+    #studentNameInput {
+      padding: 8px 16px;
+      border-radius: 24px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: center;
+      width: 160px;
+      background: rgba(255,255,255,0.9);
+      color: #1e4a2c;
+      outline: 2px solid transparent;
+    }
+    #studentNameInput:focus {
+      outline: 2px solid #f3d779;
+    }
+    .tab-bar {
+      display: flex;
+      background: #f7f0e0;
+      border-bottom: 1px solid #dacba4;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 14px 6px;
+      background: transparent;
+      border: none;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #5a4a2e;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      border-bottom: 3px solid transparent;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .tab-btn.active {
+      opacity: 1;
+      pointer-events: auto;
+      color: #1e5a3c;
+      background: #ffffff;
+      border-bottom: 3px solid #c8960c;
+    }
+    .tab-btn.enabled {
+      opacity: 1;
+      pointer-events: auto;
+      color: #3e4d2e;
+      background: #faf6ee;
+      border-bottom: 3px solid #dad0b0;
+    }
+    .progress-wrap {
+      padding: 12px 24px 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .progress-outer {
+      flex: 1;
+      height: 8px;
+      background: #e7dfcc;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .progress-inner {
+      height: 100%;
+      background: #c8960c;
+      width: 0%;
+      border-radius: 20px;
+      transition: width 0.4s;
+    }
+    .progress-label {
+      font-weight: 700;
+      color: #4d3e24;
+      min-width: 48px;
+    }
+    .question-area {
+      padding: 6px 24px 16px;
+      text-align: center;
+    }
+    .instruction {
+      font-size: 0.9rem;
+      color: #5e503a;
+      margin: 8px 0 14px;
+    }
+    .word-box {
+      background: #fefaf2;
+      border: 2px dashed #dac08c;
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 16px;
+      direction: rtl;
+    }
+    .word-arabic {
+      font-family: 'Noto Naskh Arabic', 'Scheherazade New', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #2d2412;
+      letter-spacing: 1px;
+      direction: rtl;
+      white-space: nowrap;
+      overflow-x: auto;
+      display: inline-block;
+      max-width: 100%;
+      padding: 4px 8px;
+    }
+    .hl {
+      background: #fff3c4;
+      padding: 2px 6px;
+      border-radius: 8px;
+      border-bottom: 3px solid #e0a800;
+      display: inline-block;
+    }
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin: 6px 0 10px;
+    }
+    .opt-btn {
+      padding: 14px 6px;
+      border-radius: 16px;
+      border: 2px solid #ddd0b8;
+      background: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .opt-btn .sym {
+      font-size: 2.2rem;
+    }
+    .opt-btn.correct-pick {
+      background: #d4edda;
+      border-color: #2d7d46;
+    }
+    .opt-btn.wrong-pick {
+      background: #ffe0d6;
+      border-color: #c75b2a;
+    }
+    .opt-btn.show-correct {
+      background: #e6f7e6;
+      border-color: #2d7d46;
+    }
+    .feedback {
+      min-height: 28px;
+      font-weight: 600;
+      margin: 8px 0;
+    }
+    .btn-next {
+      display: inline-block;
+      margin: 6px auto 14px;
+      padding: 12px 30px;
+      border-radius: 30px;
+      background: #1e5a3c;
+      color: white;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(30,90,60,0.3);
+    }
+    .listen-btn {
+      background: #f0e6d0;
+      border: 2px solid #b8965c;
+      border-radius: 40px;
+      padding: 10px 24px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .results-panel {
+      text-align: center;
+      padding: 20px 24px;
+      display: none;
+    }
+    .results-panel.show {
+      display: block;
+    }
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #f9f3e5;
+      margin: 0 auto 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+    .share-btn {
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 700;
+      margin: 12px 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .speaking-section {
+      padding: 12px 24px 18px;
+      background: #faf7f2;
+      border-top: 2px solid #dacba4;
+      text-align: center;
+      display: none;
+    }
+    .speak-word {
+      font-size: 2.5rem;
+      font-family: 'Noto Naskh Arabic', serif;
+      margin: 10px 0;
+      direction: rtl;
+    }
+    .speak-btns button {
+      margin: 6px 4px;
+      padding: 10px 18px;
+      border-radius: 26px;
+      font-weight: 600;
+      border: 2px solid #b8965c;
+      background: white;
+      cursor: pointer;
+    }
+    .mic-hint {
+      font-size: 0.8rem;
+      color: #8b7355;
+      margin: 6px 0 10px;
+    }
+    .ai-feedback-box {
+      background: #f0f7ff;
+      border: 2px solid #4a90c4;
+      border-radius: 16px;
+      padding: 14px;
+      margin: 16px 0;
+      color: #1a3e5c;
+      font-weight: 500;
+      text-align: left;
+    }
+    .ai-feedback-box h4 {
+      margin: 0 0 6px;
+      color: #2a5f82;
+    }
+    @media (max-width: 500px) {
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+      .word-arabic {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="main-card">
+  <div class="header">
+    <img src="https://i.postimg.cc/brVD4yVm/logo-jpeg.jpg" alt="Academy Logo" class="logo-img">
+    <div class="academy-title">The Way To Allah</div>
+    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <div class="student-row">
+      <label for="studentNameInput">👨‍🎓 Student:</label>
+      <input type="text" id="studentNameInput" placeholder="Your Name">
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" id="tabReading">📖 Reading</button>
+    <button class="tab-btn" id="tabListening" disabled>🎧 Listening</button>
+    <button class="tab-btn" id="tabSpeaking" disabled>🎤 Speaking</button>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-outer"><div class="progress-inner" id="progressBar"></div></div>
+    <div class="progress-label" id="progressLabel">0/15</div>
+  </div>
+
+  <div class="question-area" id="questionArea">
+    <div class="instruction" id="instructionText">🔍 Which short vowel is on the highlighted letter?</div>
+    <div class="word-box" id="wordBox">
+      <div class="word-arabic" id="wordArabic"></div>
+    </div>
+    <button class="listen-btn" id="listenBtn" style="display:none;">🔊 Play Audio</button>
+    <div class="options-grid" id="optionsGrid">
+      <button class="opt-btn" data-vowel="fatha"><span class="sym">◌َ</span> Fatḥah</button>
+      <button class="opt-btn" data-vowel="kasrah"><span class="sym">◌ِ</span> Kasrah</button>
+      <button class="opt-btn" data-vowel="dammah"><span class="sym">◌ُ</span> Ḍammah</button>
+    </div>
+    <div class="feedback" id="feedbackArea"></div>
+    <button class="btn-next" id="btnNext" style="display:none;">Next →</button>
+  </div>
+
+  <div class="speaking-section" id="speakingSection">
+    <h4>🎤 Speaking Test</h4>
+    <p class="mic-hint">🎙️ Microphone will be requested <strong>once</strong>. Please choose <em>"Allow while visiting the site"</em>.</p>
+    <div class="speak-word" id="speakWordDisplay">سَجَدَ</div>
+    <button id="speakListenBtn">🔊 Listen</button>
+    <button id="speakRecordBtn">🎙️ Record</button>
+    <button id="speakPlaybackBtn" disabled>▶️ Play My Recording</button>
+    <button id="speakNextWordBtn">⏩ Next Word</button>
+    <p id="speakStatus" style="font-size:0.85rem;"></p>
+    <div id="speakFeedbackAI" style="margin-top:12px; font-weight:600; background:#fffae6; padding:8px; border-radius:12px;"></div>
+  </div>
+
+  <div class="results-panel" id="resultsPanel">
+    <div class="score-circle" id="scoreCircle">
+      <span style="font-size:2.8rem;" id="finalScore">0</span>
+      <span>out of 25</span>
+    </div>
+    <!-- Overall AI speaking feedback will appear here -->
+    <div class="ai-feedback-box" id="speakingSummaryFeedback" style="display:none;">
+      <h4>🤖 AI Speaking Analysis</h4>
+      <p id="speakingSummaryText"></p>
+    </div>
+    <h3 id="resultsMsg"></h3>
+    <p id="resultsDetail"></p>
+    <button class="share-btn" id="shareWhatsApp">📤 Share on WhatsApp</button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ----- AUDIO BEEPS -----
+    let audioCtx = null;
+    function beep(type) {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        const now = audioCtx.currentTime;
+        osc.type = 'sine';
+        if (type === 'correct') {
+          osc.frequency.value = 880;
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+          osc.start(now); osc.stop(now + 0.2);
+        } else {
+          osc.frequency.value = 330;
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.start(now); osc.stop(now + 0.35);
+        }
+      } catch (e) {}
+    }
+
+    // ----- QUESTION DATA -----
+    const readingQuestions = [
+      { wordHTML: '<span class="hl">سَ</span>جَدَ', correct: 'fatha', full: 'سَجَدَ' },
+      { wordHTML: '<span class="hl">ذَ</span>هَبَ', correct: 'fatha', full: 'ذَهَبَ' },
+      { wordHTML: '<span class="hl">جَ</span>مَالًا', correct: 'fatha', full: 'جَمَالًا' },
+      { wordHTML: '<span class="hl">بَ</span>سَطَ', correct: 'fatha', full: 'بَسَطَ' },
+      { wordHTML: '<span class="hl">صَ</span>بَرَ', correct: 'fatha', full: 'صَبَرَ' },
+      { wordHTML: 'شَ<span class="hl">رِ</span>بَ', correct: 'kasrah', full: 'شَرِبَ' },
+      { wordHTML: 'لَ<span class="hl">بِ</span>سَ', correct: 'kasrah', full: 'لَبِسَ' },
+      { wordHTML: 'جُ<span class="hl">رِ</span>حَ', correct: 'kasrah', full: 'جُرِحَ' },
+      { wordHTML: 'عَ<span class="hl">لِ</span>مَ', correct: 'kasrah', full: 'عَلِمَ' },
+      { wordHTML: 'فَعَ<span class="hl">لِ</span>مَ', correct: 'kasrah', full: 'فَعَلِمَ' },
+      { wordHTML: '<span class="hl">كُ</span>تُبَ', correct: 'dammah', full: 'كُتُبَ' },
+      { wordHTML: '<span class="hl">رُ</span>زِقَ', correct: 'dammah', full: 'رُزِقَ' },
+      { wordHTML: '<span class="hl">عُ</span>مَرُ', correct: 'dammah', full: 'عُمَرُ' },
+      { wordHTML: '<span class="hl">نُ</span>صِرَ', correct: 'dammah', full: 'نُصِرَ' },
+      { wordHTML: '<span class="hl">خُ</span>لِعَ', correct: 'dammah', full: 'خُلِعَ' }
+    ];
+    const listeningQuestions = [
+      { text: 'شَرِبَ', highlightIndex: 1, correct: 'kasrah', display: 'ش<span class="hl">ر</span>ب' },
+      { text: 'ذَهَبَ', highlightIndex: 0, correct: 'fatha', display: '<span class="hl">ذ</span>هب' },
+      { text: 'كُتُبَ', highlightIndex: 0, correct: 'dammah', display: '<span class="hl">ك</span>تب' },
+      { text: 'جُرِحَ', highlightIndex: 1, correct: 'kasrah', display: 'ج<span class="hl">ر</span>ح' },
+      { text: 'عُمَرُ', highlightIndex: 0, correct: 'dammah', display: '<span class="hl">ع</span>مر' }
+    ];
+    const speakingWords = ['سَجَدَ', 'ذَهَبَ', 'شَرِبَ', 'كُتُبَ', 'عُمَرُ'];
+    const speakingPlain = ['سجد', 'ذهب', 'شرب', 'كتب', 'عمر'];
+
+    function shuffle(arr) {
+      let a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    let readingQ = shuffle(readingQuestions);
+    let listeningQ = shuffle(listeningQuestions);
+    let currentIndex = 0;
+    let readingScore = 0, listeningScore = 0, speakingScore = 0;
+    let answered = false;
+    let autoAdvanceTimer = null;
+    const totalReading = readingQ.length, totalListening = listeningQ.length, totalSpeaking = speakingWords.length;
+
+    const tabReading = document.getElementById('tabReading');
+    const tabListening = document.getElementById('tabListening');
+    const tabSpeaking = document.getElementById('tabSpeaking');
+    const progressWrap = document.getElementById('progressWrap');
+    const progressBar = document.getElementById('progressBar');
+    const progressLabel = document.getElementById('progressLabel');
+    const questionArea = document.getElementById('questionArea');
+    const instructionText = document.getElementById('instructionText');
+    const wordArabic = document.getElementById('wordArabic');
+    const wordBox = document.getElementById('wordBox');
+    const listenBtn = document.getElementById('listenBtn');
+    const feedbackArea = document.getElementById('feedbackArea');
+    const btnNext = document.getElementById('btnNext');
+    const resultsPanel = document.getElementById('resultsPanel');
+    const finalScoreSpan = document.getElementById('finalScore');
+    const resultsMsg = document.getElementById('resultsMsg');
+    const resultsDetail = document.getElementById('resultsDetail');
+    const shareBtn = document.getElementById('shareWhatsApp');
+    const speakingSection = document.getElementById('speakingSection');
+    const speakWordDisplay = document.getElementById('speakWordDisplay');
+    const speakStatus = document.getElementById('speakStatus');
+    const speakFeedbackAI = document.getElementById('speakFeedbackAI');
+    const speakRecordBtn = document.getElementById('speakRecordBtn');
+    const speakPlaybackBtn = document.getElementById('speakPlaybackBtn');
+    const speakNextWordBtn = document.getElementById('speakNextWordBtn');
+    const speakListenBtn = document.getElementById('speakListenBtn');
+    const speakingSummaryFeedback = document.getElementById('speakingSummaryFeedback');
+    const speakingSummaryText = document.getElementById('speakingSummaryText');
+    const optionButtons = document.querySelectorAll('.opt-btn');
+
+    function updateProgress() {
+      let total, idx;
+      if (currentTab === 'reading') { total = totalReading; idx = currentIndex; }
+      else if (currentTab === 'listening') { total = totalListening; idx = currentIndex; }
+      else if (currentTab === 'speaking') { total = totalSpeaking; idx = currentIndex; }
+      progressLabel.textContent = idx + '/' + total;
+      progressBar.style.width = ((idx / total) * 100) + '%';
+    }
+
+    function resetOptions() {
+      optionButtons.forEach(b => {
+        b.classList.remove('correct-pick', 'wrong-pick', 'show-correct');
+        b.disabled = false;
+      });
+      wordBox.style.borderColor = '#dac08c';
+      feedbackArea.textContent = '';
+      btnNext.style.display = 'none';
+      if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+      autoAdvanceTimer = null;
+    }
+
+    let currentTab = 'reading';
+    let sharedMicStream = null;
+
+    async function getSharedMicStream() {
+      if (sharedMicStream && sharedMicStream.active) return sharedMicStream;
+      try {
+        sharedMicStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        return sharedMicStream;
+      } catch (e) {
+        if (e.name === 'NotAllowedError' || e.name === 'PermissionDeniedError') {
+          alert('Microphone access was denied. Please allow it in browser settings.');
+        } else {
+          alert('Could not access microphone: ' + e.message);
+        }
+        throw e;
+      }
+    }
+
+    function releaseSharedMicStream() {
+      if (sharedMicStream) {
+        sharedMicStream.getTracks().forEach(t => t.stop());
+        sharedMicStream = null;
+      }
+    }
+
+    function cleanupSpeakingResources() {
+      releaseSharedMicStream();
+      if (window.currentRecognition) {
+        try { window.currentRecognition.stop(); } catch(e) {}
+        window.currentRecognition = null;
+      }
+      if (window.currentMediaRecorder && window.currentMediaRecorder.state !== 'inactive') {
+        window.currentMediaRecorder.stop();
+      }
+      window.currentMediaRecorder = null;
+    }
+
+    function switchTab(tab) {
+      if (currentTab === 'speaking' && tab !== 'speaking') {
+        cleanupSpeakingResources();
+      }
+      currentTab = tab;
+      currentIndex = 0;
+      resetOptions();
+      answered = false;
+      if (tab === 'reading') {
+        instructionText.textContent = '🔍 Which short vowel is on the highlighted letter?';
+        listenBtn.style.display = 'none';
+        wordArabic.innerHTML = readingQ[0].wordHTML;
+        questionArea.style.display = 'block';
+        speakingSection.style.display = 'none';
+        progressWrap.style.display = 'flex';
+      } else if (tab === 'listening') {
+        instructionText.textContent = '🎧 Listen to the word. Which vowel is on the highlighted letter?';
+        listenBtn.style.display = 'inline-block';
+        wordArabic.innerHTML = listeningQ[0].display;
+        questionArea.style.display = 'block';
+        speakingSection.style.display = 'none';
+        progressWrap.style.display = 'flex';
+      } else if (tab === 'speaking') {
+        questionArea.style.display = 'none';
+        speakingSection.style.display = 'block';
+        progressWrap.style.display = 'flex';
+        speakIndex = 0;
+        loadSpeakingWord();
+        getSharedMicStream().then(() => {
+          speakStatus.textContent = '✅ Microphone ready.';
+        }).catch(() => {
+          speakStatus.textContent = '⚠️ Microphone not available.';
+        });
+      }
+      updateProgress();
+      optionButtons.forEach(b => b.disabled = false);
+    }
+
+    function enableTab(tabId) {
+      const btn = document.getElementById(tabId);
+      btn.disabled = false;
+      btn.classList.add('enabled');
+    }
+
+    tabReading.addEventListener('click', () => { if (currentTab !== 'reading') switchTab('reading'); });
+    tabListening.addEventListener('click', () => { if (currentTab !== 'listening' && !tabListening.disabled) switchTab('listening'); });
+    tabSpeaking.addEventListener('click', () => { if (currentTab !== 'speaking' && !tabSpeaking.disabled) switchTab('speaking'); });
+
+    function speakWord(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'ar'; u.rate = 0.9;
+        window.speechSynthesis.speak(u);
+      }
+    }
+
+    listenBtn.addEventListener('click', () => {
+      if (currentTab === 'listening') speakWord(listeningQ[currentIndex].text);
+    });
+
+    function goNext() {
+      if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+      autoAdvanceTimer = null;
+      if (currentTab === 'reading') {
+        if (currentIndex + 1 < totalReading) { currentIndex++; loadQuestion(); }
+        else { enableTab('tabListening'); switchTab('listening'); }
+      } else if (currentTab === 'listening') {
+        if (currentIndex + 1 < totalListening) { currentIndex++; loadQuestion(); }
+        else { enableTab('tabSpeaking'); switchTab('speaking'); }
+      } else if (currentTab === 'speaking') {
+        if (currentIndex + 1 < totalSpeaking) { currentIndex++; loadSpeakingWord(); }
+        else { cleanupSpeakingResources(); showResults(); }
+      }
+    }
+
+    function handleAnswer(vowel) {
+      if (answered || currentTab === 'speaking') return;
+      answered = true;
+      let correctVowel;
+      if (currentTab === 'reading') correctVowel = readingQ[currentIndex].correct;
+      else correctVowel = listeningQ[currentIndex].correct;
+
+      const isCorrect = (vowel === correctVowel);
+      if (isCorrect) {
+        if (currentTab === 'reading') readingScore++; else listeningScore++;
+        beep('correct');
+      } else beep('wrong');
+
+      optionButtons.forEach(b => {
+        b.disabled = true;
+        if (b.dataset.vowel === vowel) b.classList.add(isCorrect ? 'correct-pick' : 'wrong-pick');
+        if (b.dataset.vowel === correctVowel) b.classList.add('show-correct');
+      });
+      wordBox.style.borderColor = isCorrect ? '#2d7d46' : '#c75b2a';
+      feedbackArea.textContent = isCorrect ? '✅ Correct! مُمْتَاز' : '❌ Incorrect. Correct answer shown.';
+      btnNext.style.display = 'inline-block';
+      autoAdvanceTimer = setTimeout(() => { goNext(); }, 1200);
+    }
+
+    optionButtons.forEach(b => b.addEventListener('click', () => handleAnswer(b.dataset.vowel)));
+    btnNext.addEventListener('click', goNext);
+
+    function loadQuestion() {
+      resetOptions();
+      answered = false;
+      if (currentTab === 'reading') {
+        wordArabic.innerHTML = readingQ[currentIndex].wordHTML;
+        listenBtn.style.display = 'none';
+      } else if (currentTab === 'listening') {
+        wordArabic.innerHTML = listeningQ[currentIndex].display;
+        listenBtn.style.display = 'inline-block';
+      }
+      updateProgress();
+    }
+
+    let speakIndex = 0;
+    let recordedBlob = null;
+
+    function loadSpeakingWord() {
+      speakWordDisplay.textContent = speakingWords[speakIndex];
+      speakPlaybackBtn.disabled = true;
+      recordedBlob = null;
+      speakStatus.textContent = '';
+      speakFeedbackAI.textContent = '';
+      updateProgress();
+    }
+
+    speakListenBtn.addEventListener('click', () => speakWord(speakingWords[speakIndex]));
+
+    speakRecordBtn.addEventListener('click', async () => {
+      try {
+        const stream = await getSharedMicStream();
+        const mediaRecorder = new MediaRecorder(stream);
+        window.currentMediaRecorder = mediaRecorder;
+        const chunks = [];
+        mediaRecorder.ondataavailable = e => chunks.push(e.data);
+        mediaRecorder.onstop = () => {
+          recordedBlob = new Blob(chunks, { type: 'audio/webm' });
+          speakPlaybackBtn.disabled = false;
+          window.currentMediaRecorder = null;
+        };
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+          const recognition = new SpeechRecognition();
+          window.currentRecognition = recognition;
+          recognition.lang = 'ar';
+          recognition.interimResults = false;
+          recognition.maxAlternatives = 1;
+          recognition.start();
+          recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript.trim();
+            const expectedPlain = speakingPlain[speakIndex];
+            const userClean = transcript.replace(/[ًٌٍَُِْ]/g, '').replace(/\s/g, '');
+            const isMatch = userClean === expectedPlain;
+            speakFeedbackAI.innerHTML = `🤖 AI Feedback: You said "<strong>${transcript}</strong>". Expected: "${speakingWords[speakIndex]}". ` +
+              (isMatch ? '✅ Excellent pronunciation!' : '❌ Needs practice. Try again.');
+            if (isMatch) speakingScore++;
+          };
+          recognition.onerror = () => { speakFeedbackAI.textContent = '🤖 AI could not understand. Please try again.'; };
+        }
+        mediaRecorder.start();
+        speakStatus.textContent = '🔴 Recording...';
+        speakRecordBtn.disabled = true;
+        setTimeout(() => {
+          if (mediaRecorder.state === 'recording') mediaRecorder.stop();
+          if (window.currentRecognition) {
+            try { window.currentRecognition.stop(); } catch(e) {}
+            window.currentRecognition = null;
+          }
+          speakRecordBtn.disabled = false;
+          speakStatus.textContent = '✅ Recording finished. Press Play to listen.';
+        }, 3000);
+      } catch (e) {
+        speakStatus.textContent = '❌ Microphone not available.';
+      }
+    });
+
+    speakPlaybackBtn.addEventListener('click', () => {
+      if (recordedBlob) {
+        const url = URL.createObjectURL(recordedBlob);
+        new Audio(url).play();
+      }
+    });
+
+    speakNextWordBtn.addEventListener('click', () => {
+      if (speakIndex + 1 < totalSpeaking) { speakIndex++; loadSpeakingWord(); }
+      else { cleanupSpeakingResources(); showResults(); }
+    });
+
+    function showResults() {
+      questionArea.style.display = 'none';
+      speakingSection.style.display = 'none';
+      progressWrap.style.display = 'none';
+      resultsPanel.classList.add('show');
+      const totalScore = readingScore + listeningScore + speakingScore;
+      finalScoreSpan.textContent = totalScore;
+
+      // ----- AI speaking feedback summary -----
+      const maxSpeaking = totalSpeaking;
+      let aiMessage = '';
+      if (speakingScore === maxSpeaking) {
+        aiMessage = '🎉 Outstanding! Your pronunciation of all words was perfect. You clearly distinguish Fatḥah, Kasrah, and Ḍammah. Keep it up!';
+      } else if (speakingScore >= maxSpeaking - 1) {
+        aiMessage = '👍 Very good! Almost perfect pronunciation. A tiny bit more practice on one word will make it flawless.';
+      } else if (speakingScore >= Math.ceil(maxSpeaking / 2)) {
+        aiMessage = '📈 Good effort! You pronounced more than half correctly. Focus on the words you missed and listen to the model again.';
+      } else {
+        aiMessage = '📚 Keep practicing! Your pronunciation needs more work. Use the Listen button frequently and repeat each word until you match the sound.';
+      }
+      speakingSummaryText.textContent = aiMessage;
+      speakingSummaryFeedback.style.display = 'block';
+
+      let msg, detail;
+      if (totalScore >= 23) {
+        msg = '🏆 Outstanding!';
+        detail = 'Perfect harakat recognition!';
+      } else if (totalScore >= 18) {
+        msg = '👏 Very Good!';
+        detail = 'Keep strengthening your vowel sounds.';
+      } else {
+        msg = '📖 Keep Learning';
+        detail = 'Review the short vowels and try again later.';
+      }
+      resultsMsg.textContent = msg;
+      resultsDetail.textContent = detail;
+    }
+
+    shareBtn.addEventListener('click', () => {
+      const name = document.getElementById('studentNameInput').value.trim() || 'Student';
+      const total = readingScore + listeningScore + speakingScore;
+      window.open(`https://wa.me/201200342973?text=${encodeURIComponent(name + ' scored ' + total + '/25 in Arabic Vowels Test (Reading, Listening & Speaking).')}`, '_blank');
+    });
+
+    switchTab('reading');
+    enableTab('tabReading');
+  })();
+</script>
+</body>
+</html>
