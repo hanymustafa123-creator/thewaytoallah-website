@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>The Way To Allah | Arabic Reading & Speaking Drills</title>
+    <!-- JSZip library for packaging recordings -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f8f9fc 0%, #eef2f7 100%);
+            font-family: 'Segoe UI', 'Tahoma', 'Roboto', 'Cairo', sans-serif;
+            padding: 30px 20px;
+            color: #1e2a3e;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* header & logo section */
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .academy-logo {
+            background: #0b3b2f;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 12px 24px;
+            border-radius: 80px;
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255, 215, 150, 0.6);
+        }
+
+        .academy-logo img {
+            height: 55px;
+            width: auto;
+            border-radius: 50%;
+            object-fit: cover;
+            background: white;
+            padding: 4px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #ffecb3;
+            text-shadow: 2px 2px 0 #1a4d3e;
+            font-family: 'Cairo', 'Segoe UI', sans-serif;
+        }
+
+        .sub {
+            background: #fff9ef;
+            margin-top: 16px;
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #2c5f4b;
+            border: 1px solid #cfd9e0;
+        }
+
+        .lesson-info {
+            background: #eef2fa;
+            border-radius: 28px;
+            padding: 12px 20px;
+            margin: 20px auto 20px auto;
+            max-width: 700px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1f4e3f;
+            border: 1px solid #d4e0e9;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+
+        .lesson-info span {
+            background: white;
+            padding: 4px 14px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* microphone status */
+        .mic-panel {
+            background: white;
+            border-radius: 40px;
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 35px;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e0e7ed;
+        }
+
+        .mic-status {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f2f4f8;
+            padding: 6px 16px;
+            border-radius: 50px;
+        }
+
+        .led {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #b94e2e;
+            box-shadow: 0 0 2px red;
+        }
+
+        .led.active {
+            background: #2b9348;
+            box-shadow: 0 0 8px #28a745;
+            animation: pulse 1.2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; transform: scale(0.95);}
+            100% { opacity: 1; transform: scale(1.2);}
+        }
+
+        .btn-mic {
+            background: #1f6e5c;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 36px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .btn-mic:hover {
+            background: #0e4d3f;
+            transform: scale(0.97);
+        }
+
+        /* questions grid */
+        .questions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .question-card {
+            background: #ffffffdd;
+            backdrop-filter: blur(2px);
+            background: white;
+            border-radius: 36px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+            padding: 22px 28px;
+            transition: all 0.2s;
+            border: 1px solid #e9edf2;
+        }
+
+        .q-title {
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: #1f4e3f;
+            border-right: 6px solid #f4b942;
+            padding-right: 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .arabic-example {
+            background: #fdf6e3;
+            padding: 14px 20px;
+            border-radius: 28px;
+            margin: 12px 0 18px 0;
+            font-size: 1.3rem;
+            font-family: 'Cairo', 'Amiri', serif;
+            direction: rtl;
+            text-align: right;
+            color: #1e3b32;
+            border: 1px solid #ffe2b5;
+            white-space: pre-line;
+            line-height: 1.7;
+        }
+
+        .speaking-prompt {
+            background: #eef3fc;
+            padding: 10px 15px;
+            border-radius: 28px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .answer-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin: 20px 0 10px;
+            align-items: flex-start;
+        }
+
+        .text-answer {
+            flex: 2;
+            min-width: 200px;
+        }
+
+        .text-answer textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 28px;
+            border: 1.5px solid #cfdde6;
+            background: #fefefe;
+            font-family: 'Segoe UI', 'Cairo', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+        }
+
+        .voice-zone {
+            flex: 1.5;
+            background: #f8fafd;
+            border-radius: 28px;
+            padding: 12px 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .voice-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        button {
+            background: #f0f2f5;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        button.primary {
+            background: #2c7a5e;
+            color: white;
+        }
+
+        button.primary:hover {
+            background: #1f5e48;
+        }
+
+        button.warning {
+            background: #f4b942;
+            color: #2d2b26;
+        }
+
+        button.share-all {
+            background: #128C7E;
+            color: white;
+            font-size: 1rem;
+            padding: 12px 28px;
+            margin-top: 10px;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 8px;
+            border-radius: 30px;
+        }
+
+        .global-share {
+            text-align: center;
+            margin: 30px 0 20px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 45px;
+            font-size: 0.8rem;
+            color: #4a627a;
+            border-top: 1px solid #cddfe7;
+            padding-top: 25px;
+        }
+
+        @media (max-width: 700px) {
+            .question-card {
+                padding: 18px;
+            }
+            .answer-area {
+                flex-direction: column;
+            }
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            .academy-logo img {
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="academy-logo">
+            <img src="https://i.postimg.cc/brVD4yVm/logo-jpeg.jpg" alt="The Way To Allah Logo" onerror="this.onerror=null; this.src='https://via.placeholder.com/55?text=Logo';">
+            <span class="logo-text">The Way To Allah</span>
+            <span class="logo-icon">⭐</span>
+        </div>
+        <div class="sub">Arabic Language Academy | Reading & Speaking Exercises</div>
+        <div class="lesson-info">
+            <span>📘 Al-Arabiyyah Bayna Yadayka - Book 1 / Part 1</span>
+            <span>📖 Unit: 1 - Lesson: 7</span>
+            <span>📌 Title: التحية و التعارف</span>
+            <span>📄 Pages: 17 & 18</span>
+        </div>
+    </div>
+
+    <!-- Global microphone permission panel (one-time) -->
+    <div class="mic-panel">
+        <div class="mic-status">
+            <span class="led" id="micLed"></span>
+            <span id="micStatusText">⚙️ Microphone not allowed yet</span>
+        </div>
+        <button class="btn-mic" id="enableMicBtn">🎤 Enable Microphone (once)</button>
+        <span style="font-size:12px; color:#526e7a;">✅ After allowing, you can record without any extra permission request</span>
+    </div>
+
+    <div class="questions-grid" id="questionsContainer"></div>
+    
+    <!-- Global Share All Answers button -->
+    <div class="global-share">
+        <button id="shareAllBtn" class="share-all">📦 Share ALL answers (text + all voice recordings) via WhatsApp</button>
+        <p style="font-size: 12px; margin-top: 8px;">⭐ One click: packages all voice notes into a ZIP file and sends with your written answers.</p>
+    </div>
+
+    <footer>
+        📌 Answer each question in writing or by voice recording. Use the button above to share everything at once.<br>
+        🎙️ Voice recording allowed after enabling microphone once. All recordings are saved locally.
+    </footer>
+</div>
+
+<script>
+    // ----------------------------------------------
+    // Global microphone stream
+    let globalStream = null;
+    const micLed = document.getElementById('micLed');
+    const micStatusText = document.getElementById('micStatusText');
+    const enableBtn = document.getElementById('enableMicBtn');
+
+    async function requestMicrophonePermission() {
+        if (globalStream && globalStream.active) {
+            updateMicUI(true);
+            return true;
+        }
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            globalStream = stream;
+            updateMicUI(true);
+            return true;
+        } catch (err) {
+            console.error("Microphone error:", err);
+            updateMicUI(false);
+            alert("❌ Cannot access microphone. Please allow access manually.");
+            return false;
+        }
+    }
+
+    function updateMicUI(active) {
+        if (active && globalStream && globalStream.active) {
+            micLed.classList.add('active');
+            micStatusText.innerText = "🎙️ Microphone ready - you can record without extra prompts";
+        } else {
+            micLed.classList.remove('active');
+            micStatusText.innerText = "🔴 Please click 'Enable Microphone' once";
+        }
+    }
+
+    enableBtn.addEventListener('click', async () => {
+        await requestMicrophonePermission();
+    });
+    window.addEventListener('load', () => updateMicUI(false));
+
+    // ---------- questions data with corrected Arabic example ----------
+    const questionsData = [
+        {
+            id: 1,
+            title: "Training (1) : Exchange ID / Introduction & Nationality",
+            arabicExample: "مثال:\nط1: اسمي فاطمة، أنا مصرية. أنا من مصر.\nط2: أهلاً وسهلاً.",
+            speakingPrompt: "🔊 Speak or write: Introduce yourself (name, country) like 'I am from Pakistan / Egypt / Syria / Turkey' and add a welcome phrase.",
+            defaultPlaceholder: "Write your introduction sentence here ..."
+        },
+        {
+            id: 2,
+            title: "Training (2) : Introducing brother / friend",
+            arabicExample: "مثال:\nط1: هذا أخي، هو مدرس.\nط2: أهلاً وسهلاً.\n(also: صديقة - طالبة, brother - student)",
+            speakingPrompt: "🎤 Introduce your brother or friend as in the example: 'This is my brother, he is a teacher/student' or introduce a female friend.",
+            defaultPlaceholder: "Example: هذا أخي، هو مهندس / طالب ..."
+        },
+        {
+            id: 3,
+            title: "Training (3) : Greeting & asking about nationality",
+            arabicExample: "مثال:\nط1: السلام عليكم.\nط2: وعليكم السلام.\nط1: كيف حالك؟\nط2: بخير والحمد لله.\nط1: ما جنسيتك؟\nط2: أنا باكستاني/مصري/سوري/تركي",
+            speakingPrompt: "🎙️ Record a dialogue: say 'As-salamu alaykum', then 'How are you?' ask 'What is your nationality?' and answer with your nationality.",
+            defaultPlaceholder: "Write the full dialogue or just your answer about nationality ..."
+        },
+        {
+            id: 4,
+            title: "Training (4) : Full conversation (name, country, confirmation)",
+            arabicExample: "مثال:\nط1: ما اسمكَ؟\nط2: اسمي بَدْر.\nط1: من أين أنت؟\nط2: أنا من مصر.\nط1: هل أنت مصري؟\nط2: نعم، أنا مصري.\nط1: أهلاً وسهلاً.",
+            speakingPrompt: "🗣️ Answer the questions: What is your name? Where are you from? Are you (Egyptian/Syrian/Pakistani)? End with welcome.",
+            defaultPlaceholder: "Name: ... Country: ... Yes I am ..."
+        },
+        {
+            id: 5,
+            title: "Reading & Conversation: Passport card & nationalities (image)",
+            arabicExample: "From images: Ali - Pakistan, Ahmed - Mudar, Khadija - Syria, Iqbal - Pakistan, Anwar - Syrian",
+            speakingPrompt: "🔈 Talk about yourself as if holding a passport: 'I am (name) from (country). My nationality is (...)' Use countries: Syria, Egypt, Turkey, Pakistan.",
+            defaultPlaceholder: "I am Ahmed from Egypt, my nationality is Egyptian ..."
+        },
+        {
+            id: 6,
+            title: "Free practice: Describing a family member & profession",
+            arabicExample: "Additional from training 2 & 4: 'This is my sister, she is a student' or 'He is a doctor'",
+            speakingPrompt: "💬 Introduce someone from your family with their profession (teacher, student, engineer) as in the text: 'This is my brother, he is a teacher' or 'This is my mother, she is a teacher'.",
+            defaultPlaceholder: "For example: هذا أخي الكبير، هو طبيب ..."
+        }
+    ];
+
+    // Store recorded blobs per question
+    let recordedBlobs = {};
+    let recordedUrls = {};
+    let activeRecorders = {};
+
+    function releaseObjectUrl(questionId) {
+        if (recordedUrls[questionId]) {
+            URL.revokeObjectURL(recordedUrls[questionId]);
+            delete recordedUrls[questionId];
+        }
+    }
+
+    async function startRecording(questionId, audioPlayerId, recordBtnId, stopBtnId, statusSpanId) {
+        if (!globalStream || !globalStream.active) {
+            alert("⚠️ Microphone not enabled. Click 'Enable Microphone' at the top first.");
+            return false;
+        }
+        if (activeRecorders[questionId] && activeRecorders[questionId].state === 'recording') {
+            alert("Recording already in progress for this question. Stop it first.");
+            return false;
+        }
+        releaseObjectUrl(questionId);
+        delete recordedBlobs[questionId];
+        const mediaRecorder = new MediaRecorder(globalStream);
+        let chunks = [];
+        mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
+        mediaRecorder.onstop = () => {
+            const blob = new Blob(chunks, { type: 'audio/webm' });
+            recordedBlobs[questionId] = blob;
+            const audioUrl = URL.createObjectURL(blob);
+            recordedUrls[questionId] = audioUrl;
+            const audioElem = document.getElementById(audioPlayerId);
+            if (audioElem) {
+                audioElem.src = audioUrl;
+                audioElem.controls = true;
+                audioElem.style.display = 'block';
+            }
+            if (statusSpanId) document.getElementById(statusSpanId).innerText = "✅ Recording saved - you can preview";
+            document.getElementById(recordBtnId).disabled = false;
+            document.getElementById(stopBtnId).disabled = true;
+            delete activeRecorders[questionId];
+        };
+        mediaRecorder.start();
+        activeRecorders[questionId] = mediaRecorder;
+        document.getElementById(recordBtnId).disabled = true;
+        document.getElementById(stopBtnId).disabled = false;
+        document.getElementById(statusSpanId).innerText = "🔴 Recording... speak now";
+        return true;
+    }
+
+    function stopRecording(questionId, recordBtnId, stopBtnId, statusSpanId) {
+        if (activeRecorders[questionId] && activeRecorders[questionId].state === 'recording') {
+            activeRecorders[questionId].stop();
+        } else {
+            if (statusSpanId) document.getElementById(statusSpanId).innerText = "⚠️ No active recording";
+            document.getElementById(recordBtnId).disabled = false;
+            document.getElementById(stopBtnId).disabled = true;
+        }
+    }
+
+    // Build questions UI without Download or Share per question
+    const container = document.getElementById('questionsContainer');
+    function buildQuestions() {
+        container.innerHTML = '';
+        questionsData.forEach((q) => {
+            const qId = q.id;
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            const audioPlayerId = `audio_${qId}`;
+            const recordBtnId = `recBtn_${qId}`;
+            const stopBtnId = `stopBtn_${qId}`;
+            const statusSpanId = `status_${qId}`;
+            const textInputId = `text_${qId}`;
+
+            card.innerHTML = `
+                <div class="q-title"><span>📖 ${q.title}</span></div>
+                <div class="arabic-example">${q.arabicExample.replace(/\n/g, '<br>')}</div>
+                <div class="speaking-prompt">${q.speakingPrompt}</div>
+                <div class="answer-area">
+                    <div class="text-answer">
+                        <label>✍️ Written answer:</label>
+                        <textarea id="${textInputId}" rows="2" placeholder="${q.defaultPlaceholder}"></textarea>
+                    </div>
+                    <div class="voice-zone">
+                        <div class="voice-buttons">
+                            <button id="${recordBtnId}" class="primary" style="background:#3b8b6e;">🎤 Record</button>
+                            <button id="${stopBtnId}" class="warning" disabled>⏹️ Stop</button>
+                        </div>
+                        <div id="${statusSpanId}" style="font-size:0.75rem; margin:5px 0;">⚪ No recording yet</div>
+                        <audio id="${audioPlayerId}" controls style="width:100%; display:none;"></audio>
+                        <small>🎙️ Record once (no repeated mic prompts) - preview after recording</small>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+
+            document.getElementById(recordBtnId).addEventListener('click', () => {
+                if (!globalStream || !globalStream.active) { alert("Enable microphone first!"); return; }
+                startRecording(qId, audioPlayerId, recordBtnId, stopBtnId, statusSpanId);
+            });
+            document.getElementById(stopBtnId).addEventListener('click', () => {
+                stopRecording(qId, recordBtnId, stopBtnId, statusSpanId);
+            });
+        });
+    }
+
+    // ---------- SHARE ALL ANSWERS (with ZIP package) ----------
+    async function shareAllAnswers() {
+        // Collect all written answers
+        let fullText = `📚 *Arabic Test Submission - All Answers*\n📖 Al-Arabiyyah Bayna Yadayka Book1 Part1 | Unit 1 Lesson 7 | Pages 17-18\n\n`;
+        const zip = new JSZip();
+        const recordingsFolder = zip.folder("voice_recordings");
+        let hasAnyRecording = false;
+
+        for (let q of questionsData) {
+            const textarea = document.getElementById(`text_${q.id}`);
+            const answerText = textarea ? textarea.value.trim() : "(not provided)";
+            fullText += `❓ *Q${q.id}: ${q.title}*\n✍️ Written: ${answerText}\n\n`;
+            if (recordedBlobs[q.id]) {
+                hasAnyRecording = true;
+                const blob = recordedBlobs[q.id];
+                const safeTitle = q.title.replace(/[^a-z0-9]/gi, '_').substring(0, 30);
+                const fileName = `Q${q.id}_${safeTitle}.webm`;
+                recordingsFolder.file(fileName, blob);
+            }
+        }
+
+        // Add a text file with all answers inside zip
+        zip.file("All_Written_Answers.txt", fullText);
+        
+        // Generate the ZIP file
+        const zipBlob = await zip.generateAsync({ type: "blob" });
+        const zipFile = new File([zipBlob], `Arabic_Answers_${new Date().toISOString().slice(0,19)}.zip`, { type: "application/zip" });
+        
+        const shareMessage = `📦 *Complete test answers* from a student.\nAll written answers are inside the ZIP file + voice recordings (if any).\n\nTeacher's number: +2 01200342973\nPlease find attached ZIP.`;
+        
+        // Try Web Share API for file sharing (mobile)
+        if (navigator.canShare && navigator.canShare({ files: [zipFile] })) {
+            try {
+                await navigator.share({
+                    title: 'Arabic Test Answers',
+                    text: shareMessage,
+                    files: [zipFile]
+                });
+                return;
+            } catch (err) {
+                if (err.name !== 'AbortError') console.warn("Share failed", err);
+                else return;
+            }
+        }
+        
+        // Fallback: download ZIP and open WhatsApp with download reminder
+        const downloadUrl = URL.createObjectURL(zipBlob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = `Arabic_Test_Answers.zip`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(downloadUrl), 2000);
+        
+        let finalMsg = shareMessage + `\n📥 A ZIP file named "Arabic_Test_Answers.zip" has been downloaded. Please attach it to this WhatsApp message.`;
+        if (!hasAnyRecording) finalMsg += `\n(No voice recordings were submitted.)`;
+        window.open(`https://wa.me/201200342973?text=${encodeURIComponent(finalMsg)}`, '_blank');
+    }
+
+    buildQuestions();
+    document.getElementById('shareAllBtn').addEventListener('click', shareAllAnswers);
+
+    window.addEventListener('beforeunload', () => {
+        if (globalStream) globalStream.getTracks().forEach(t => t.stop());
+        Object.keys(recordedUrls).forEach(k => URL.revokeObjectURL(recordedUrls[k]));
+    });
+</script>
+</body>
+</html>
