@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
+<title>Free Courses — The Way To Allah Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #0A1628;
+    --navy2: #0D1F3C;
+    --gold: #C9A84C;
+    --gold-light: #F0D080;
+    --gold-pale: #FDF8EE;
+    --white: #ffffff;
+    --gray: #555555;
+    --light: #F4F1E8;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #0A1628 0%, #0D1F3C 50%, #12275A 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 60px 20px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .stars {
+    position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  }
+  .star {
+    position: absolute; width: 2px; height: 2px; background: var(--gold);
+    border-radius: 50%; opacity: 0;
+    animation: twinkle 3s infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.5); }
+  }
+
+  .academy-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 8px 22px; border-radius: 50px;
+    margin-bottom: 30px;
+    background: rgba(201,168,76,0.07);
+    animation: fadeDown 0.8s ease both;
+  }
+  .academy-badge span { color: var(--gold); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+  .academy-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+  .hero-eyebrow {
+    font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+    animation: fadeDown 0.9s ease both; animation-delay: 0.1s;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 700; line-height: 1.05;
+    color: var(--white); margin-bottom: 12px;
+    animation: fadeDown 1s ease both; animation-delay: 0.2s;
+  }
+  .hero h1 em { color: var(--gold); font-style: italic; }
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    color: rgba(240,208,128,0.85); margin-bottom: 30px; font-style: italic;
+    animation: fadeDown 1s ease both; animation-delay: 0.3s;
+  }
+  .hero-desc {
+    max-width: 600px; font-size: 15px; line-height: 1.8;
+    color: rgba(255,255,255,0.75); margin-bottom: 40px;
+    animation: fadeDown 1s ease both; animation-delay: 0.4s;
+  }
+  .hero-cta {
+    display: flex; flex-wrap: wrap; gap: 14px; justify-content: center;
+    animation: fadeDown 1s ease both; animation-delay: 0.5s;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold) 0%, #A8821C 100%);
+    color: var(--navy); font-weight: 800; font-size: 15px;
+    padding: 15px 36px; border-radius: 50px; border: none; cursor: pointer;
+    text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(201,168,76,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,0.5); }
+  .btn-secondary {
+    background: transparent; color: var(--gold-light);
+    border: 1.5px solid rgba(201,168,76,0.5);
+    font-weight: 700; font-size: 15px;
+    padding: 14px 30px; border-radius: 50px; cursor: pointer;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(201,168,76,0.1); border-color: var(--gold); }
+
+  .hero-free-badge {
+    position: absolute; top: 28px; right: 28px;
+    background: linear-gradient(135deg, var(--gold), #A8821C);
+    color: var(--navy); font-weight: 800; font-size: 13px;
+    padding: 8px 18px; border-radius: 50px;
+    transform: rotate(3deg); letter-spacing: 1px;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── DIVIDER ── */
+  .divider { width: 100%; height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+
+  /* ── COURSES SECTION ── */
+  .section { padding: 80px 20px; max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
+  }
+  .section-title {
+    text-align: center; font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 50px;
+    color: var(--white);
+  }
+  .section-title em { color: var(--gold); font-style: italic; }
+
+  .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+
+  .course-card {
+    border-radius: 20px; overflow: hidden;
+    border: 1px solid rgba(201,168,76,0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    background: rgba(255,255,255,0.03);
+  }
+  .course-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .course-card-header {
+    padding: 28px 26px 20px;
+  }
+  .card-1 .course-card-header { background: linear-gradient(135deg, #0D1F3C, #162A4A); }
+  .card-2 .course-card-header { background: linear-gradient(135deg, #3A2B00, #5C4400); }
+  .course-number {
+    display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4); padding: 4px 12px; border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .course-card-header h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem; font-weight: 700; color: var(--white); line-height: 1.15; margin-bottom: 6px;
+  }
+  .course-arabic {
+    font-size: 1.3rem; color: var(--gold-light); margin-bottom: 12px; direction: rtl;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .course-card-body { padding: 20px 26px 26px; }
+  .lesson-list { list-style: none; }
+  .lesson-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 13.5px; color: rgba(255,255,255,0.85); line-height: 1.4;
+  }
+  .lesson-list li:last-child { border-bottom: none; }
+  .lesson-num {
+    flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800;
+    background: rgba(201,168,76,0.15); color: var(--gold);
+  }
+  .lesson-arabic { font-size: 12px; color: var(--gold-light); direction: rtl; display: block; }
+
+  /* ── BENEFITS ── */
+  .benefits-section {
+    background: linear-gradient(160deg, #0D1F3C, #0A1628);
+    padding: 80px 20px;
+  }
+  .benefits-inner { max-width: 1100px; margin: 0 auto; }
+  .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 50px; }
+  .benefit-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 16px; padding: 28px 22px; text-align: center;
+    transition: border-color 0.3s;
+  }
+  .benefit-card:hover { border-color: rgba(201,168,76,0.5); }
+  .benefit-icon { font-size: 2.2rem; margin-bottom: 14px; }
+  .benefit-card h4 { font-size: 15px; font-weight: 700; color: var(--gold-light); margin-bottom: 8px; }
+  .benefit-card p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+  /* ── PROCESS ── */
+  .process-section { padding: 80px 20px; max-width: 900px; margin: 0 auto; }
+  .process-steps { display: flex; flex-direction: column; gap: 0; margin-top: 50px; }
+  .process-step {
+    display: flex; gap: 20px; align-items: flex-start; position: relative; padding-bottom: 32px;
+  }
+  .process-step:last-child { padding-bottom: 0; }
+  .step-line {
+    position: absolute; left: 19px; top: 44px; bottom: 0;
+    width: 2px; background: linear-gradient(180deg, var(--gold), transparent);
+  }
+  .process-step:last-child .step-line { display: none; }
+  .step-circle {
+    flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), #A8821C);
+    color: var(--navy); font-weight: 800; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 20px rgba(201,168,76,0.3);
+  }
+  .step-content h4 { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .step-content p { font-size: 13.5px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+  /* ── REGISTRATION FORM ── */
+  .form-section {
+    background: linear-gradient(160deg, #0D1F3C, #0A1628);
+    padding: 80px 20px;
+  }
+  .form-inner { max-width: 680px; margin: 0 auto; }
+  .form-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 24px; padding: 44px 40px;
+  }
+  .form-group { margin-bottom: 20px; }
+  .form-group label {
+    display: block; font-size: 12px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 13px 16px; border-radius: 10px;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(201,168,76,0.25);
+    color: var(--white); font-family: 'Nunito', sans-serif; font-size: 14px;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.1);
+  }
+  .form-group select option { background: var(--navy2); color: var(--white); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .checkbox-group { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  .checkbox-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; color: rgba(255,255,255,0.85); cursor: pointer;
+  }
+  .checkbox-label input[type="checkbox"] {
+    width: 18px; height: 18px; accent-color: var(--gold); flex-shrink: 0;
+  }
+  .submit-btn {
+    width: 100%; padding: 16px; border-radius: 12px; border: none; cursor: pointer;
+    background: linear-gradient(135deg, var(--gold) 0%, #A8821C 100%);
+    color: var(--navy); font-family: 'Nunito', sans-serif;
+    font-size: 16px; font-weight: 800; letter-spacing: 0.5px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 10px;
+    box-shadow: 0 4px 24px rgba(201,168,76,0.3);
+  }
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,0.5); }
+
+  .success-msg {
+    display: none; text-align: center; padding: 24px;
+    background: rgba(201,168,76,0.1); border: 1px solid var(--gold);
+    border-radius: 12px; margin-top: 20px;
+  }
+  .success-msg h4 { color: var(--gold); font-size: 18px; margin-bottom: 8px; }
+  .success-msg p { color: rgba(255,255,255,0.75); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #060E1A; padding: 40px 20px; text-align: center;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+  .footer-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold); margin-bottom: 6px; }
+  .footer-tagline { font-size: 12px; color: rgba(255,255,255,0.45); letter-spacing: 1px; margin-bottom: 20px; }
+  .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+  .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,22,40,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    padding: 14px 30px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 10px; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--gold); font-weight: 700; }
+  .nav-logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px rgba(201,168,76,0.3); }
+  .nav-links { display: flex; gap: 24px; }
+  .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; font-weight: 600; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--gold), #A8821C);
+    color: var(--navy); font-weight: 800; font-size: 13px;
+    padding: 8px 20px; border-radius: 50px; text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .nav-cta:hover { transform: scale(1.04); }
+
+  .hero-logo {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(201,168,76,0.6);
+    box-shadow: 0 0 30px rgba(201,168,76,0.3);
+  }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .form-card { padding: 28px 20px; }
+    .hero-free-badge { font-size: 11px; top: 80px; right: 14px; }
+    .nav-brand { font-size: 0.9rem; }
+    .hero h1 { font-size: 2rem; }
+    .hero-desc { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV (logo embedded as Base64) -->
+<nav>
+  <div class="nav-brand">
+    <img class="nav-logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABJAEkDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5/ooor2ThCiiigApRRRQAoGe9TRWpki3goPZjjNAApHOMjnFQiJ0Aq1YyPExbbnFQTMZ7rYCRuNIZc+wwjPzPj8Kf9ijEe4O+B1PFWoEaKNVYZpblC1tKAMZHSkBz9FFFe0cAUUUUAFFFFABRRRQBLCwRgaQhVOaRKWRZCMChMiQFhgHrUMEbOq7SQMHNMUyB1kjlXzBgEFc4qeO/GPLjheRmHSNDiqcF1DdTyG7Bs0B3GXHJeZNsYzT2ZmXY6lT6EU+RjPOgVhKAcFnXGKgW+Nzq2LmdYlR8FOzYqgIPsU3+z+dFbHn2X/PcfnRQAfYo/+e4/OivR5L4tamXz4mKpuCYp/KbU/LL2f3hkcmnm4AGNq4HGO9VUuJL05LDylPpRvlUgJbGSI/eYDALfpReB3BQrM0gHCSL80Y/z1FT25kLg7/ACgnRefxqOS7jtNZZmkWJCgBYnAzipp/vlUY7D0YdD9aokgnuHt7ZIWZzLJ/t5Ue4o+3y/89E/OiigD/9k=" alt="The Way To Allah Logo">
+    <span>The Way To Allah</span>
+  </div>
+  <div class="nav-links">
+    <a href="#courses">Courses</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#register">Register</a>
+  </div>
+  <a href="#register" class="nav-cta">Register Free</a>
+</nav>
+
+<!-- HERO (logo embedded as Base64) -->
+<section class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="hero-free-badge">100% FREE</div>
+
+  <div style="margin-bottom:20px;">
+    <img class="hero-logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABJAEkDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5/ooor2ThCiiigApRRRQAoGe9TRWpki3goPZjjNAApHOMjnFQiJ0Aq1YyPExbbnFQTMZ7rYCRuNIZc+wwjPzPj8Kf9ijEe4O+B1PFWoEaKNVYZpblC1tKAMZHSkBz9FFFe0cAUUUUAFFFFABRRRQBLCwRgaQhVOaRKWRZCMChMiQFhgHrUMEbOq7SQMHNMUyB1kjlXzBgEFc4qeO/GPLjheRmHSNDiqcF1DdTyG7Bs0B3GXHJeZNsYzT2ZmXY6lT6EU+RjPOgVhKAcFnXGKgW+Nzq2LmdYlR8FOzYqgIPsU3+z+dFbHn2X/PcfnRQAfYo/+e4/OivR5L4tamXz4mKpuCYp/KbU/LL2f3hkcmnm4AGNq4HGO9VUuJL05LDylPpRvlUgJbGSI/eYDALfpReB3BQrM0gHCSL80Y/z1FT25kLg7/ACgnRefxqOS7jtNZZmkWJCgBYnAzipp/vlUY7D0YdD9aokgnuHt7ZIWZzLJ/t5Ue4o+3y/89E/OiigD/9k=" alt="The Way To Allah Logo">
+  </div>
+  <div class="academy-badge">
+    <div class="dot"></div>
+    <span>The Way To Allah Academy</span>
+    <div class="dot"></div>
+  </div>
+
+  <p class="hero-eyebrow">Free Courses — Limited Seats Available</p>
+  <h1>Connect with the<br/><em>Quran & Arabic</em></h1>
+  <p class="hero-tagline">The Gateway to Guidance — بسم الله الرحمن الرحيم</p>
+  <p class="hero-desc">
+    Two complete FREE courses designed exclusively for non-native Arabic speakers in the
+    <strong>USA, UK & Canada</strong> — taught by a qualified Quran & Arabic teacher with years of
+    experience helping Muslims worldwide connect with Allah's Book.
+  </p>
+  <div class="hero-cta">
+    <a href="#register" class="btn-primary">Register Now — It's Free</a>
+    <a href="#courses" class="btn-secondary">View Courses ↓</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COURSES SECTION (unchanged) -->
+<div id="courses" style="background: #0A1628; padding: 80px 20px;">
+<div style="max-width:1100px;margin:0 auto;">
+  <p class="section-label">What You Will Learn</p>
+  <h2 class="section-title">Two <em>Life-Changing</em> Courses</h2>
+  <div class="courses-grid">
+    <!-- COURSE 1 -->
+    <div class="course-card card-1">
+      <div class="course-card-header">
+        <div class="course-number">Course 1</div>
+        <h3>Noorani Qa'idah</h3>
+        <div class="course-arabic">القاعدة النورانية</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;">
+          The complete foundation for correct Quran recitation — from your very first letter to confident reading.
+        </p>
+      </div>
+      <div class="course-card-body">
+        <ul class="lesson-list">
+          <li><div class="lesson-num">1</div><div><strong>Arabic Letters</strong><span class="lesson-arabic">الحروف الهجائية</span>All 28 letters with correct articulation</div></li>
+          <li><div class="lesson-num">2</div><div><strong>Short Vowels</strong><span class="lesson-arabic">الحركات القصيرة</span>Fath-ha, Kasrah & Damma</div></li>
+          <li><div class="lesson-num">3</div><div><strong>Long Vowels</strong><span class="lesson-arabic">حروف المد</span>Alif, Yaa & Waaw elongation</div></li>
+          <li><div class="lesson-num">4</div><div><strong>Sukoon</strong><span class="lesson-arabic">السكون</span>The resting mark</div></li>
+          <li><div class="lesson-num">5</div><div><strong>Shaddah</strong><span class="lesson-arabic">الشدة</span>Doubled consonants</div></li>
+          <li><div class="lesson-num">6</div><div><strong>Tanween</strong><span class="lesson-arabic">التنوين</span>Double vowel endings</div></li>
+          <li><div class="lesson-num">7</div><div><strong>Laam Shamsiyyah</strong><span class="lesson-arabic">اللام الشمسية</span>Sun letters</div></li>
+          <li><div class="lesson-num">8</div><div><strong>Laam Qamariyyah</strong><span class="lesson-arabic">اللام القمرية</span>Moon letters</div></li>
+          <li><div class="lesson-num">9</div><div><strong>Hamzatul Wasl</strong><span class="lesson-arabic">همزة الوصل</span>Connecting Hamza</div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- COURSE 2 -->
+    <div class="course-card card-2">
+      <div class="course-card-header">
+        <div class="course-number" style="border-color:rgba(240,208,128,0.4);color:var(--gold-light);">Course 2</div>
+        <h3>Quranic Arabic</h3>
+        <div class="course-arabic">أساسيات العربية القرآنية</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;">
+          Understand the Quran directly — learn the grammar, vocabulary, and structure Allah used to speak to us.
+        </p>
+      </div>
+      <div class="course-card-body">
+        <ul class="lesson-list">
+          <li><div class="lesson-num" style="background:rgba(240,208,128,0.15);color:var(--gold-light);">1</div><div><strong>Root System & Letters</strong><span class="lesson-arabic">الجذر والحروف</span>How all Arabic words are built</div></li>
+          <li><div class="lesson-num" style="background:rgba(240,208,128,0.15);color:var(--gold-light);">2</div><div><strong>Pronouns in the Quran</strong><span class="lesson-arabic">الضمائر</span>هو، هي، هم، أنت، أنا</div></li>
+          <li><div class="lesson-num" style="background:rgba(240,208,128,0.15);color:var(--gold-light);">3</div><div><strong>Most Repeated Words</strong><span class="lesson-arabic">أكثر الكلمات تكراراً</span>Top 50 Quranic vocabulary</div></li>
+          <li><div class="lesson-num" style="background:rgba(240,208,128,0.15);color:var(--gold-light);">4</div><div><strong>Nouns: Number & Gender</strong><span class="lesson-arabic">العدد والجنس</span>Singular, dual & plural</div></li>
+          <li><div class="lesson-num" style="background:rgba(240,208,128,0.15);color:var(--gold-light);">5</div><div><strong>Definite & Indefinite</strong><span class="lesson-arabic">المعرفة والنكرة</span>ال (the) vs. Tanween</div></li>
+          <li><div class="lesson-num" style="background:rgba(240,208,128,0.15);color:var(--gold-light);">6</div><div><strong>Verb Tenses</strong><span class="lesson-arabic">الأفعال</span>Past, present & command</div></li>
+          <li><div class="lesson-num" style="background:rgba(240,208,128,0.15);color:var(--gold-light);">7</div><div><strong>Sentence Structure</strong><span class="lesson-arabic">تركيب الجملة</span>Noun & verb sentences</div></li>
+          <li><div class="lesson-num" style="background:rgba(240,208,128,0.15);color:var(--gold-light);">8</div><div><strong>Quranic Prepositions</strong><span class="lesson-arabic">حروف الجر</span>في، من، إلى، على، مع</div></li>
+          <li><div class="lesson-num" style="background:rgba(240,208,128,0.15);color:var(--gold-light);">9</div><div><strong>Adjectives & Agreement</strong><span class="lesson-arabic">النعت والمنعوت</span>الكتاب الكريم pattern</div></li>
+          <li><div class="lesson-num" style="background:rgba(240,208,128,0.15);color:var(--gold-light);">10</div><div><strong>Apply It: Surah Al-Fatiha</strong><span class="lesson-arabic">تطبيق: سورة الفاتحة</span>Word-by-word breakdown</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- BENEFITS (unchanged) -->
+<section class="benefits-section">
+  <div class="benefits-inner">
+    <p class="section-label">Why Join Us</p>
+    <h2 class="section-title">Everything You <em>Need</em></h2>
+    <div class="benefits-grid">
+      <div class="benefit-card"><div class="benefit-icon">🎓</div><h4>Qualified Teacher</h4><p>Taught by a certified Quran & Arabic teacher with experience in Tajweed, Noorani Qa'idah and Quranic Arabic</p></div>
+      <div class="benefit-card"><div class="benefit-icon">💰</div><h4>Completely Free</h4><p>No hidden fees. No credit card. Both courses are a gift to the Muslim community in the West</p></div>
+      <div class="benefit-card"><div class="benefit-icon">🌍</div><h4>Online — Anywhere</h4><p>Live sessions via Zoom or Google Meet. All you need is a phone or laptop and an internet connection</p></div>
+      <div class="benefit-card"><div class="benefit-icon">📹</div><h4>Recorded Sessions</h4><p>Can't make a live class? Every session is recorded and shared so you never miss a lesson</p></div>
+      <div class="benefit-card"><div class="benefit-icon">👨‍👩‍👧</div><h4>For All Ages</h4><p>Adults, children, parents and grandparents — anyone who wants to connect with the Quran is welcome</p></div>
+      <div class="benefit-card"><div class="benefit-icon">📱</div><h4>WhatsApp Support</h4><p>Stay connected with your teacher and classmates via a dedicated WhatsApp group for questions & encouragement</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS (unchanged) -->
+<section id="how-it-works" style="background:#0A1628;padding:80px 20px;">
+<div style="max-width:750px;margin:0 auto;">
+  <p class="section-label">Simple Process</p>
+  <h2 class="section-title">How It <em>Works</em></h2>
+  <div class="process-steps">
+    <div class="process-step"><div class="step-circle">1</div><div class="step-line"></div><div class="step-content"><h4>Fill in the Registration Form</h4><p>Takes less than 2 minutes. Tell us your name, country, WhatsApp number, and which course(s) you'd like to join.</p></div></div>
+    <div class="process-step"><div class="step-circle">2</div><div class="step-line"></div><div class="step-content"><h4>Receive Your WhatsApp Confirmation</h4><p>Within 24 hours, you'll receive a personal WhatsApp message confirming your place and sharing your class schedule.</p></div></div>
+    <div class="process-step"><div class="step-circle">3</div><div class="step-line"></div><div class="step-content"><h4>Join Your Class Group</h4><p>You'll be added to a WhatsApp group for your course — your hub for class links, resources and community.</p></div></div>
+    <div class="process-step"><div class="step-circle">4</div><div class="step-line"></div><div class="step-content"><h4>Attend Your First Live Session</h4><p>Join via Zoom or Google Meet at your scheduled time. Sessions are interactive, encouraging and beginner-friendly.</p></div></div>
+    <div class="process-step"><div class="step-circle">5</div><div class="step-line"></div><div class="step-content"><h4>Complete the Course & Grow</h4><p>Finish your free course with a certificate of completion — and if you wish, continue your journey in our full academy.</p></div></div>
+  </div>
+</div>
+</section>
+
+<!-- REGISTRATION FORM (works with Formspree) -->
+<section id="register" class="form-section">
+  <div class="form-inner">
+    <p class="section-label" style="text-align:center;">Limited Seats — Register Today</p>
+    <h2 class="section-title">Start Your <em>Journey</em></h2>
+    <div class="form-card">
+      <form action="https://formspree.io/f/mlgzekww" method="POST">
+        <div class="form-row">
+          <div class="form-group"><label>First Name *</label><input type="text" name="first_name" placeholder="Your first name" required/></div>
+          <div class="form-group"><label>Last Name *</label><input type="text" name="last_name" placeholder="Your last name" required/></div>
+        </div>
+        <div class="form-group"><label>Email Address *</label><input type="email" name="email" placeholder="your@email.com" required/></div>
+        <div class="form-group"><label>WhatsApp Number *</label><input type="tel" name="whatsapp" placeholder="+1 555 000 0000" required/></div>
+        <div class="form-group"><label>Country *</label><select name="country" required><option value="" disabled selected>Select your country</option><option>United States</option><option>United Kingdom</option><option>Canada</option><option>Other</option></select></div>
+        <div class="form-group"><label>Course(s) You Want to Join *</label><div class="checkbox-group"><label class="checkbox-label"><input type="checkbox" name="courses" value="noorani"/> Noorani Qa'idah — القاعدة النورانية (Course 1)</label><label class="checkbox-label"><input type="checkbox" name="courses" value="arabic"/> Quranic Arabic Foundations — العربية القرآنية (Course 2)</label><label class="checkbox-label"><input type="checkbox" name="courses" value="both"/> Both Courses</label></div></div>
+        <div class="form-group"><label>Your Current Level</label><select name="current_level"><option value="" disabled selected>Select your level</option><option>Complete Beginner (cannot read Arabic)</option><option>Can read Arabic slowly</option><option>Can read Arabic but with mistakes</option><option>Intermediate — can read fluently</option></select></div>
+        <div class="form-group"><label>How Did You Hear About Us?</label><select name="referral"><option value="" disabled selected>Select an option</option><option>Facebook</option><option>Instagram</option><option>WhatsApp</option><option>YouTube</option><option>A friend or family member</option><option>Other</option></select></div>
+        <button type="submit" class="submit-btn">Register for Free Courses →</button>
+      </form>
+      <div class="success-msg"><h4>جزاك الله خيراً — Jazakallah Khayran! 🤲</h4><p>Your registration has been received. You will receive a WhatsApp confirmation from us within 24 hours, insha'Allah. May Allah bless your journey with His Book.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">The Way To Allah Academy</div>
+  <div class="footer-tagline">THE GATEWAY TO GUIDANCE</div>
+  <div class="footer-links">
+    <a href="#">Home</a>
+    <a href="#courses">Courses</a>
+    <a href="#register">Register</a>
+    <a href="#">YouTube Channel</a>
+    <a href="#">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 The Way To Allah Academy. All rights reserved. Serving Muslims in USA, UK & Canada.</div>
+</footer>
+
+<script>
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 60; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.cssText = `left: ${Math.random()*100}%; top: ${Math.random()*100}%; animation-delay: ${Math.random()*4}s; animation-duration: ${2+Math.random()*3}s; width: ${Math.random()<0.3?3:2}px; height: ${Math.random()<0.3?3:2}px; opacity: ${0.2+Math.random()*0.5};`;
+    starsEl.appendChild(s);
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
+    });
+  });
+</script>
+</body>
+</html>
