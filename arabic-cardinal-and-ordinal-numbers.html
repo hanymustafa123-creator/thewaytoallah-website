@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arabic Numbers Quiz 1-10 | The Way To Allah Academy</title>
+  <style>
+    :root {
+      --primary: #2c5f2d;
+      --primary-dark: #1e3f1f;
+      --gold: #c9a84c;
+      --gold-light: #e0c878;
+      --bg: #fdfaf3;
+      --card-bg: #ffffff;
+      --text: #2c2c2c;
+      --text-light: #5a5a5a;
+      --correct: #27ae60;
+      --wrong: #e74c3c;
+      --border: #e8e0d0;
+      --shadow: 0 4px 20px rgba(0,0,0,0.06);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.10);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', 'Tajawal', 'Almarai', 'Noto Naskh Arabic', Tahoma, sans-serif;
+      background: linear-gradient(180deg, #f8f4e8 0%, #fdfaf3 30%, #f9f3e3 100%);
+      min-height: 100vh; color: var(--text); line-height: 1.7;
+      -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none;
+    }
+    body::before {
+      content: ''; position: fixed; top:0; left:0; width:100%; height:100%;
+      pointer-events: none; z-index:0; opacity:0.025;
+      background-image: repeating-linear-gradient(45deg, var(--primary) 0px, var(--primary) 1px, transparent 1px, transparent 40px),
+                        repeating-linear-gradient(-45deg, var(--primary) 0px, var(--primary) 1px, transparent 1px, transparent 40px);
+    }
+    .container { max-width: 750px; margin:0 auto; padding:12px 16px 40px; position:relative; z-index:1; }
+    .header { text-align:center; padding:16px 0 8px; }
+    .header .logo { width:80px; height:80px; border-radius:50%; object-fit:cover; border:3px solid var(--gold); box-shadow:0 6px 24px rgba(201,168,76,0.35); background:#fff; transition:var(--transition); }
+    .header .logo:hover { transform:scale(1.05); box-shadow:0 8px 32px rgba(201,168,76,0.5); }
+    .header .academy-name { font-size:1.25rem; font-weight:700; color:var(--primary-dark); margin-top:8px; letter-spacing:0.5px; }
+    .header .academy-name .gold-text { color:var(--gold); }
+    .header .quiz-title { font-size:1rem; color:var(--text-light); margin-top:2px; font-weight:500; }
+
+    .student-card { background:var(--card-bg); border-radius:var(--radius); padding:20px 24px; margin:16px 0; box-shadow:var(--shadow); border:1px solid var(--border); display:flex; align-items:center; gap:14px; flex-wrap:wrap; transition:var(--transition); }
+    .student-card:focus-within { box-shadow:var(--shadow-lg); border-color:var(--gold); }
+    .student-card .icon-label { font-size:2rem; flex-shrink:0; }
+    .student-card .input-group { flex:1; min-width:180px; }
+    .student-card label { display:block; font-weight:600; color:var(--primary-dark); font-size:0.9rem; margin-bottom:4px; }
+    .student-card input { width:100%; padding:10px 16px; border:2px solid var(--border); border-radius:var(--radius-sm); font-size:1rem; font-family:inherit; transition:var(--transition); background:#fefefb; color:var(--text); }
+    .student-card input:focus { outline:none; border-color:var(--gold); box-shadow:0 0 0 4px rgba(201,168,76,0.1); background:#fff; }
+
+    .score-bar { display:flex; align-items:center; justify-content:space-between; background:var(--card-bg); border-radius:var(--radius); padding:14px 20px; margin:12px 0; box-shadow:var(--shadow); border:1px solid var(--border); flex-wrap:wrap; gap:10px; }
+    .score-display { font-weight:700; font-size:1.1rem; color:var(--primary-dark); display:flex; align-items:center; gap:8px; }
+    .score-num { background:var(--primary); color:#fff; padding:4px 14px; border-radius:20px; font-size:1.2rem; min-width:50px; text-align:center; transition:var(--transition); }
+    .score-num.perfect { background:#f0a500; animation:pulse-gold 0.6s ease-in-out; }
+    @keyframes pulse-gold { 0%,100% { transform:scale(1); } 50% { transform:scale(1.15); } }
+    .progress-bar-outer { flex:1; min-width:100px; height:10px; background:#e8e0d0; border-radius:10px; overflow:hidden; }
+    .progress-bar-inner { height:100%; background:linear-gradient(90deg, var(--primary), var(--gold)); border-radius:10px; transition:width 0.5s ease; width:0%; }
+
+    .quiz-section-title { font-weight:700; color:var(--primary-dark); font-size:1.05rem; margin:20px 0 8px; display:flex; align-items:center; gap:8px; }
+    .quiz-section-title::after { content:''; flex:1; height:2px; background:var(--border); border-radius:2px; }
+
+    .question-card { background:var(--card-bg); border-radius:var(--radius); padding:20px 22px; margin:14px 0; box-shadow:var(--shadow); border:1px solid var(--border); transition:var(--transition); }
+    .question-card.answered-correct { border-color:var(--correct); box-shadow:0 4px 20px rgba(39,174,96,0.15); }
+    .question-card.answered-wrong { border-color:var(--wrong); box-shadow:0 4px 20px rgba(231,76,60,0.18); animation:shake 0.5s ease; }
+    @keyframes shake { 0%,100% { transform:translateX(0); } 20% { transform:translateX(-8px); } 40% { transform:translateX(8px); } 60% { transform:translateX(-5px); } 80% { transform:translateX(5px); } }
+    .question-prompt { font-weight:600; font-size:1.2rem; color:var(--primary-dark); margin-bottom:14px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; direction: ltr; }
+    .digit-display { background:#f0ede1; padding:4px 12px; border-radius:8px; font-size:1.3rem; font-weight:700; color:#2c2c2c; direction: rtl; display:inline-block; }
+
+    .options-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    @media (max-width:480px) { .options-grid { grid-template-columns:1fr; } }
+    .option-btn { padding:12px 16px; border:2px solid var(--border); border-radius:var(--radius-sm); background:#fefefb; cursor:pointer; font-size:1.1rem; font-family:inherit; font-weight:600; transition:var(--transition); text-align:center; color:var(--text); direction: rtl; }
+    .option-btn:hover:not(:disabled) { border-color:var(--gold); background:#fffdf5; transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.08); }
+    .option-btn:active:not(:disabled) { transform:scale(0.97); }
+    .option-btn.correct-choice { border-color:var(--correct)!important; background:#eafaf1!important; color:#1a6b3a!important; animation:pop-correct 0.4s ease; }
+    .option-btn.wrong-choice { border-color:var(--wrong)!important; background:#fdedec!important; color:#a93226!important; animation:shake 0.5s ease; }
+    @keyframes pop-correct { 0% { transform:scale(1); } 40% { transform:scale(1.08); } 100% { transform:scale(1); } }
+    .option-btn:disabled { cursor:not-allowed; opacity:0.7; }
+
+    .result-banner { text-align:center; padding:24px; border-radius:var(--radius); margin:20px 0; font-weight:700; font-size:1.2rem; display:none; animation:fadeInUp 0.5s ease; }
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .result-banner.excellent { background:#eafaf1; color:#1a6b3a; border:2px solid #27ae60; display:block; }
+    .result-banner.good { background:#fef9e7; color:#7d6608; border:2px solid #f0c040; display:block; }
+    .result-banner.needs-work { background:#fdedec; color:#922b21; border:2px solid #e74c3c; display:block; }
+
+    .buttons-row { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:16px 0; }
+    .btn { padding:12px 22px; border-radius:25px; border:none; cursor:pointer; font-weight:600; font-family:inherit; font-size:0.95rem; transition:var(--transition); display:inline-flex; align-items:center; gap:7px; }
+    .btn-reset { background:#fff; color:var(--text); border:2px solid var(--border); }
+    .btn-reset:hover { border-color:#bbb; background:#f9f9f9; }
+    .btn-share { background:#25d366; color:#fff; box-shadow:0 4px 14px rgba(37,211,102,0.35); }
+    .btn-share:hover { background:#1fbd57; box-shadow:0 6px 20px rgba(37,211,102,0.5); transform:translateY(-2px); }
+    .btn-practice { background:var(--gold); color:#fff; box-shadow:0 4px 14px rgba(201,168,76,0.35); }
+    .btn-practice:hover { background:#b8942f; transform:translateY(-2px); }
+
+    .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:100; display:flex; align-items:center; justify-content:center; padding:16px; animation:fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    .modal { background:#fff; border-radius:var(--radius); padding:24px; max-width:600px; width:100%; max-height:85vh; overflow-y:auto; box-shadow:var(--shadow-lg); text-align:center; position:relative; }
+    .modal h3 { color:var(--primary-dark); margin-bottom:16px; font-size:1.2rem; }
+    .modal .close-btn { position:absolute; top:12px; left:12px; background:#f0f0f0; border:none; width:34px; height:34px; border-radius:50%; cursor:pointer; font-size:1.1rem; transition:var(--transition); }
+    .modal .close-btn:hover { background:#ddd; }
+    .numbers-table { width:100%; border-collapse:collapse; margin:12px 0; font-size:1rem; direction: rtl; }
+    .numbers-table th, .numbers-table td { padding:10px 8px; border:1px solid #e0d9c5; text-align:center; }
+    .numbers-table th { background:#f5f2e8; font-weight:700; color:var(--primary-dark); }
+    .numbers-table td { font-weight:600; }
+    .english-note { font-size:0.85rem; color:var(--text-light); margin-top:4px; direction: ltr; }
+
+    .hidden { display:none!important; }
+    .toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(100px); background:#333; color:#fff; padding:12px 24px; border-radius:25px; font-weight:600; font-size:0.9rem; z-index:200; transition:transform 0.4s ease; pointer-events:none; white-space:nowrap; }
+    .toast.show { transform:translateX(-50%) translateY(0); }
+    .toast.success { background:#2ecc71; }
+    .toast.error { background:#e74c3c; }
+
+    @media (max-width:600px) {
+      .container { padding:8px 10px 30px; }
+      .question-card { padding:14px 12px; }
+      .question-prompt { font-size:1rem; }
+      .option-btn { font-size:0.9rem; padding:10px 12px; }
+      .header .logo { width:60px; height:60px; }
+      .header .academy-name { font-size:1rem; }
+      .btn { padding:10px 16px; font-size:0.85rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://i.postimg.cc/brVD4yVm/logo-jpeg.jpg" alt="The Way To Allah Academy Logo" class="logo" loading="eager" onerror="this.style.display='none';">
+      <div class="academy-name"><span class="gold-text">The Way</span> To Allah</div>
+      <div class="quiz-title">🔢 Arabic Numbers Quiz | Cardinal & Ordinal 1-10</div>
+    </div>
+
+    <div class="student-card">
+      <span class="icon-label">👤</span>
+      <div class="input-group">
+        <label for="studentName">Student Name / اسم الطالب:</label>
+        <input type="text" id="studentName" placeholder="Write your name..." dir="auto">
+      </div>
+    </div>
+
+    <div class="score-bar">
+      <div class="score-display">🏆 Score: <span class="score-num" id="scoreNum">0</span> / <span id="totalPoints">100</span></div>
+      <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar"></div></div>
+      <span id="questionsDone" style="font-weight:600;color:var(--text-light);">0/10</span>
+    </div>
+
+    <div id="quizContainer"></div>
+    <div class="result-banner" id="resultBanner"></div>
+
+    <div class="buttons-row">
+      <button class="btn btn-practice" onclick="openPracticeModal()">📖 Review Arabic Numbers</button>
+      <button class="btn btn-reset" onclick="resetQuiz()">🔄 Retake Quiz</button>
+      <button class="btn btn-share" onclick="shareScore()">📲 Share on WhatsApp</button>
+    </div>
+  </div>
+
+  <!-- Practice Modal -->
+  <div class="modal-overlay hidden" id="practiceModal">
+    <div class="modal">
+      <button class="close-btn" onclick="closePracticeModal()">✕</button>
+      <h3>Arabic Numbers 1-10 (Masculine Form)</h3>
+      <table class="numbers-table">
+        <thead><tr><th>Digit</th><th>Cardinal (العدد الأصلي)</th><th>Ordinal (العدد الترتيبي)</th></tr></thead>
+        <tbody>
+          <tr><td>١ (1)</td><td>وَاحِد</td><td>أَوَّل</td></tr>
+          <tr><td>٢ (2)</td><td>اِثْنَان</td><td>ثَانٍ</td></tr>
+          <tr><td>٣ (3)</td><td>ثَلَاثَة</td><td>ثَالِث</td></tr>
+          <tr><td>٤ (4)</td><td>أَرْبَعَة</td><td>رَابِع</td></tr>
+          <tr><td>٥ (5)</td><td>خَمْسَة</td><td>خَامِس</td></tr>
+          <tr><td>٦ (6)</td><td>سِتَّة</td><td>سَادِس</td></tr>
+          <tr><td>٧ (7)</td><td>سَبْعَة</td><td>سَابِع</td></tr>
+          <tr><td>٨ (8)</td><td>ثَمَانِيَة</td><td>ثَامِن</td></tr>
+          <tr><td>٩ (9)</td><td>تِسْعَة</td><td>تَاسِع</td></tr>
+          <tr><td>١٠ (10)</td><td>عَشَرَة</td><td>عَاشِر</td></tr>
+        </tbody>
+      </table>
+      <p class="english-note">* Masculine forms – used when counting masculine nouns.</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      // Audio engine
+      let audioCtx = null;
+      function getAudioContext() {
+        if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        return audioCtx;
+      }
+      function playBeep(freq, dur, type='sine', gain=0.3) {
+        try {
+          const ctx = getAudioContext();
+          const now = ctx.currentTime;
+          const osc = ctx.createOscillator();
+          const gn = ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, now);
+          gn.gain.setValueAtTime(gain, now);
+          gn.gain.exponentialRampToValueAtTime(0.001, now+dur);
+          osc.connect(gn); gn.connect(ctx.destination);
+          osc.start(now); osc.stop(now+dur);
+        } catch(e) {}
+      }
+      function playCorrect() { playBeep(660,0.12); setTimeout(()=>playBeep(880,0.18),100); }
+      function playWrong() { playBeep(180,0.35,'square',0.25); setTimeout(()=>playBeep(140,0.3,'square',0.2),150); }
+      function playComplete() {
+        playBeep(523,0.1); setTimeout(()=>playBeep(659,0.1),100);
+        setTimeout(()=>playBeep(784,0.2),200); setTimeout(()=>playBeep(1047,0.35),350);
+      }
+
+      // QUIZ DATA (questions in English, options in Arabic)
+      const quizQuestions = [
+        { id:1, prompt:'What is the *cardinal* number for ١ (1)?', digit:'١', options:['أَوَّل','وَاحِد','ثَانٍ','عَاشِر'], correct:1 },
+        { id:2, prompt:'What is the *ordinal* number for ٣ (3)?', digit:'٣', options:['ثَلَاثَة','ثَالِث','رَابِع','سَادِس'], correct:1 },
+        { id:3, prompt:'Select the Arabic *cardinal* number for ٥ (5).', digit:'٥', options:['خَامِس','سِتَّة','خَمْسَة','سَابِع'], correct:2 },
+        { id:4, prompt:'How do you say "second" (ordinal) in Arabic for ٢?', digit:'٢', options:['اِثْنَان','ثَانٍ','أَوَّل','رَابِع'], correct:1 },
+        { id:5, prompt:'Choose the correct *cardinal* word for ٧ (7).', digit:'٧', options:['سَابِع','ثَمَانِيَة','سَبْعَة','تِسْعَة'], correct:2 },
+        { id:6, prompt:'The Arabic word "رَابِع" means ...?', digit:'?', options:['Cardinal 4','Ordinal 4th','Ordinal 5th','Ordinal 3rd'], correct:1 },
+        { id:7, prompt:'What is the *cardinal* number for ١٠ (10)?', digit:'١٠', options:['عَاشِر','تَاسِع','عَشَرَة','ثَمَانِيَة'], correct:2 },
+        { id:8, prompt:'Select the *ordinal* number for ٩ (9th).', digit:'٩', options:['تِسْعَة','سَابِع','ثَامِن','تَاسِع'], correct:3 },
+        { id:9, prompt:'The word "ثَلَاثَة" refers to...', digit:'٣', options:['Ordinal 3rd','Cardinal 3','Number 4','Number 2'], correct:1 },
+        { id:10, prompt:'Give the *ordinal* form for ٦ (6th).', digit:'٦', options:['سِتَّة','سَادِس','خَامِس','سَابِع'], correct:1 }
+      ];
+
+      const TOTAL_Q = quizQuestions.length;
+      const POINTS = 10;
+      let answered = {};
+      let correctCount = 0;
+
+      const quizContainer = document.getElementById('quizContainer');
+      const scoreNum = document.getElementById('scoreNum');
+      const progressBar = document.getElementById('progressBar');
+      const questionsDoneEl = document.getElementById('questionsDone');
+      const resultBanner = document.getElementById('resultBanner');
+      const studentNameInput = document.getElementById('studentName');
+      const toast = document.getElementById('toast');
+
+      function showToast(msg, type='') {
+        clearTimeout(window.toastTimer);
+        toast.textContent = msg;
+        toast.className = 'toast '+type+' show';
+        window.toastTimer = setTimeout(()=>{ toast.className = 'toast'; }, 2200);
+      }
+
+      function updateUI() {
+        const score = correctCount * POINTS;
+        scoreNum.textContent = score;
+        const pct = (correctCount / TOTAL_Q) * 100;
+        progressBar.style.width = pct + '%';
+        questionsDoneEl.textContent = Object.keys(answered).length + '/' + TOTAL_Q;
+        if (pct === 100 && Object.keys(answered).length === TOTAL_Q) scoreNum.classList.add('perfect');
+        else scoreNum.classList.remove('perfect');
+      }
+
+      function checkCompletion() {
+        if (Object.keys(answered).length === TOTAL_Q) {
+          playComplete();
+          const pct = (correctCount / TOTAL_Q) * 100;
+          if (pct >= 90) {
+            resultBanner.className = 'result-banner excellent';
+            resultBanner.textContent = '🎉 Excellent! You know your Arabic numbers! ممتاز!';
+          } else if (pct >= 60) {
+            resultBanner.className = 'result-banner good';
+            resultBanner.textContent = '👍 Good job! Keep practicing. جيد!';
+          } else {
+            resultBanner.className = 'result-banner needs-work';
+            resultBanner.textContent = '📚 Needs more review. Check the table and try again.';
+          }
+          resultBanner.scrollIntoView({behavior:'smooth', block:'center'});
+          showToast('✅ Quiz complete! Score: '+(correctCount*POINTS)+'/100', 'success');
+        }
+      }
+
+      function selectOption(qid, chosenIdx, btnEl) {
+        if (answered[qid]) return;
+        const q = quizQuestions.find(qq=>qq.id===qid);
+        if (!q) return;
+        const isCorrect = (chosenIdx === q.correct);
+        answered[qid] = isCorrect ? 'correct' : 'wrong';
+
+        const allBtns = document.querySelectorAll(`#options-${qid} .option-btn`);
+        allBtns.forEach((b,i)=>{
+          b.disabled = true;
+          if (i === q.correct) b.classList.add('correct-choice');
+        });
+        if (!isCorrect && btnEl) btnEl.classList.add('wrong-choice');
+
+        const card = document.getElementById('q-card-'+qid);
+        if (card) card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+
+        if (isCorrect) { playCorrect(); correctCount++; }
+        else { playWrong(); }
+
+        updateUI();
+        checkCompletion();
+        // Scroll to next unanswered
+        const next = quizQuestions.find(qq=>!answered[qq.id] && qq.id>qid);
+        if (next) {
+          const nextCard = document.getElementById('q-card-'+next.id);
+          if (nextCard) setTimeout(()=>nextCard.scrollIntoView({behavior:'smooth',block:'center'}),400);
+        }
+      }
+
+      function buildQuiz() {
+        quizContainer.innerHTML = '';
+        answered = {}; correctCount = 0;
+        updateUI();
+        resultBanner.className = 'result-banner';
+        resultBanner.textContent = '';
+
+        quizQuestions.forEach(q => {
+          const card = document.createElement('div');
+          card.className = 'question-card';
+          card.id = 'q-card-'+q.id;
+          card.innerHTML = `
+            <div class="question-prompt">
+              ${q.prompt}
+              <span class="digit-display">${q.digit}</span>
+            </div>
+            <div class="options-grid" id="options-${q.id}">
+              ${q.options.map((opt,oi)=>`
+                <button class="option-btn" data-qid="${q.id}" data-oidx="${oi}" onclick="selectOption(${q.id},${oi},this)">${opt}</button>
+              `).join('')}
+            </div>
+          `;
+          quizContainer.appendChild(card);
+        });
+        setTimeout(()=>{
+          const first = document.getElementById('q-card-1');
+          if (first) first.scrollIntoView({behavior:'smooth',block:'start'});
+        },300);
+      }
+
+      function resetQuiz() {
+        answered = {}; correctCount = 0;
+        resultBanner.className = 'result-banner'; resultBanner.textContent = '';
+        updateUI();
+        buildQuiz();
+        showToast('🔄 Quiz reset','');
+        window.scrollTo({top:0,behavior:'smooth'});
+      }
+
+      function shareScore() {
+        const name = studentNameInput.value.trim() || 'Student';
+        const score = correctCount * POINTS;
+        const pct = Math.round((correctCount/TOTAL_Q)*100);
+        const emoji = pct>=90 ? '🏆' : (pct>=70?'👍':'📚');
+        const msg = `${emoji} *Arabic Numbers Quiz Result*%0A`+
+                    `*Student:* ${encodeURIComponent(name)}%0A`+
+                    `*Score:* ${score}/100 (${pct}%)%0A`+
+                    `*Correct:* ${correctCount}/${TOTAL_Q}%0A`+
+                    `*Academy:* The Way To Allah%0A`+
+                    `_Sent via interactive quiz_`;
+        window.open(`https://wa.me/+201200342973?text=${msg}`, '_blank');
+        showToast('📲 Opening WhatsApp...','success');
+      }
+
+      function openPracticeModal() {
+        document.getElementById('practiceModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+      function closePracticeModal() {
+        document.getElementById('practiceModal').classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+      document.getElementById('practiceModal').addEventListener('click', function(e) { if(e.target===this) closePracticeModal(); });
+      document.addEventListener('keydown', function(e) { if(e.key==='Escape') closePracticeModal(); });
+
+      window.selectOption = selectOption;
+      window.resetQuiz = resetQuiz;
+      window.shareScore = shareScore;
+      window.openPracticeModal = openPracticeModal;
+      window.closePracticeModal = closePracticeModal;
+
+      function init() {
+        buildQuiz();
+        updateUI();
+        document.addEventListener('click', ()=>{ try{getAudioContext();}catch(e){} }, {once:true});
+        document.addEventListener('touchstart', ()=>{ try{getAudioContext();}catch(e){} }, {once:true});
+      }
+      if (document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
+      else init();
+    })();
+  </script>
+</body>
+</html>
